@@ -26,6 +26,15 @@ body {
   margin: 1rem 0;
 }
 
+.vehicle-select {
+  margin-bottom: 2rem;
+}
+
+.joystick {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .joystick-container {
   margin-top: 3rem;
   display: flex;
@@ -35,25 +44,25 @@ body {
 
 .joystick-grid {
   display: grid;
-  grid-template-areas:
-    ". forward ."
-    "left stop right"
-    ". backward .";
-  grid-gap: 1rem;
+  grid-template-columns: 60px 60px 60px;
+  grid-template-rows: 60px 60px 60px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .joystick-grid button {
-  padding: 1.5rem;
   font-size: 1.5rem;
-  background-color: #f0f0f0;
+  padding: 0.5rem;
+  background-color: #e0e0e0;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .joystick-grid button:hover {
-  background-color: #ddd;
+  background-color: #ccc;
 }
 
 .joystick-grid button:nth-child(1) { grid-area: forward; }

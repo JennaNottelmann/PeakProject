@@ -1,15 +1,25 @@
 <h2>Steuerung</h2>
-<select id="vehicle-select"></select>
-<button onclick="selectVehicle()">Fahrzeug verbinden</button>
+<div class ="vehicle-select">
+  <select id="vehicle-select"></select>
+  <button onclick="selectVehicle()">Fahrzeug verbinden</button>
+</div>
 
-<div class="joystick-container">
+
+
+<div id="controls" class="joystick" style="display: none;">
   <div class="joystick-grid">
+    <div></div>
     <button onclick="sendCommand('forward')">⬆️</button>
-    <button onclick="sendCommand('stop')">⏹</button>
-    <button onclick="sendCommand('backward')">⬇️</button>
+    <div></div>
+
     <button onclick="sendCommand('left')">⬅️</button>
+    <button onclick="sendCommand('stop')">⏹</button>
     <button onclick="sendCommand('right')">➡️</button>
-    <button onclick="sendCommand('emergency')">🚨</button>
+
+    <div></div>
+    <button onclick="sendCommand('backward')">⬇️</button>
+    <div></div>
+    
   </div>
 </div>
 
