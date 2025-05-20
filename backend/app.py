@@ -32,6 +32,10 @@ def dashboard():
 def available_vehicles():
     return jsonify(get_connected_pis())
 
+@app.route('/shop')
+def shop():
+    return send_from_directory(app.static_folder, 'shop.html')
+
 @app.route("/api/drive", methods=["POST"])
 def drive():
     if "user" not in session:

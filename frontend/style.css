@@ -8,3 +8,20 @@ body {
   width: 50%;
   padding: 10px;
 }
+
+.shop {
+  text-align: center;
+  padding: 3rem;
+}
+.product {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 2rem auto;
+  max-width: 400px;
+}
+.product img {
+  width: 100%;
+}
+.product h2 {
+  margin: 1rem 0;
+}
