@@ -25,3 +25,39 @@ body {
 .product h2 {
   margin: 1rem 0;
 }
+
+.joystick-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.joystick-grid {
+  display: grid;
+  grid-template-areas:
+    ". forward ."
+    "left stop right"
+    ". backward .";
+  grid-gap: 1rem;
+}
+
+.joystick-grid button {
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.joystick-grid button:hover {
+  background-color: #ddd;
+}
+
+.joystick-grid button:nth-child(1) { grid-area: forward; }
+.joystick-grid button:nth-child(2) { grid-area: stop; }
+.joystick-grid button:nth-child(3) { grid-area: backward; }
+.joystick-grid button:nth-child(4) { grid-area: left; }
+.joystick-grid button:nth-child(5) { grid-area: right; }
