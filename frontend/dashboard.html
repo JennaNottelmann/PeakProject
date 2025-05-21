@@ -1,29 +1,64 @@
-<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kaiju Cars – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
 
-<h2>Steuerung</h2>
-<p>Wählen Sie ein Fahrzeug aus der Liste aus und verwenden Sie die Tasten, um es zu steuern.</p>
+  <main class="container">
+    <h1>Steuerung</h1>
+    <p>Wähle ein Fahrzeug und steuere es live:</p>
 
-<div class ="vehicle-select">
-  <select id="vehicle-select"></select>
-  <button onclick="selectVehicle()">Fahrzeug verbinden</button>
-</div>
+    <div class="vehicle-control">
+      <select id="vehicle-select"></select>
+      <button onclick="selectVehicle()">Fahrzeug verbinden</button>
+      <span id="status" class="status-indicator disconnected">Nicht verbunden</span>
+    </div>
 
-<div id="controls" class="joystick" style="display: none;">
-  <div class="joystick-grid">
-    <div></div>
-    <button onclick="sendCommand('forward')">⬆️</button>
-    <div></div>
+    <!-- Kamerabild -->
+    <div class="camera-view">
+      <h2>Kamera</h2>
+      <img id="camera-stream" src="https://via.placeholder.com/640x360" alt="Live-Kamera" />
+      <div class="camera-controls">
+        <button onclick="controlCamera('up')">⬆️</button>
+        <div>
+          <button onclick="controlCamera('left')">⬅️</button>
+          <button onclick="controlCamera('center')">⏺️</button>
+          <button onclick="controlCamera('right')">➡️</button>
+        </div>
+        <button onclick="controlCamera('down')">⬇️</button>
+      </div>
+    </div>
 
-    <button onclick="sendCommand('left')">⬅️</button>
-    <button onclick="sendCommand('stop')">⏹</button>
-    <button onclick="sendCommand('right')">➡️</button>
+    <!-- Joystick-Steuerung -->
+    <div id="controls" class="joystick" style="display: none;">
+      <div class="joystick-grid">
+        <div></div>
+        <button onclick="sendCommand('forward')">⬆️</button>
+        <div></div>
 
-    <div></div>
-    <button onclick="sendCommand('backward')">⬇️</button>
-    <div></div>
-    
-  </div>
-</div>
+        <button onclick="sendCommand('left')">⬅️</button>
+        <button onclick="sendCommand('stop')">⏹</button>
+        <button onclick="sendCommand('right')">➡️</button>
 
+        <div></div>
+        <button onclick="sendCommand('backward')">⬇️</button>
+        <div></div>
+      </div>
+      <button class="action-btn" onclick="sendCommand('hammer')">Hammer auslösen 🔨</button>
+    </div>
+  </main>
 
-<script src="dashboard.js"></script>
+  <script src="dashboard.js"></script>
+  <script>
+    fetch("/navbar.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("navbar-placeholder").innerHTML = data);
+  </script>
+</body>
+</html>

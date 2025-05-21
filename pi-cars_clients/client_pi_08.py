@@ -6,7 +6,7 @@ WS_URL = "ws://<SERVER-IP>:5000/ws/pi"
 ws = websocket.WebSocket()
 ws.connect(WS_URL)
 
-ws.send("REGISTER pi_01")
+ws.send("REGISTER pi_08")
 
 while True:
     cmd = ws.recv()
