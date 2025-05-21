@@ -6,26 +6,73 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-    <div class="nav-logo">Kaiju Cars</div>
-    <div class="nav-dropdown">
-        <button onclick="toggleDropdown()" class="nav-btn">Mehr ▾</button>
-        <div id="dropdown-menu" class="dropdown-content">
-        <a href="index.html">Startseite</a>
-        <a href="shop.html">Shop</a>
-        <a href="projekt.html">Das Projekt</a>
-        <a href="ueber_uns.html">Über uns</a>
-        <a href="login.html">Login</a>
-        </div>
-    </div>
-    </nav>
 
-    <script>
-    function toggleDropdown() {
-        const menu = document.getElementById('dropdown-menu');
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  <nav class="navbar">
+    <div class="nav-logo">Kaiju Cars</div>
+
+    <div class="nav-menus">
+      <!-- SHOP Dropdown -->
+      <div class="nav-dropdown">
+        <button onclick="toggleDropdown('shop-dropdown')" class="nav-btn">Unser Shop ▾</button>
+        <div id="shop-dropdown" class="dropdown-content">
+          <a href="shop-fahrzeuge.html">Fahrzeuge</a>
+          <a href="shop-module.html">Module</a>
+          <a href="shop-bauplan.html">Eigenkreation</a>
+        </div>
+      </div>
+
+      <!-- MEHR Dropdown -->
+      <div class="nav-dropdown">
+        <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
+        <div id="more-dropdown" class="dropdown-content">
+          <a href="projekt.html">Das Projekt</a>
+          <a href="ueber-uns.html">Über uns</a>
+          <a href="login.html">Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    function toggleDropdown(id) {
+      // Schließt andere Dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(el => {
+        if (el.id !== id) el.style.display = 'none';
+      });
+
+      // Öffnet / schließt das angeklickte Dropdown
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
-    </script>
+
+    // Schließen bei Klick außerhalb
+    document.addEventListener('click', function (e) {
+      if (!e.target.matches('.nav-btn')) {
+        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+      }
+    });
+  </script>
+
+
+  <script>
+    function toggleDropdown(id) {
+      // Schließt andere Dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(el => {
+        if (el.id !== id) el.style.display = 'none';
+      });
+
+      // Öffnet / schließt das angeklickte Dropdown
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Schließen bei Klick außerhalb
+    document.addEventListener('click', function (e) {
+      if (!e.target.matches('.nav-btn')) {
+        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+      }
+    });
+  </script>
   <main class="container">
     <h1>Das Projekt</h1>
     <p>Kaiju Cars ist ein Teamprojekt zur Entwicklung eines autonomen Mini-Fahrzeugs. Jeder Teilnehmer konstruiert und programmiert sein eigenes Auto mit Raspberry Pi 4, Kamera, Sensoren und Sonderfunktionen wie einem schwenkbaren Hammermodul. Ziel ist ein live steuerbares System mit Webinterface und Team-Integration.</p>

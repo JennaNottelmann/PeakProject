@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Über uns – Kaiju Cars</title>
+  <title>Shop – Fahrzeuge</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -54,11 +54,30 @@
   </script>
 
 
-
   <main class="container">
-    <h1>Über uns</h1>
-    <p>Wir sind ein Team von 14 Fachinformatiker:innen – Systemintegration und Anwendungsentwicklung. Unser Ziel: Technik praxisnah anwenden, Teamarbeit leben und ein komplett eigenes Fahrzeugkonzept realisieren – vom Hardwareaufbau bis zur Web-App.</p>
+    <h1>Fahrzeuge</h1>
+    <p>Hier findest du unsere vollständigen Kaiju-Fahrzeug-Kits:</p>
+
+    <div class="shop-grid">
+      <div class="shop-item">
+        <img src="https://via.placeholder.com/300x200" alt="Kaiju Car v1" />
+        <h3>Kaiju Car v1</h3>
+        <p>Starter-Kit mit Kamera, Motor & Steuerung</p>
+        <p><strong>129,00 €</strong></p>
+      </div>
+      <div class="shop-item">
+        <img src="https://via.placeholder.com/300x200" alt="Kaiju Car Pro" />
+        <h3>Kaiju Car Pro</h3>
+        <p>Erweiterte Version mit Kamera-Servo & Sensorik</p>
+        <p><strong>169,00 €</strong></p>
+      </div>
+    </div>
   </main>
 
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('navbar-placeholder').innerHTML = html);
+  </script>
 </body>
 </html>

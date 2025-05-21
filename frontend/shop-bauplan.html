@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Über uns – Kaiju Cars</title>
+  <title>Individueller Bauplan</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -54,10 +54,29 @@
   </script>
 
 
-
   <main class="container">
-    <h1>Über uns</h1>
-    <p>Wir sind ein Team von 14 Fachinformatiker:innen – Systemintegration und Anwendungsentwicklung. Unser Ziel: Technik praxisnah anwenden, Teamarbeit leben und ein komplett eigenes Fahrzeugkonzept realisieren – vom Hardwareaufbau bis zur Web-App.</p>
+    <h1>Dein eigener Bauplan</h1>
+    <p>Du hast eine besondere Idee für ein Kaiju-Fahrzeug? Dann sende uns deinen Vorschlag inkl. Bildern:</p>
+    <form class="form-box">
+      <label for="name">Dein Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">E-Mail-Adresse:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Deine Idee / Beschreibung:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <label for="fake-upload">Bilder hochladen (optional):</label>
+      <input type="file" id="fake-upload" name="images[]" multiple disabled />
+
+      <small style="opacity: 0.6; font-size: 0.9rem;">(Dies ist nur eine visuelle Vorschau, keine echte Übertragung.)</small>
+
+      <button type="submit">Absenden</button>
+    </form>
+
+
+    <a href="/bauplan" class="button">Jetzt Bauplan einreichen</a>
   </main>
 
 </body>

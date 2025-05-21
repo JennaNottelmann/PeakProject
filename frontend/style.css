@@ -63,6 +63,19 @@ a:hover {
   font-weight: 500;
 }
 
+.nav-menus {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -282,4 +295,119 @@ select, button {
   .vehicle-control {
     flex-direction: column;
   }
+}
+
+/* ========== DARK MODE ========== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111111;
+    color: #ffffff;
+  }
+
+  .navbar {
+    background-color: #222222;
+  }
+
+  .section.light {
+    background-color: #333333;
+  }
+
+  .section.dark {
+    background-color: #444444;
+  }
+
+  .footer {
+    background: #222222;
+    color: #aaaaaa;
+  }
+}
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== Shop ========== */
+
+.shop-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.shop-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.shop-item img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: #111;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+.button:hover {
+  background-color: #333;
+}
+
+/* ========== Bauplan Fake Upload ========== */
+.form-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.form-box label {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.form-box input,
+.form-box textarea {
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-top: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.form-box input[type="file"] {
+  padding: 0.4rem;
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.form-box button {
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-box button:hover {
+  background-color: #333;
 }
