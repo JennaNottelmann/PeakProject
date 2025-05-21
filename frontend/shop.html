@@ -6,7 +6,26 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="navbar-placeholder"></div>
+    <nav class="navbar">
+    <div class="nav-logo">Kaiju Cars</div>
+    <div class="nav-dropdown">
+        <button onclick="toggleDropdown()" class="nav-btn">Mehr ▾</button>
+        <div id="dropdown-menu" class="dropdown-content">
+        <a href="index.html">Startseite</a>
+        <a href="shop.html">Shop</a>
+        <a href="projekt.html">Das Projekt</a>
+        <a href="ueber_uns.html">Über uns</a>
+        <a href="login.html">Login</a>
+        </div>
+    </div>
+    </nav>
+
+    <script>
+    function toggleDropdown() {
+        const menu = document.getElementById('dropdown-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+    </script>
 
   <main class="container">
     <h1>Kaiju Cars – Shop</h1>

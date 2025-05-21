@@ -1,10 +1,15 @@
 let selectedVehicle = null;
 
 // Fahrzeugliste vom Server laden
+const sel = document.getElementById('vehicle-select');
+const opt = document.createElement('option');
+opt.value = "pi_01";  // Dummy-ID
+opt.textContent = "pi_01";
+sel.appendChild(opt);
+
 fetch('/api/available_vehicles')
   .then(res => res.json())
   .then(vehicles => {
-    const sel = document.getElementById('vehicle-select');
     vehicles.forEach(v => {
       const opt = document.createElement('option');
       opt.value = v;
