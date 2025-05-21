@@ -39,7 +39,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #000000;
   padding: 1rem 2rem;
   border-bottom: 1px solid #eeeeee;
   position: sticky;
@@ -49,11 +49,13 @@ a:hover {
 
 .nav-logo {
   font-weight: 600;
+  color: #e3dd13;
   font-size: 1.2rem;
 }
 
 .nav-btn {
   background: none;
+  color: #e3dd13;
   border: none;
   font-size: 1rem;
   cursor: pointer;
