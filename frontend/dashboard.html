@@ -20,22 +20,7 @@
       <span id="status" class="status-indicator disconnected">Nicht verbunden</span>
     </div>
 
-    <!-- Kamerabild -->
-    <div class="camera-view">
-      <h2>Kamera</h2>
-      <img id="camera-stream" src="https://via.placeholder.com/640x360" alt="Live-Kamera" />
-      <div class="camera-controls">
-        <button onclick="controlCamera('up')">⬆️</button>
-        <div>
-          <button onclick="controlCamera('left')">⬅️</button>
-          <button onclick="controlCamera('center')">⏺️</button>
-          <button onclick="controlCamera('right')">➡️</button>
-        </div>
-        <button onclick="controlCamera('down')">⬇️</button>
-      </div>
-    </div>
-
-    <!-- Joystick-Steuerung -->
+    <!-- 🔹 Fahrzeug-Joystick -->
     <div id="controls" class="joystick" style="display: none;">
       <div class="joystick-grid">
         <div></div>
@@ -43,15 +28,33 @@
         <div></div>
 
         <button onclick="sendCommand('left')">⬅️</button>
-        <button onclick="sendCommand('stop')">⏹</button>
+        <button onclick="sendCommand('stop')">⏹️</button>
         <button onclick="sendCommand('right')">➡️</button>
 
         <div></div>
         <button onclick="sendCommand('backward')">⬇️</button>
         <div></div>
+
+        <div style="grid-column: span 3; text-align:center; margin-top:1rem;">
+          <button onclick="sendCommand('hammer')">🛠 Hammer auslösen</button>
+        </div>
       </div>
-      <button class="action-btn" onclick="sendCommand('hammer')">Hammer auslösen 🔨</button>
     </div>
+
+    <!-- 🔹 Kamera-Bereich -->
+    <section class="camera-section">
+      <h2>Kamera</h2>
+      <p>Live-Kamera</p>
+      <img id="camera-stream" class="camera-stream" src="" alt="Live-Feed erscheint hier" style="display:none;" />
+
+      <div class="camera-controls">
+        <button onclick="controlCamera('up')">⬆️</button>
+        <button onclick="controlCamera('left')">⬅️</button>
+        <button onclick="resetCamera()">🔄</button>
+        <button onclick="controlCamera('right')">➡️</button>
+        <button onclick="controlCamera('down')">⬇️</button>
+      </div>
+    </section>
   </main>
 
   <script src="dashboard.js"></script>
