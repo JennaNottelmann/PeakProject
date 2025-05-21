@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Über uns – Kaiju Cars</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <main class="container">
+    <h1>Über uns</h1>
+    <p>Wir sind ein Team von 14 Fachinformatiker:innen – Systemintegration und Anwendungsentwicklung. Unser Ziel: Technik praxisnah anwenden, Teamarbeit leben und ein komplett eigenes Fahrzeugkonzept realisieren – vom Hardwareaufbau bis zur Web-App.</p>
+  </main>
+
+  <script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
+</body>
+</html>

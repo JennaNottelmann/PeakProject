@@ -1,50 +1,61 @@
-from flask import Flask, request, redirect, session, send_from_directory, jsonify
-from auth import check_login
-from websocket_server import send_command_to_pi, get_connected_pis
-import os
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 
-app = Flask(__name__, static_folder="../frontend", static_url_path="")
-app.secret_key = "supersecretkey"  # Durch sichere Schlüssel ersetzen
+app = Flask(__name__, static_folder='../frontend', static_url_path='')
+CORS(app)
 
-@app.route("/")
+connected_pis = {}  # "pi_01": websocket_object (Simulation)
+
+# === Routing für Seiten ===
+@app.route('/')
 def index():
-    return send_from_directory(app.static_folder, "index.html")
+    return send_from_directory(app.static_folder, 'index.html')
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        if check_login(username, password):
-            session["username"] = username
-            return redirect("/dashboard")
-        else:
-            return "Login fehlgeschlagen", 403
-    return send_from_directory(app.static_folder, "login.html")
-
-@app.route("/dashboard")
+@app.route('/dashboard')
 def dashboard():
-    if "user" not in session:
-        return redirect("/login")
-    return send_from_directory(app.static_folder, "dashboard.html")
+    return send_from_directory(app.static_folder, 'dashboard.html')
 
-@app.route("/api/available_vehicles")
-def available_vehicles():
-    return jsonify(get_connected_pis())
+@app.route('/projekt')
+def projekt():
+    return send_from_directory(app.static_folder, 'projekt.html')
+
+@app.route('/ueber-uns')
+def ueber_uns():
+    return send_from_directory(app.static_folder, 'ueber-uns.html')
 
 @app.route('/shop')
 def shop():
     return send_from_directory(app.static_folder, 'shop.html')
 
-@app.route("/api/drive", methods=["POST"])
-def drive():
-    if "user" not in session:
-        return "Unauthorized", 401
-    data = request.json
-    command = data.get("command")
-    vehicle_id = data.get("vehicle_id")
-    send_command_to_pi(vehicle_id, command)
-    return "Command sent"
+# === API: Verfügbare Fahrzeuge ===
+@app.route('/api/available_vehicles')
+def available_vehicles():
+    return jsonify(list(connected_pis.keys()))
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# === API: Fahrzeugsteuerung ===
+@app.route('/api/drive', methods=['POST'])
+def drive():
+    data = request.json
+    vid = data.get('vehicle_id')
+    cmd = data.get('command')
+    print(f"[DRIVE] {vid} ← {cmd}")
+    # Beispiel: connected_pis[vid].send(cmd)
+    return "OK"
+
+# === API: Kamera bewegen ===
+@app.route('/api/camera-control', methods=['POST'])
+def camera_control():
+    data = request.json
+    vid = data.get('vehicle_id')
+    direction = data.get('direction')
+    print(f"[CAMERA] {vid} ← {direction}")
+    return "OK"
+
+# === Kamera-Livestream ===
+@app.route('/stream/<vehicle_id>')
+def stream(vehicle_id):
+    # Beispiel: MJPEG-Pfad des Fahrzeuges zurückgeben
+    return f"<img src='http://<ip-vom-pi>:8080/stream.mjpg'>"
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)

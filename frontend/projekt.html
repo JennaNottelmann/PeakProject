@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Das Projekt – Kaiju Cars</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <main class="container">
+    <h1>Das Projekt</h1>
+    <p>Kaiju Cars ist ein Teamprojekt zur Entwicklung eines autonomen Mini-Fahrzeugs. Jeder Teilnehmer konstruiert und programmiert sein eigenes Auto mit Raspberry Pi 4, Kamera, Sensoren und Sonderfunktionen wie einem schwenkbaren Hammermodul. Ziel ist ein live steuerbares System mit Webinterface und Team-Integration.</p>
+  </main>
+
+  <script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
+</body>
+</html>

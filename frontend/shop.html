@@ -2,20 +2,30 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Auto-Shop</title>
+  <title>Shop – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="shop">
-    <h1>Auto-Projekt – Shop</h1>
+  <div id="navbar-placeholder"></div>
+
+  <main class="container">
+    <h1>Kaiju Cars – Shop</h1>
+    <p>Hier könntet ihr euer eigenes Kaiju-Car-Kit zusammenstellen (nur Demo):</p>
+
     <div class="product">
-      <img src="https://via.placeholder.com/200" alt="Fahrzeug-Kit">
-      <h2>Mini-Auto-Kit v1</h2>
-      <p>Enthält Raspberry Pi 4, Motor, Sensoren, Gehäuse</p>
-      <button onclick="addToCart()">Zum Warenkorb hinzufügen</button>
+      <img src="https://via.placeholder.com/300x200" alt="Auto-Kit Beispiel">
+      <h2>Kaiju Car Kit v1</h2>
+      <p>Inklusive Raspberry Pi 4, Kamera, Fahrwerk, Sensorik & Hammermodul.</p>
+      <button onclick="alert('Nicht verfügbar – Demo-Zweck')">In den Warenkorb</button>
     </div>
-    <a href="/dashboard">Zurück zum Dashboard</a>
   </main>
-  <script src="shop.js"></script>
+
+  <script>
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
 </body>
 </html>

@@ -13,7 +13,6 @@ fetch('/api/available_vehicles')
     });
   });
 
-// Fahrzeug verbinden + Statusanzeige aktualisieren
 function selectVehicle() {
   selectedVehicle = document.getElementById('vehicle-select').value;
   if (!selectedVehicle) return;
@@ -25,13 +24,11 @@ function selectVehicle() {
   status.classList.remove("disconnected");
   status.classList.add("connected");
 
-  // Kamera-Stream setzen
   const camera = document.getElementById('camera-stream');
-  camera.src = `/stream/${selectedVehicle}`; // z. B. MJPEG Stream URL
+  camera.src = `/stream/${selectedVehicle}`;
   camera.style.display = 'block';
 }
 
-// Bewegungsbefehl an Fahrzeug senden
 function sendCommand(cmd) {
   if (!selectedVehicle) return alert("Kein Fahrzeug ausgewählt!");
   fetch('/api/drive', {
@@ -41,7 +38,6 @@ function sendCommand(cmd) {
   });
 }
 
-// Kamera bewegen
 function controlCamera(direction) {
   if (!selectedVehicle) return alert("Kein Fahrzeug ausgewählt!");
   fetch('/api/camera-control', {
@@ -51,7 +47,6 @@ function controlCamera(direction) {
   });
 }
 
-// Kamera zurücksetzen (zentrieren)
 function resetCamera() {
   controlCamera("center");
 }
