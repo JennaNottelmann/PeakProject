@@ -1,13 +1,38 @@
 {
-    "Roy": "pwd123",
-    "Kirsten" : "password",
-    "Thomas" : "123456",
-    "Phillip" : "qwerty",
-    "Daniel-Thomas" : "abc123",
-    "Faiek" : "letmein",
-    "Martin" : "1234",
-    "Rene" : "12345",
-    "Mark-Michell" : "12345678",
-    "Monika" : "123456789",
-    "Jenna" : "1234567" 
+  "Roy": {
+    "password": "scrypt:32768:8:1$m2n8txm4Yzpm2p1G$fc8df11e7019c170055eb2c3ee4c5649c6e14fc0f78a94cbf70925a21ae3e3d6bba6ce4ee2a6fe10cc79c21b3f25401dbb02804c25998346519b3b274208328b"
+  },
+  "Kirsten": {
+    "password": "scrypt:32768:8:1$fkpODay0nhY9ToqV$d639a80f08d8be5a5d61896b29c65533b81c5978c3031d26c26b04a6b5f2a06850bed3a12c7d0206392d12be9f7a0e4f2585b5971fd4e38ec5c49bc46f267f67"
+  },
+  "Thomas": {
+    "password": "scrypt:32768:8:1$nDr2YfJ5Z1RZKT9N$e526e68b0219c90fa2584d8643d313a025339745db286c5d9daa2822f269782513b8419912f4d338710fb0e2f45005c2a5fdd908f6ecbe441df19546a3cc404e"
+  },
+  "Phillip": {
+    "password": "scrypt:32768:8:1$FZWrDWEv77St0tEY$6d14d1e99a8f2b6a66e2bea62ff366874d531169995f9106fadc177d959acbdbb6c7c3d65ce66d92234a9cd1afc612b02558f7ea55483f3ea74e71c38edea2f9"
+  },
+  "Daniel": {
+    "password": "scrypt:32768:8:1$51DryptqFfC0kWRm$e6e94f71f4ff5d6d2870295514eb305cbc1defe3e0f2ab4145ca5ffb46c5465078e31c2a848dad3199f45b00d5d998be945a9aa98b6084ec5121df47c4ca4c19"
+  },
+  "Faiek": {
+    "password": "scrypt:32768:8:1$2PcIHb0jZgIO5afb$cf4ecf9eaf9172a071823145343a63dccfbd2f43cb0e0d40145ff9455fb32fb2d95af98945c5b5ef9916fd434aba5be32897e4d79d2ad0d8ea47cd130c1d8803"
+  },
+  "Martin": {
+    "password": "scrypt:32768:8:1$24vZ0MkFwHWRpxix$7d738767e47e763cc865c07be1be1c9021ea48e9ea71c306ad3bd425596c569acabf79824ca1a751b41acade480fd4f68b590ff9274471bfb781d1177705a090"
+  },
+  "Rene": {
+    "password": "scrypt:32768:8:1$wWpwYf4mjzBNxdnm$4aaa93b80364eb593fd8411d855c4d84b86a2e8a9ceef94df200e979c4afce8532b572c2213551d697551476a3f5b64e30f5d1ff7333915c138430f586e52065"
+  },
+  "Mark-Michell": {
+    "password": "scrypt:32768:8:1$NF2dBNVAV0Biez91$ec8c00aeb8ef411432695713efb6b1d2b2c099e986f2d2857debcbafd1eadf9d02389f4f7ea37a9a5dac463338cbc7f23bf599d58d92860475d471ec08593acd"
+  },
+  "Monika": {
+    "password": "scrypt:32768:8:1$hzIT0JMqMHPEHrFf$e80d946aaa0d4e4b8babe682a7b224b1b043c47e695a55f54e80cb92f2d0bf7d99817d0754a208592f1e5e97cb9e4f7f6c965def27bd8938df3210d6a364fe97"
+  },
+  "Jenna": {
+    "password": "scrypt:32768:8:1$8GJEjyHxBLMyPEjF$8ff257d25381d1154aadf50368fc2fe80151f048a95d33936d128df65813a50846b8f387d4c405e9d57983a5691d717d906db26418bb26e72833ca5e410548a2"
+  },
+  "Dozenten": {
+    "password": "scrypt:32768:8:1$5jP9hGApRGSK3rXt$088bfab72579562ba9d91308ed5d24611c70c085150b3f51707e592ec881701015a4da5b4f1e7675da75ccd165ca1a98ccf19bbe98a78457047d932a4b38db4e"
+  }
 }

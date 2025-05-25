@@ -2,98 +2,97 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- ✅ NAVIGATION -->
+  
   <nav class="navbar">
     <div class="nav-logo">Kaiju Cars</div>
 
     <div class="nav-menus">
-
-      <!-- 🛒 SHOP -->
+      <!-- SHOP Dropdown -->
       <div class="nav-dropdown">
-        <button class="nav-btn" onclick="toggleDropdown('shop-dropdown')">Unser Shop ▾</button>
-        <div class="dropdown-content" id="shop-dropdown">
-          <a href="shop.html">Alles im Shop</a>
+        <button onclick="toggleDropdown('shop-dropdown')" class="nav-btn">Unser Shop ▾</button>
+        <div id="shop-dropdown" class="dropdown-content">
           <a href="shop-fahrzeuge.html">Fahrzeuge</a>
           <a href="shop-module.html">Module</a>
           <a href="shop-bauplan.html">Eigenkreation</a>
         </div>
       </div>
 
-      <!-- 📁 MEHR -->
+      <!-- MEHR Dropdown -->
       <div class="nav-dropdown">
-        <button class="nav-btn" onclick="toggleDropdown('more-dropdown')">Mehr ▾</button>
-        <div class="dropdown-content" id="more-dropdown">
-          <a href="index.html">Startseite</a>
-          <a href="projekt.html">Das Projekt</a>
-          <a href="ueber-uns.html">Über uns</a>
-          <a href="/login" id="login-link-more">🔓 Login</a>
-          <a href="/logout" id="logout-link-more" style="display: none;">🔒 Logout</a>
+        <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
+        <div id="more-dropdown" class="dropdown-content">
+          <a href="/">Startseite</a>
+          <a href="/projekt">Das Projekt</a>
+          <a href="/ueber-uns">Über uns</a>
+          <a href="/login">Login</a>
+          <a href="/dashboard">Dashboard</a>
         </div>
       </div>
-
-      <!-- 👤 KONTO -->
       <div class="nav-dropdown">
         <button class="nav-btn" onclick="toggleDropdown('konto-dropdown')">Konto ▾</button>
         <div class="dropdown-content" id="konto-dropdown">
-          <a href="/login" id="login-link-konto">🔓 Login</a>
+          <a href="/login">🔓 Login</a>
           <a href="/logout" id="logout-link-konto" style="display: none;">🔒 Logout</a>
           <a href="/change-password" id="change-link-konto" style="display: none;">🔧 Passwort ändern</a>
         </div>
       </div>
-
     </div>
   </nav>
 
-  <main class="container">
-    <h1>Dashboard</h1>
-    <p>Hier ist dein Steuerbereich für Kaiju Cars.</p>
 
-    <!-- ... hier folgen Joystick, Kamera, etc. ... -->
 
-  </main>
-
-  <!-- ✅ JAVASCRIPT -->
   <script>
+    // DROPDOWNS
     function toggleDropdown(id) {
-      document.querySelectorAll('.dropdown-content').forEach(drop => {
-        if (drop.id !== id) drop.style.display = 'none';
+      document.querySelectorAll('.dropdown-content').forEach(el => {
+        if (el.id !== id) el.style.display = 'none';
       });
-      const current = document.getElementById(id);
-      current.style.display = (current.style.display === 'block') ? 'none' : 'block';
+
+      const el = document.getElementById(id);
+      if (el) el.style.display = (el.style.display === 'block') ? 'none' : 'block';
     }
 
+    // Klick außerhalb schließt Menüs
     document.addEventListener('click', function (e) {
       if (!e.target.matches('.nav-btn')) {
         document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
       }
     });
 
-    fetch('/check-login')
-      .then(res => res.json())
-      .then(data => {
-        const show = id => document.getElementById(id)?.style.display = "inline-block";
-        const hide = id => document.getElementById(id)?.style.display = "none";
+    // LOGIN-STATUS
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch('/check-login')
+          .then(res => res.json())
+          .then(data => {
+            const show = id => {
+              const el = document.getElementById(id);
+              if (el) el.style.display = "inline-block";
+            };
 
-        if (data.logged_in) {
-          hide("login-link-more"); hide("login-link-konto");
-          show("logout-link-more"); show("logout-link-konto");
-          show("change-link-konto");
-        } else {
-          show("login-link-more"); show("login-link-konto");
-          hide("logout-link-more"); hide("logout-link-konto");
-          hide("change-link-konto");
-        }
+            const hide = id => {
+              const el = document.getElementById(id);
+              if (el) el.style.display = "none";
+            };
+
+            if (data.logged_in) {
+              hide("login-link-more"); hide("login-link-konto");
+              show("logout-link-more"); show("logout-link-konto");
+              show("change-link-konto");
+            } else {
+              show("login-link-more"); show("login-link-konto");
+              hide("logout-link-more"); hide("logout-link-konto");
+              hide("change-link-konto");
+            }
+          })
+          .catch(err => console.error("Login-Check fehlgeschlagen:", err));
       });
   </script>
-</body>
-</html>
-
-
 
   <main class="container">
     <h1>Steuerung</h1>
