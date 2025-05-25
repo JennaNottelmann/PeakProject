@@ -55,3 +55,26 @@ function controlCamera(direction) {
 function resetCamera() {
   controlCamera("center");
 }
+
+let holdInterval;
+
+function startHoldCommand(cmd) {
+  sendCommand(cmd); // sofort senden
+  holdInterval = setInterval(() => sendCommand(cmd), 300); // wiederholt senden
+}
+
+function stopHoldCommand() {
+  clearInterval(holdInterval);
+  sendCommand("stop"); // Fahrzeug anhalten
+}
+
+let camHoldInterval;
+
+function startCameraCommand(cmd) {
+  sendCommand(cmd); // sofort senden
+  camHoldInterval = setInterval(() => sendCommand(cmd), 300); // wiederholt senden
+}
+
+function stopCameraCommand() {
+  clearInterval(camHoldInterval);
+}

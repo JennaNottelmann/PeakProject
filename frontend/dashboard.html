@@ -2,58 +2,98 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
+  <!-- ✅ NAVIGATION -->
   <nav class="navbar">
     <div class="nav-logo">Kaiju Cars</div>
 
     <div class="nav-menus">
-      <!-- SHOP Dropdown -->
+
+      <!-- 🛒 SHOP -->
       <div class="nav-dropdown">
-        <button onclick="toggleDropdown('shop-dropdown')" class="nav-btn">Unser Shop ▾</button>
-        <div id="shop-dropdown" class="dropdown-content">
+        <button class="nav-btn" onclick="toggleDropdown('shop-dropdown')">Unser Shop ▾</button>
+        <div class="dropdown-content" id="shop-dropdown">
+          <a href="shop.html">Alles im Shop</a>
           <a href="shop-fahrzeuge.html">Fahrzeuge</a>
           <a href="shop-module.html">Module</a>
           <a href="shop-bauplan.html">Eigenkreation</a>
         </div>
       </div>
 
-      <!-- MEHR Dropdown -->
+      <!-- 📁 MEHR -->
       <div class="nav-dropdown">
-        <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
-        <div id="more-dropdown" class="dropdown-content">
+        <button class="nav-btn" onclick="toggleDropdown('more-dropdown')">Mehr ▾</button>
+        <div class="dropdown-content" id="more-dropdown">
+          <a href="index.html">Startseite</a>
           <a href="projekt.html">Das Projekt</a>
           <a href="ueber-uns.html">Über uns</a>
-          <a href="login.html">Login</a>
+          <a href="/login" id="login-link-more">🔓 Login</a>
+          <a href="/logout" id="logout-link-more" style="display: none;">🔒 Logout</a>
         </div>
       </div>
+
+      <!-- 👤 KONTO -->
+      <div class="nav-dropdown">
+        <button class="nav-btn" onclick="toggleDropdown('konto-dropdown')">Konto ▾</button>
+        <div class="dropdown-content" id="konto-dropdown">
+          <a href="/login" id="login-link-konto">🔓 Login</a>
+          <a href="/logout" id="logout-link-konto" style="display: none;">🔒 Logout</a>
+          <a href="/change-password" id="change-link-konto" style="display: none;">🔧 Passwort ändern</a>
+        </div>
+      </div>
+
     </div>
   </nav>
 
+  <main class="container">
+    <h1>Dashboard</h1>
+    <p>Hier ist dein Steuerbereich für Kaiju Cars.</p>
+
+    <!-- ... hier folgen Joystick, Kamera, etc. ... -->
+
+  </main>
+
+  <!-- ✅ JAVASCRIPT -->
   <script>
     function toggleDropdown(id) {
-      // Schließt andere Dropdowns
-      document.querySelectorAll('.dropdown-content').forEach(el => {
-        if (el.id !== id) el.style.display = 'none';
+      document.querySelectorAll('.dropdown-content').forEach(drop => {
+        if (drop.id !== id) drop.style.display = 'none';
       });
-
-      // Öffnet / schließt das angeklickte Dropdown
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+      const current = document.getElementById(id);
+      current.style.display = (current.style.display === 'block') ? 'none' : 'block';
     }
 
-    // Schließen bei Klick außerhalb
     document.addEventListener('click', function (e) {
       if (!e.target.matches('.nav-btn')) {
         document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
       }
     });
+
+    fetch('/check-login')
+      .then(res => res.json())
+      .then(data => {
+        const show = id => document.getElementById(id)?.style.display = "inline-block";
+        const hide = id => document.getElementById(id)?.style.display = "none";
+
+        if (data.logged_in) {
+          hide("login-link-more"); hide("login-link-konto");
+          show("logout-link-more"); show("logout-link-konto");
+          show("change-link-konto");
+        } else {
+          show("login-link-more"); show("login-link-konto");
+          hide("logout-link-more"); hide("logout-link-konto");
+          hide("change-link-konto");
+        }
+      });
   </script>
+</body>
+</html>
+
+
 
   <main class="container">
     <h1>Steuerung</h1>
@@ -70,15 +110,37 @@
       <div class="joystick-grid">
 
         <div></div>
-        <button onclick="sendCommand('forward')">⬆️</button>
+        <button 
+          onmousedown="sendCommand('forward')"
+          onmouseup="stopHoldCommand()"
+          onmouseleave="stopHoldCommand()"
+          ontouchstart="sendCommand('forward')"
+          ontouchend="stopHoldCommand()">⬆️</button>
         <div></div>
 
-        <button onclick="sendCommand('left')">⬅️</button>
+        <button 
+          onmousedown="sendCommand('left')"
+          onmouseup="stopHoldCommand()"
+          onmouseleave="stopHoldCommand()"
+          ontouchstart="sendCommand('left')"
+          ontouchend="stopHoldCommand()">⬅️</button>
+          
         <button onclick="sendCommand('stop')">⏹️</button>
-        <button onclick="sendCommand('right')">➡️</button>
+        <button 
+          onmousedown="sendCommand('right')"
+          onmouseup="stopHoldCommand()"
+          onmouseleave="stopHoldCommand()"
+          ontouchstart="sendCommand('right')"
+          ontouchend="stopHoldCommand()">➡️</button>
+        
 
         <div></div>
-        <button onclick="sendCommand('backward')">⬇️</button>
+        <button 
+          onmousedown="sendCommand('backward')"
+          onmouseup="stopHoldCommand()"
+          onmouseleave="stopHoldCommand()"
+          ontouchstart="sendCommand('backward')"
+          ontouchend="stopHoldCommand()">⬇️</button>
         <div></div>
 
         <div style="grid-column: span 3; text-align:center; margin-top:1rem;">
@@ -94,6 +156,7 @@
       <img id="camera-stream" class="camera-stream" src="" alt="Live-Feed erscheint hier" style="display:none;" />
 
       <div class="camera-controls">
+        <button onclick="startCamera()">Start Kamera</button>
         <button onclick="controlCamera('up')">⬆️</button>
         <button onclick="controlCamera('left')">⬅️</button>
         <button onclick="resetCamera()">🔄</button>
@@ -101,6 +164,16 @@
         <button onclick="controlCamera('down')">⬇️</button>
       </div>
     </section>
+
+    <h3>Passwort ändern</h3>
+<form action="/change-password" method="POST" class="form-box">
+  <label>Altes Passwort:</label>
+  <input type="password" name="old" required>
+  <label>Neues Passwort:</label>
+  <input type="password" name="new" required>
+  <button type="submit">Passwort aktualisieren</button>
+</form>
+
   </main>
 
   <script src="dashboard.js"></script>
