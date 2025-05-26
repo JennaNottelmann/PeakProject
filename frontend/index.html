@@ -1,14 +1,68 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Startseite</title>
+  <meta charset="UTF-8" />
+  <title>Startseite – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #111;
+      margin: 0;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+    }
 
+    .intro-container {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #car-img {
+      position: absolute;
+      bottom: 100px;
+      left: -100%;
+      width: 40vw;
+      max-width: 400px;
+      z-index: 1;
+      animation: drive 5s ease-out forwards;
+    }
+
+    @keyframes drive {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 110%;
+      }
+    }
+
+    .welcome-bar {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 2;
+    }
+
+    .welcome-bar img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .welcome-bar h1 {
+      color: #e3dd13;
+      font-size: 2.4rem;
+      margin: 0;
+      text-align: center;
+    }
+  </style>
 </head>
-
-
 <body>
   
   <nav class="navbar">
@@ -32,8 +86,6 @@
           <a href="/">Startseite</a>
           <a href="/projekt">Das Projekt</a>
           <a href="/ueber-uns">Über uns</a>
-          <a href="/login">Login</a>
-          <a href="/dashboard">Dashboard</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -96,10 +148,22 @@
       });
   </script>
 
-  <div class="center">
-    <h1>Willkommen bei Kaiju Cars</h1>
-    
+  <div class="intro-container">
+    <img id="car-img" src="assets/rotes-auto.jpg" alt="Car">
+    <div class="welcome-bar" id="welcome">
+      <img src="assets/Logo.jpg" alt="Logo">
+      <h1>Willkommen bei Kaiju Cars</h1>
+    </div>
   </div>
 
+  <script>
+    // Zeige Logo + Text nach Autoanimation
+    window.onload = () => {
+      const welcome = document.getElementById('welcome');
+      setTimeout(() => {
+        welcome.style.opacity = 1;
+      }, 5200); // erscheint nach Autoanimation
+    };
+  </script>
 </body>
 </html>

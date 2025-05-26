@@ -313,20 +313,20 @@ select, button {
 /* ========== DARK MODE ========== */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #111111;
+    background-color: #000000;
     color: #ffffff;
   }
 
   .navbar {
-    background-color: #222222;
+    background-color: #121212;
   }
 
   .section.light {
-    background-color: #333333;
+    background-color: #000000;
   }
 
   .section.dark {
-    background-color: #444444;
+    background-color: #000000;
   }
 
   .footer {
