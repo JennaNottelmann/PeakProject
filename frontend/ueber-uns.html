@@ -4,6 +4,63 @@
   <meta charset="UTF-8">
   <title>Über uns – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0 40px;
+    }
+
+    h1, h2 {
+      color: yellow;
+      text-align: center;
+    }
+
+    .abteilung {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .leiter {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .mitglied {
+      text-align: center;
+    }
+
+    .mitglied img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .mitglied span {
+      display: block;
+      margin-top: 8px;
+    }
+    .abteilungs-reihe {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+  </style>
 </head>
 <body>
   
@@ -90,10 +147,79 @@
       });
   </script>
 
-  <main class="container">
-    <h1>Über uns</h1>
-    <p>Wir sind ein Team von 14 Fachinformatiker:innen – Systemintegration und Anwendungsentwicklung. Unser Ziel: Technik praxisnah anwenden, Teamarbeit leben und ein komplett eigenes Fahrzeugkonzept realisieren – vom Hardwareaufbau bis zur Web-App.</p>
-  </main>
+  <h1>Unser Team</h1>
+
+  <!-- Geschäftsführung -->
+  <div class="abteilung">
+    <h2>Geschäftsführung</h2>
+    <div class="leiter">
+      <div class="mitglied">
+        <img src="assets/Profile.jpg" alt="Profil">
+        <span>Marc-Michell (wirt)</span>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="mitglied"><img src="assets/Profile.jpg"><span>Daniel</span></div>
+      <div class="mitglied"><img src="assets/Profile.jpg"><span>Monika</span></div>
+    </div>
+  </div>
+
+    <!-- Zweite Ebene: Picar + Web -->
+  <div class="abteilungs-reihe">
+    <!-- Picar-Programmierer -->
+    <div class="abteilung">
+      <h2>Picar-Programmierer</h2>
+      <div class="leiter">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Kirsten</span></div>
+      </div>
+      <div class="team-grid">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Roy</span></div>
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Faiek</span></div>
+      </div>
+    </div>
+
+    <!-- Web & App Developer -->
+    <div class="abteilung">
+      <h2>Web- & App-Developer</h2>
+      <div class="leiter">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Jenna</span></div>
+      </div>
+      <div class="team-grid">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Roy</span></div>
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Rene</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dritte Ebene: Infrastruktur + Social Media -->
+  <div class="abteilungs-reihe">
+    <!-- Infrastruktur -->
+    <div class="abteilung">
+      <h2>Infrastruktur</h2>
+      <div class="leiter">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Tommy</span></div>
+      </div>
+      <div class="team-grid">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Marc-Michell</span></div>
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Monika</span></div>
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Martin</span></div>
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Rene</span></div>
+      </div>
+    </div>
+        <div class="abteilung">
+      <h2>Social Media</h2>
+      <div class="leiter">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Phillip</span></div>
+      </div>
+      <div class="team-grid">
+        <div class="mitglied"><img src="assets/Profile.jpg"><span>Daniel</span></div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Social Media -->
+
+
 
 </body>
 </html>
