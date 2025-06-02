@@ -518,7 +518,16 @@ h1, h2 {
 
 html, body {
   height: 100%;
+  margin: 0;
   overflow-x: hidden; /* verhindert Scrollen */
+}
+
+.dashboard-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-top: 120px; /* Platz unter Navbar */
+  color: #f5f5f5;
 }
 
 .container {
@@ -526,6 +535,8 @@ html, body {
   overflow: hidden;
 
   margin: 0 auto 5; /* Abstand zur Navbar */
+  padding: 2rem;
+  padding-top: 120px; /* Platz für Navbar */
   display: flex;
   flex-direction: column;
   justify-content: center;
