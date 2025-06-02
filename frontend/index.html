@@ -113,10 +113,14 @@
   <script>
     // Zeige Logo + Text nach Autoanimation
     window.onload = () => {
+      const car = document.getElementById('car-img');
       const welcome = document.getElementById('welcome');
-      setTimeout(() => {
+      const indexContainer = document.getElementById('index-container');
+
+      car.addEventListener('animationend', () => {
         welcome.style.opacity = 1;
-      }, 5200); // erscheint nach Autoanimation
+        indexContainer.classList.add("visible");
+      });
     };
   </script>
 <footer class="site-footer">
