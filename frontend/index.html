@@ -4,38 +4,35 @@
   <meta charset="UTF-8" />
   <title>Startseite – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
+    
     body {
       background-color: #111;
       margin: 0;
-      overflow-x: hidden;
-      font-family: Arial, sans-serif;
-    }
-
-    .intro-container {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
+      overflow: hidden;  /* Keine Scroll-Leiste */
     }
 
     #car-img {
       position: absolute;
-      bottom: 100px;
-      left: -100%;
-      width: 40vw;
-      max-width: 400px;
-      z-index: 1;
+      top: 45%;
+      left: -40%;
+      transform: translateY(-50%);
+      width: 30vw;
+      max-width: 300px;
       animation: drive 5s ease-out forwards;
     }
 
     @keyframes drive {
       0% {
-        left: -100%;
+        left: -40%;
       }
       100% {
         left: 110%;
       }
     }
+
 
     .welcome-bar {
       position: absolute;
@@ -67,27 +64,27 @@
   
   <nav class="navbar">
     <div class="nav-logo">Kaiju Cars</div>
+    
+    <div class="nav-dropdown">
+      <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
+      <div id="more-dropdown" class="dropdown-content">
+        <a href="index.html">Startseite</a>
+        <a href="projekt.html">Das Projekt</a>
+        <a href="ueber-uns.html">Über uns</a>
 
-    <div class="nav-menus">
-      <!-- SHOP Dropdown -->
-      <div class="nav-dropdown">
-        <button onclick="toggleDropdown('shop-dropdown')" class="nav-btn">Unser Shop ▾</button>
-        <div id="shop-dropdown" class="dropdown-content">
-          <a href="shop-fahrzeuge.html">Fahrzeuge</a>
-          <a href="shop-module.html">Module</a>
-          <a href="shop-bauplan.html">Eigenkreation</a>
+        <div class="sub-dropdown">
+          <span class="sub-btn">Unser Shop ▸</span>
+          <div class="sub-dropdown-content">
+            <a href="shop.html">Alles im Shop</a>
+            <a href="shop-fahrzeuge.html">Fahrzeuge</a>
+            <a href="shop-module.html">Module</a>
+            <a href="shop-bauplan.html">Eigenkreation</a>
+          </div>
         </div>
       </div>
 
-      <!-- MEHR Dropdown -->
-      <div class="nav-dropdown">
-        <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
-        <div id="more-dropdown" class="dropdown-content">
-          <a href="/">Startseite</a>
-          <a href="/projekt">Das Projekt</a>
-          <a href="/ueber-uns">Über uns</a>
-        </div>
-      </div>
+
+
       <div class="nav-dropdown">
         <button class="nav-btn" onclick="toggleDropdown('konto-dropdown')">Konto ▾</button>
         <div class="dropdown-content" id="konto-dropdown">
@@ -165,5 +162,27 @@
       }, 5200); // erscheint nach Autoanimation
     };
   </script>
+<footer class="site-footer">
+  <div class="footer-left">
+    &copy; 2025 Kaiju Cars
+  </div>
+
+  <div class="footer-center">
+    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+      <img src="assets/instagram.svg" alt="Instagram" />
+    </a>
+    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+      <img src="assets/youtube.svg" alt="YouTube" />
+    </a>
+  </div>
+
+  <div class="footer-right">
+    <a href="/impressum.html"> Impressum &nbsp;</a>   |
+    <a href="/datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+
 </body>
+
 </html>

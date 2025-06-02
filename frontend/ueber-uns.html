@@ -2,91 +2,36 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Über uns – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0 40px;
-    }
 
-    h1, h2 {
-      color: yellow;
-      text-align: center;
-    }
-
-    .abteilung {
-      margin-top: 60px;
-      text-align: center;
-    }
-
-    .leiter {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-
-    .team-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .mitglied {
-      text-align: center;
-    }
-
-    .mitglied img {
-      width: 250px;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
-      background: white;
-    }
-
-    .mitglied span {
-      display: block;
-      margin-top: 8px;
-    }
-    .abteilungs-reihe {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin-top: 60px;
-    }
-
-  </style>
 </head>
 <body>
   
   <nav class="navbar">
     <div class="nav-logo">Kaiju Cars</div>
+    
+    <div class="nav-dropdown">
+      <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
+      <div id="more-dropdown" class="dropdown-content">
+        <a href="index.html">Startseite</a>
+        <a href="projekt.html">Das Projekt</a>
+        <a href="ueber-uns.html">Über uns</a>
 
-    <div class="nav-menus">
-      <!-- SHOP Dropdown -->
-      <div class="nav-dropdown">
-        <button onclick="toggleDropdown('shop-dropdown')" class="nav-btn">Unser Shop ▾</button>
-        <div id="shop-dropdown" class="dropdown-content">
-          <a href="shop-fahrzeuge.html">Fahrzeuge</a>
-          <a href="shop-module.html">Module</a>
-          <a href="shop-bauplan.html">Eigenkreation</a>
+        <div class="sub-dropdown">
+          <span class="sub-btn">Unser Shop ▸</span>
+          <div class="sub-dropdown-content">
+            <a href="shop.html">Alles im Shop</a>
+            <a href="shop-fahrzeuge.html">Fahrzeuge</a>
+            <a href="shop-module.html">Module</a>
+            <a href="shop-bauplan.html">Eigenkreation</a>
+          </div>
         </div>
       </div>
 
-      <!-- MEHR Dropdown -->
-      <div class="nav-dropdown">
-        <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
-        <div id="more-dropdown" class="dropdown-content">
-          <a href="/">Startseite</a>
-          <a href="/projekt">Das Projekt</a>
-          <a href="/ueber-uns">Über uns</a>
-        </div>
-      </div>
+
+
       <div class="nav-dropdown">
         <button class="nav-btn" onclick="toggleDropdown('konto-dropdown')">Konto ▾</button>
         <div class="dropdown-content" id="konto-dropdown">
@@ -146,80 +91,95 @@
           .catch(err => console.error("Login-Check fehlgeschlagen:", err));
       });
   </script>
+  
 
-  <h1>Unser Team</h1>
+  <h1 style="margin-top: 4rem; text-align: center; font-size: 2.8rem; color: yellow;">Unser Team</h1>
 
   <!-- Geschäftsführung -->
-  <div class="abteilung">
-    <h2>Geschäftsführung</h2>
-    <div class="leiter">
-      <div class="mitglied">
-        <img src="assets/Profile.jpg" alt="Profil">
-        <span>Marc-Michell (wirt)</span>
-      </div>
+  <h2 style="text-align:center; color: white;">Geschäftsführung</h2>
+  <div class="abteilungs-slide">
+    <div class="slide-leiter">
+      <img src="assets/Profile.jpg" alt="Marc">
+      <span>Marc-Michell</span>
     </div>
-    <div class="team-grid">
-      <div class="mitglied"><img src="assets/Profile.jpg"><span>Daniel</span></div>
-      <div class="mitglied"><img src="assets/Profile.jpg"><span>Monika</span></div>
+    <div class="slide-mitglieder">
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Daniel</span></div>
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Monika</span></div>
     </div>
   </div>
 
-    <!-- Zweite Ebene: Picar + Web -->
-  <div class="abteilungs-reihe">
-    <!-- Picar-Programmierer -->
-    <div class="abteilung">
-      <h2>Picar-Programmierer</h2>
-      <div class="leiter">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Kirsten</span></div>
-      </div>
-      <div class="team-grid">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Roy</span></div>
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Faiek</span></div>
-      </div>
+  <!-- Picar-Programmierer -->
+  <h2 style="text-align:center; color: white;">Picar-Programmierer</h2>
+  <div class="abteilungs-slide">
+    <div class="slide-leiter">
+      <img src="assets/Profile.jpg" alt="Kirsten">
+      <span>Kirsten</span>
     </div>
-
-    <!-- Web & App Developer -->
-    <div class="abteilung">
-      <h2>Web- & App-Developer</h2>
-      <div class="leiter">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Jenna</span></div>
-      </div>
-      <div class="team-grid">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Roy</span></div>
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Rene</span></div>
-      </div>
+    <div class="slide-mitglieder">
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Roy</span></div>
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Faiek</span></div>
     </div>
   </div>
 
-  <!-- Dritte Ebene: Infrastruktur + Social Media -->
-  <div class="abteilungs-reihe">
-    <!-- Infrastruktur -->
-    <div class="abteilung">
-      <h2>Infrastruktur</h2>
-      <div class="leiter">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Tommy</span></div>
-      </div>
-      <div class="team-grid">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Marc-Michell</span></div>
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Monika</span></div>
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Martin</span></div>
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Rene</span></div>
-      </div>
+  <!-- Web & App Developer -->
+  <h2 style="text-align:center; color: white;">Web- & App-Developer</h2>
+  <div class="abteilungs-slide">
+    <div class="slide-leiter">
+      <img src="assets/Profile.jpg" alt="Jenna">
+      <span>Jenna</span>
     </div>
-        <div class="abteilung">
-      <h2>Social Media</h2>
-      <div class="leiter">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Phillip</span></div>
-      </div>
-      <div class="team-grid">
-        <div class="mitglied"><img src="assets/Profile.jpg"><span>Daniel</span></div>
-      </div>
+    <div class="slide-mitglieder">
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Roy</span></div>
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Rene</span></div>
     </div>
   </div>
 
-    <!-- Social Media -->
+  <!-- Infrastruktur -->
+  <h2 style="text-align:center; color: white;">Infrastruktur</h2>
+  <div class="abteilungs-slide">
+    <div class="slide-leiter">
+      <img src="assets/Profile.jpg" alt="Tommy">
+      <span>Tommy</span>
+    </div>
+    <div class="slide-mitglieder">
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Marc-Michell</span></div>
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Monika</span></div>
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Martin</span></div>
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Rene</span></div>
+    </div>
+  </div>
 
+  <!-- Social Media -->
+  <h2 style="text-align:center; color: white;">Social Media</h2>
+  <div class="abteilungs-slide">
+    <div class="slide-leiter">
+      <img src="assets/Profile.jpg" alt="Phillip">
+      <span>Phillip</span>
+    </div>
+    <div class="slide-mitglieder">
+      <div class="slide-mitglied"><img src="assets/Profile.jpg"><span>Daniel</span></div>
+    </div>
+  </div>
 
+<footer class="site-footer">
+  <div class="footer-left">
+    &copy; 2025 Kaiju Cars
+  </div>
+
+  <div class="footer-center">
+    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+      <img src="assets/instagram.svg" alt="Instagram" />
+    </a>
+    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+      <img src="assets/youtube.svg" alt="YouTube" />
+    </a>
+  </div>
+
+  <div class="footer-right">
+    <a href="/impressum.html"> Impressum &nbsp;</a>   |
+    <a href="/datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
 
 </body>
 </html>

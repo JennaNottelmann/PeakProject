@@ -1,7 +1,7 @@
 import websocket
 import control
 
-WS_URL = "ws://<SERVER-IP>:5000/ws/pi"
+WS_URL = "ws://192.168.2.46:5000/ws/pi"
 
 ws = websocket.WebSocket()
 ws.connect(WS_URL)
