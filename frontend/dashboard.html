@@ -6,12 +6,7 @@
   <title>Dashboard – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
-  <style>
 
-
-
-    
-  </style>
   
 </head>
 <body>
@@ -99,75 +94,80 @@
       });
   </script>
 
-  <main class="container">
-    <h1>Steuerung</h1>
-    <p>Wähle ein Fahrzeug und steuere es live:</p>
+  <main class="page-wrapper">
+    <div class="container">
+      <h1>Dashboard</h1>
+      <p>Steuere deine Kaiju Cars live!</p>
+      
+      
 
-    <div class="vehicle-control">
-      <select id="vehicle-select"></select>
-      <button onclick="selectVehicle()">Fahrzeug verbinden</button>
-      <span id="status" class="status-indicator disconnected">Nicht verbunden</span>
-    </div>
+      <div class="vehicle-control">
+        <select id="vehicle-select"></select>
+        <button onclick="selectVehicle()">Fahrzeug verbinden</button>
+        <span id="status" class="status-indicator disconnected">Nicht verbunden</span>
+      </div>
+      <p>Wähle ein Fahrzeug und steuere es live:</p>
 
-    <!-- Joystick -->
-    <div id="controls" class="joystick" style="display: none;">
-      <div class="joystick-grid">
+      <!-- Joystick -->
+      <div id="controls" class="joystick" style="display: none;">
+        <div class="joystick-grid">
 
-        <div></div>
-        <button 
-          onmousedown="sendCommand('forward')"
-          onmouseup="stopHoldCommand()"
-          onmouseleave="stopHoldCommand()"
-          ontouchstart="sendCommand('forward')"
-          ontouchend="stopHoldCommand()">⬆️</button>
-        <div></div>
+          <div></div>
+          <button 
+            onmousedown="sendCommand('forward')"
+            onmouseup="stopHoldCommand()"
+            onmouseleave="stopHoldCommand()"
+            ontouchstart="sendCommand('forward')"
+            ontouchend="stopHoldCommand()">⬆️</button>
+          <div></div>
 
-        <button 
-          onmousedown="sendCommand('left')"
-          onmouseup="stopHoldCommand()"
-          onmouseleave="stopHoldCommand()"
-          ontouchstart="sendCommand('left')"
-          ontouchend="stopHoldCommand()">⬅️</button>
+          <button 
+            onmousedown="sendCommand('left')"
+            onmouseup="stopHoldCommand()"
+            onmouseleave="stopHoldCommand()"
+            ontouchstart="sendCommand('left')"
+            ontouchend="stopHoldCommand()">⬅️</button>
+            
+          <button onclick="sendCommand('stop')">⏹️</button>
+          <button 
+            onmousedown="sendCommand('right')"
+            onmouseup="stopHoldCommand()"
+            onmouseleave="stopHoldCommand()"
+            ontouchstart="sendCommand('right')"
+            ontouchend="stopHoldCommand()">➡️</button>
           
-        <button onclick="sendCommand('stop')">⏹️</button>
-        <button 
-          onmousedown="sendCommand('right')"
-          onmouseup="stopHoldCommand()"
-          onmouseleave="stopHoldCommand()"
-          ontouchstart="sendCommand('right')"
-          ontouchend="stopHoldCommand()">➡️</button>
-        
 
-        <div></div>
-        <button 
-          onmousedown="sendCommand('backward')"
-          onmouseup="stopHoldCommand()"
-          onmouseleave="stopHoldCommand()"
-          ontouchstart="sendCommand('backward')"
-          ontouchend="stopHoldCommand()">⬇️</button>
-        <div></div>
+          <div></div>
+          <button 
+            onmousedown="sendCommand('backward')"
+            onmouseup="stopHoldCommand()"
+            onmouseleave="stopHoldCommand()"
+            ontouchstart="sendCommand('backward')"
+            ontouchend="stopHoldCommand()">⬇️</button>
+          <div></div>
 
-        <div style="grid-column: span 3; text-align:center; margin-top:1rem;">
-          <button onclick="sendCommand('hammer')">🛠 Hammer auslösen</button>
+          <div style="grid-column: span 3; text-align:center; margin-top:1rem;">
+            <button onclick="sendCommand('hammer')">🛠 Hammer auslösen</button>
+          </div>
         </div>
       </div>
+
+      <!-- Kamera -->
+      <section class="camera-section">
+        <h2>Kamera</h2>
+        <p>Live-Kamera</p>
+        <img id="camera-stream" class="camera-stream" src="" alt="Live-Feed erscheint hier" style="display:none;" />
+
+        <div class="camera-controls">
+          <button onclick="startCamera()">Start Kamera</button>
+          <button onclick="controlCamera('up')">⬆️</button>
+          <button onclick="controlCamera('left')">⬅️</button>
+          <button onclick="resetCamera()">🔄</button>
+          <button onclick="controlCamera('right')">➡️</button>
+          <button onclick="controlCamera('down')">⬇️</button>
+        </div>
+      </section>
     </div>
-
-    <!-- Kamera -->
-    <section class="camera-section">
-      <h2>Kamera</h2>
-      <p>Live-Kamera</p>
-      <img id="camera-stream" class="camera-stream" src="" alt="Live-Feed erscheint hier" style="display:none;" />
-
-      <div class="camera-controls">
-        <button onclick="startCamera()">Start Kamera</button>
-        <button onclick="controlCamera('up')">⬆️</button>
-        <button onclick="controlCamera('left')">⬅️</button>
-        <button onclick="resetCamera()">🔄</button>
-        <button onclick="controlCamera('right')">➡️</button>
-        <button onclick="controlCamera('down')">⬇️</button>
-      </div>
-    </section>
   </main>
 
   <script src="dashboard.js"></script>

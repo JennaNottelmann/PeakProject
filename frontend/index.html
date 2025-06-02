@@ -6,59 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    
-    body {
-      background-color: #111;
-      margin: 0;
-      overflow: hidden;  /* Keine Scroll-Leiste */
-    }
 
-    #car-img {
-      position: absolute;
-      top: 45%;
-      left: -40%;
-      transform: translateY(-50%);
-      width: 30vw;
-      max-width: 300px;
-      animation: drive 5s ease-out forwards;
-    }
-
-    @keyframes drive {
-      0% {
-        left: -40%;
-      }
-      100% {
-        left: 110%;
-      }
-    }
-
-
-    .welcome-bar {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      z-index: 2;
-    }
-
-    .welcome-bar img {
-      width: 100px;
-      margin-bottom: 10px;
-    }
-
-    .welcome-bar h1 {
-      color: #e3dd13;
-      font-size: 2.4rem;
-      margin: 0;
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
   
@@ -153,6 +101,15 @@
     </div>
   </div>
 
+
+  <main class="page-wrapper">
+    <div id="index-container">
+      <p>Hier entsteht eine neue Welt der Spielzeugautos! Mit Kaiju Cars kannst du deine eigenen Fahrzeuge bauen, anpassen und in einer riesigen Stadt fahren. Egal ob du ein schnelles Rennauto, einen robusten Geländewagen oder ein futuristisches Raumschiff möchtest – die Möglichkeiten sind endlos!</p>
+      <p>Unsere Fahrzeuge sind nicht nur zum Spielen da, sondern auch zum Lernen. Mit Kaiju Cars kannst du spielerisch die Grundlagen der Robotik und Programmierung entdecken. Jedes Fahrzeug ist ein kleines Technik-Wunder, das du selbst steuern und programmieren kannst.</p>
+      <img src="assets/carstandard.jpg" alt="Standard Car" class="index-image">
+    </div>
+  </main>
+
   <script>
     // Zeige Logo + Text nach Autoanimation
     window.onload = () => {
@@ -182,6 +139,22 @@
   </div>
 </footer>
 
+<script>
+  window.onload = () => {
+    const welcome = document.getElementById('welcome');
+    const container = document.getElementById('index-container');
+
+    // Logo und Willkommen erscheinen nach 5,2 Sekunden
+    setTimeout(() => {
+      welcome.style.opacity = 1;
+    }, 5200);
+
+    // Container erscheint ca. 6 Sekunden nach Ladebeginn
+    setTimeout(() => {
+      container.classList.add("visible");
+    }, 6000);
+  };
+</script>
 
 </body>
 
