@@ -1,13 +1,21 @@
 import os
+import json
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for
 from flask_cors import CORS
+from flask_socketio import SocketIO, emit
 from werkzeug.security import generate_password_hash, check_password_hash
-import json
 
-# Pfad zum Ordner, in dem app.py liegt
+# === Pfade
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USER_DB_PATH = os.path.join(BASE_DIR, "user_db.json")
 
+# === App Setup
+app = Flask(__name__, static_folder='../frontend', static_url_path='')
+app.secret_key = "dein_geheimer_schlüssel"
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+# === Nutzerdatenbank laden/speichern
 def load_users():
     with open(USER_DB_PATH, "r") as f:
         return json.load(f)
@@ -16,20 +24,49 @@ def save_users(users):
     with open(USER_DB_PATH, "w") as f:
         json.dump(users, f, indent=4)
 
-app = Flask(__name__, static_folder='../frontend', static_url_path='')
-app.secret_key = "dein_geheimer_schlüssel"
-CORS(app)
+# === Connected Pi Registry
+connected_pis = {}  # {"pi_02": socket_id}
 
-connected_pis = {}  # "pi_01": websocket_object (Simulation)
+def register_pi(pi_id, sid):
+    connected_pis[pi_id] = sid
+    print(f"[WS] Pi registriert: {pi_id}")
 
-# === Routing für Seiten ===
+def send_command_to_pi(pi_id, command):
+    sid = connected_pis.get(pi_id)
+    if sid:
+        socketio.emit("command", command, to=sid)
+        print(f"[WS] → {pi_id}: {command}")
+    else:
+        print(f"[WS] Kein Pi verbunden für ID: {pi_id}")
+
+# === WebSocket Events
+connected_pis = {}  # "pi_01": {"socket": ..., "ip": ...}
+
+@socketio.on("register_pi")
+def register_pi(data):
+    pi_id = data["pi_id"]
+    ip = data.get("ip", "unknown")
+    connected_pis[pi_id] = {
+        "sid": request.sid,
+        "ip": ip
+    }
+    print(f"[SERVER] Pi {pi_id} registriert mit IP {ip}")
+    emit("registration_success", {"pi_id": pi_id, "ip": ip})
+
+@socketio.on("disconnect")
+def handle_disconnect():
+    disconnected = None
+    for pi_id, sid in list(connected_pis.items()):
+        if sid == request.sid:
+            disconnected = pi_id
+            del connected_pis[pi_id]
+            break
+    print(f"[WS] Verbindung getrennt: {disconnected or 'Unbekannt'}")
+
+# === Seiten-Routing
 @app.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
-
-@app.route("/check-login")
-def check_login():
-    return jsonify({"logged_in": "username" in session})
 
 @app.route('/dashboard')
 def dashboard():
@@ -49,13 +86,16 @@ def login():
             return redirect(url_for("dashboard"))
         else:
             return "❌ Falsche Anmeldedaten."
-
     return send_from_directory(app.static_folder, "login.html")
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
+@app.route("/check-login")
+def check_login():
+    return jsonify({"logged_in": "username" in session})
 
 @app.route("/change-password", methods=["GET", "POST"])
 def change_password():
@@ -77,6 +117,7 @@ def change_password():
 
     return send_from_directory(app.static_folder, "change-password.html")
 
+# === Weitere Seiten
 @app.route('/projekt')
 def projekt():
     return send_from_directory(app.static_folder, 'projekt.html')
@@ -89,17 +130,33 @@ def ueber_uns():
 def shop():
     return send_from_directory(app.static_folder, 'shop.html')
 
+# === REST API
 @app.route('/api/available_vehicles')
 def available_vehicles():
-    return jsonify(list(connected_pis.keys()))
+    return jsonify([
+        {"id": k, "ip": v["ip"]}
+        for k, v in connected_pis.items()
+    ])
 
 @app.route('/api/drive', methods=['POST'])
 def drive():
     data = request.json
     vid = data.get('vehicle_id')
     cmd = data.get('command')
-    print(f"[DRIVE] {vid} ← {cmd}")
+    print(f"[API] {vid} ← {cmd}")
+    send_command_to_pi(vid, cmd)
     return "OK"
+
+@app.route('/api/camera-start', methods=['POST'])
+def camera_start():
+    data = request.json
+    vid = data.get('vehicle_id')
+
+    print(f"[CAMERA] {vid} → STARTE MJPG-Streamer")
+    # Beispiel: falls dein Stream auf Port 8080 läuft
+    # Hier später Shell-Command auf dem Pi auslösen
+    return "OK"
+
 
 @app.route('/api/camera-control', methods=['POST'])
 def camera_control():
@@ -111,7 +168,15 @@ def camera_control():
 
 @app.route('/stream/<vehicle_id>')
 def stream(vehicle_id):
-    return f"<img src='http://<ip-vom-pi>:8080/stream.mjpg'>"
+    info = connected_pis.get(vehicle_id)
+    if not info:
+        return "Fahrzeug nicht verbunden", 404
+    ip = info.get("ip", "127.0.0.1")
+    return f"<img src='http://{ip}:8080/stream.mjpg'>"
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+
+# === Server starten
+if __name__ == "__main__":
+    socketio.run(app, host="0.0.0.0", port=5000)
+#     print("Server läuft auf http://localhost:5000")
+#     print("WebSocket läuft auf ws://localhost:5000/socket.io")

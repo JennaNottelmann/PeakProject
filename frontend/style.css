@@ -53,7 +53,7 @@ a:hover {
 
   text-align: center;
 
-  min-height: calc(60vh - 80px); /* 100vh - Navbar (~80px) - Footer (~60px) */
+  min-height: calc(100vh - 140px); /* 100vh - Navbar (~80px) - Footer (~60px) */
   
   flex-direction: column;
   justify-content: space-between;

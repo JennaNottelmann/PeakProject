@@ -12,14 +12,17 @@ fetch('/api/available_vehicles')
   .then(vehicles => {
     vehicles.forEach(v => {
       const opt = document.createElement('option');
-      opt.value = v;
-      opt.textContent = v;
+      opt.value = v.id;
+      opt.textContent = v.id;
+      opt.dataset.ip = v.ip;
       sel.appendChild(opt);
     });
   });
 
+
 function selectVehicle() {
-  selectedVehicle = document.getElementById('vehicle-select').value;
+  const select = document.getElementById('vehicle-select');
+  selectedVehicle = select.value;
   if (!selectedVehicle) return;
 
   document.getElementById('controls').style.display = 'block';
@@ -29,10 +32,18 @@ function selectVehicle() {
   status.classList.remove("disconnected");
   status.classList.add("connected");
 
+  const selectedOption = select.options[select.selectedIndex];
+  const ip = selectedOption.dataset.ip;
+
   const camera = document.getElementById('camera-stream');
-  camera.src = `/stream/${selectedVehicle}`;
+  if (ip) {
+    camera.src = `http://${ip}:8080/stream.mjpg`;
+  } else {
+    camera.src = ""; // fallback
+  }
   camera.style.display = 'block';
 }
+
 
 function sendCommand(cmd) {
   if (!selectedVehicle) return alert("Kein Fahrzeug ausgewählt!");
@@ -42,6 +53,26 @@ function sendCommand(cmd) {
     body: JSON.stringify({ command: cmd, vehicle_id: selectedVehicle })
   });
 }
+
+function startCamera() {
+  if (!selectedVehicle) return;
+
+  fetch(`/api/camera-start`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ vehicle_id: selectedVehicle }),
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log("[CAM] Kamera gestartet");
+    } else {
+      console.error("[CAM] Fehler beim Starten der Kamera");
+    }
+  });
+}
+
 
 function controlCamera(direction) {
   if (!selectedVehicle) return alert("Kein Fahrzeug ausgewählt!");
