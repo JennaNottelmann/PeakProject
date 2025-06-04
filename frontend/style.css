@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: url("assets/background.png") no-repeat center center fixed;
+  background: url("assets/backgroundNew.png") no-repeat center center fixed;
   background-size: cover;
   color: #fff;
   line-height: 1.6;
@@ -108,22 +108,22 @@ a:hover {
 
 /* ========== car img index ========== */
     #car-img {
-      position: absolute;
+      position: fixed; /* vorher: absolute */
       top: 45%;
       left: -40%;
       transform: translateY(-50%);
       width: 30vw;
       max-width: 300px;
       animation: drive 2.5s ease-out forwards;
+      z-index: 999;
+      pointer-events: none; /* keine Klicks blockieren */
     }
 
+
     @keyframes drive {
-      0% {
-        left: -40%;
-      }
-      100% {
-        left: 110%;
-      }
+      0%   { left: -40%; opacity: 1; }
+      90%  { opacity: 1; }
+      100% { left: 110%; opacity: 0; }
     }
 
 
@@ -137,7 +137,7 @@ a:hover {
       align-items: center;
       opacity: 0;
       transition: opacity 0.5s ease-in;
-      z-index: 2;
+      z-index: 1001;
     }
 
     .welcome-bar img {
@@ -159,24 +159,26 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background-color: transparent !important;
-  padding: 1rem 2rem;
-  position: fixed;
+  padding: 1rem 1.5rem;
+  position: sticky;
   top: 0;
-  transition: margin-top 0.3s ease;
-  width: 95%;
-  max-width: 100vw;
+  width: 100%;
   z-index: 1000;
-  backdrop-filter: none !important;
-  box-shadow: none !important;
-  border-bottom: none !important;
+  background-color: rgba(0, 0, 0, 0.4); /* transparent & klar */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-sizing: border-box;
 }
 
+
 .nav-logo {
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 1.4rem;
   color: #e3dd13;
-  font-size: 1.2rem;
+  text-decoration: none;
+  margin-right: auto; /* ← DAS FEHLT, damit alles andere rechts steht */
 }
+
 
 .nav-btn {
   background: none;
@@ -677,4 +679,207 @@ html, body {
 @keyframes slideInRight {
   0% { transform: translateX(100px); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
+}
+
+
+@media (max-width: 768px) {
+  .container,
+  #index-container {
+    width: 90%;
+    padding: 1rem;
+    min-height: auto;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-menus {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .joystick-grid {
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 10px;
+  }
+
+  .joystick-grid button {
+    font-size: 1.5rem;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    padding: 1rem 0.5rem;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: none;
+    margin: 5px 0;
+  }
+
+  .welcome-bar h1 {
+    font-size: 1.4rem;
+  }
+
+  .abteilungs-slide {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slide-mitglieder {
+    justify-content: center;
+  }
+}
+
+
+/* === Sticky Navbar === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.4); /* transparent & klar */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-sizing: border-box;
+}
+
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #e3dd13;
+  text-decoration: none;
+  margin-right: auto;
+}
+
+/* Burger Icon */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #e3dd13;
+  cursor: pointer;
+}
+
+/* Menü-Links */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* === Mobile Menü === */
+@media (max-width: 768px) {
+  .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, -10); /* ✅ transparent statt schwarz */
+  
+  width: 100%;
+  z-index: 1000;
+  
+}
+
+
+  .burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #e3dd13;
+    cursor: pointer;
+    margin-left: auto; /* ✅ rechts platzieren */
+  }
+
+
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #e3dd13;
+    margin-left: auto;
+  }
+}
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    color: white;
+    padding: 0.5rem 0;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+
+/* ========== FOOTER ========== */
+@media (max-width: 768px) {
+  .site-footer {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    gap: 0;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: 1 1 33%;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .footer-left {
+    text-align: left;
+  }
+
+  .footer-right {
+    text-align: right;
+  }
 }
