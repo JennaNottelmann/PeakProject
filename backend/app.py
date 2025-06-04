@@ -25,22 +25,7 @@ def save_users(users):
         json.dump(users, f, indent=4)
 
 # === Connected Pi Registry
-connected_pis = {}  # {"pi_02": socket_id}
-
-def register_pi(pi_id, sid):
-    connected_pis[pi_id] = sid
-    print(f"[WS] Pi registriert: {pi_id}")
-
-def send_command_to_pi(pi_id, command):
-    sid = connected_pis.get(pi_id)
-    if sid:
-        socketio.emit("command", command, to=sid)
-        print(f"[WS] → {pi_id}: {command}")
-    else:
-        print(f"[WS] Kein Pi verbunden für ID: {pi_id}")
-
-# === WebSocket Events
-connected_pis = {}  # "pi_01": {"socket": ..., "ip": ...}
+connected_pis = {}  # {"pi_02": {"sid": ..., "ip": ...}}
 
 @socketio.on("register_pi")
 def register_pi(data):
@@ -56,12 +41,21 @@ def register_pi(data):
 @socketio.on("disconnect")
 def handle_disconnect():
     disconnected = None
-    for pi_id, sid in list(connected_pis.items()):
-        if sid == request.sid:
+    for pi_id, info in list(connected_pis.items()):
+        if info["sid"] == request.sid:
             disconnected = pi_id
             del connected_pis[pi_id]
             break
     print(f"[WS] Verbindung getrennt: {disconnected or 'Unbekannt'}")
+
+def send_command_to_pi(pi_id, command):
+    info = connected_pis.get(pi_id)
+    if info:
+        sid = info["sid"]
+        socketio.emit("command", command, to=sid)
+        print(f"[WS] → {pi_id}: {command}")
+    else:
+        print(f"[WS] Kein Pi verbunden für ID: {pi_id}")
 
 # === Seiten-Routing
 @app.route('/')
@@ -134,7 +128,7 @@ def shop():
 @app.route('/api/available_vehicles')
 def available_vehicles():
     return jsonify([
-        {"id": k, "ip": v["ip"]}
+        {"id": k, "ip": v.get["ip"]}
         for k, v in connected_pis.items()
     ])
 
@@ -151,12 +145,9 @@ def drive():
 def camera_start():
     data = request.json
     vid = data.get('vehicle_id')
-
     print(f"[CAMERA] {vid} → STARTE MJPG-Streamer")
-    # Beispiel: falls dein Stream auf Port 8080 läuft
-    # Hier später Shell-Command auf dem Pi auslösen
+    # Kamera-Startcode einfügen, wenn gewünscht
     return "OK"
-
 
 @app.route('/api/camera-control', methods=['POST'])
 def camera_control():
@@ -164,6 +155,7 @@ def camera_control():
     vid = data.get('vehicle_id')
     direction = data.get('direction')
     print(f"[CAMERA] {vid} ← {direction}")
+    send_command_to_pi(vid, f"camera:{direction}")
     return "OK"
 
 @app.route('/stream/<vehicle_id>')
@@ -174,9 +166,6 @@ def stream(vehicle_id):
     ip = info.get("ip", "127.0.0.1")
     return f"<img src='http://{ip}:8080/stream.mjpg'>"
 
-
 # === Server starten
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000)
-#     print("Server läuft auf http://localhost:5000")
-#     print("WebSocket läuft auf ws://localhost:5000/socket.io")

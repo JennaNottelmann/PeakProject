@@ -55,23 +55,28 @@ function sendCommand(cmd) {
 }
 
 function startCamera() {
-  if (!selectedVehicle) return;
+  if (!selectedVehicle) return alert("Bitte ein Fahrzeug auswählen");
 
-  fetch(`/api/camera-start`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ vehicle_id: selectedVehicle }),
+  fetch('/api/camera-start', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ vehicle_id: selectedVehicle })
   })
-  .then(response => {
-    if (response.ok) {
-      console.log("[CAM] Kamera gestartet");
+  .then(res => {
+    if (res.ok) {
+      const camImg = document.getElementById('camera-stream');
+      camImg.src = `http://${selectedVehicle}:9000/mjpg`;
+      camImg.style.display = "block";
     } else {
-      console.error("[CAM] Fehler beim Starten der Kamera");
+      alert("Kamera konnte nicht gestartet werden.");
     }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Verbindungsfehler zur Kamera.");
   });
 }
+
 
 
 function controlCamera(direction) {

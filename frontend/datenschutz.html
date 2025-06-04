@@ -8,7 +8,90 @@
     <title>Document</title>
 </head>
 <body>
-  <nav class="navbar">...</nav>
+  
+  <nav class="navbar">
+    <a class="nav-logo" href="index.html">Kaiju Cars</a>
+    
+    <div class="nav-dropdown">
+      <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
+      <div id="more-dropdown" class="dropdown-content">
+        <a href="index.html">Startseite</a>
+        <a href="projekt.html">Das Projekt</a>
+        <a href="ueber-uns.html">Über uns</a>
+
+        <div class="sub-dropdown">
+          <span class="sub-btn">Unser Shop ▸</span>
+          <div class="sub-dropdown-content">
+            <a href="shop.html">Alles im Shop</a>
+            <a href="shop-fahrzeuge.html">Fahrzeuge</a>
+            <a href="shop-module.html">Module</a>
+            <a href="shop-bauplan.html">Eigenkreation</a>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="nav-dropdown">
+        <button class="nav-btn" onclick="toggleDropdown('konto-dropdown')">Konto ▾</button>
+        <div class="dropdown-content" id="konto-dropdown">
+          <a href="/login">🔓 Login</a>
+          <a href="/logout" id="logout-link-konto" style="display: none;">🔒 Logout</a>
+          <a href="/change-password" id="change-link-konto" style="display: none;">🔧 Passwort ändern</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <script>
+    // DROPDOWNS
+    function toggleDropdown(id) {
+      document.querySelectorAll('.dropdown-content').forEach(el => {
+        if (el.id !== id) el.style.display = 'none';
+      });
+
+      const el = document.getElementById(id);
+      if (el) el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
+
+    // Klick außerhalb schließt Menüs
+    document.addEventListener('click', function (e) {
+      if (!e.target.matches('.nav-btn')) {
+        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+      }
+    });
+
+    // LOGIN-STATUS
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch('/check-login')
+          .then(res => res.json())
+          .then(data => {
+            const show = id => {
+              const el = document.getElementById(id);
+              if (el) el.style.display = "inline-block";
+            };
+
+            const hide = id => {
+              const el = document.getElementById(id);
+              if (el) el.style.display = "none";
+            };
+
+            if (data.logged_in) {
+              hide("login-link-more"); hide("login-link-konto");
+              show("logout-link-more"); show("logout-link-konto");
+              show("change-link-konto");
+            } else {
+              show("login-link-more"); show("login-link-konto");
+              hide("logout-link-more"); hide("logout-link-konto");
+              hide("change-link-konto");
+            }
+          })
+          .catch(err => console.error("Login-Check fehlgeschlagen:", err));
+      });
+  </script>
+
 
   <main class="page-wrapper">
     <div class="container">

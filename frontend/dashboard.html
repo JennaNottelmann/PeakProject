@@ -12,7 +12,7 @@
 <body>
   
   <nav class="navbar">
-    <div class="nav-logo">Kaiju Cars</div>
+    <a class="nav-logo" href="index.html">Kaiju Cars</a>
     
     <div class="nav-dropdown">
       <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
@@ -157,6 +157,14 @@
         <h2>Kamera</h2>
         <p>Live-Kamera</p>
         <img id="camera-stream" class="camera-stream" src="" alt="Live-Feed erscheint hier" style="display:none;" />
+        <div id="camera-section">
+          <h2>Kamera</h2>
+          <button onclick="startCamera()">Start Kamera</button>
+          <div id="camera-feed" style="margin-top: 1rem;">
+            <img id="camera-stream" style="max-width: 100%; display: none;" />
+          </div>
+        </div>
+
 
         <div class="camera-controls">
           <button onclick="startCamera()">Start Kamera</button>
