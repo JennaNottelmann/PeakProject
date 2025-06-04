@@ -29,7 +29,12 @@
       menu.classList.toggle("show");
     }
   
-
+    // Klick außerhalb schließt Menüs
+    document.addEventListener('click', function (e) {
+      if (!e.target.matches('.nav-btn')) {
+        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+      }
+    });
 
 
 
@@ -99,10 +104,10 @@
   </div>
 
   <div class="footer-center">
-    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+    <a href="https://www.instagram.com/kaiju_cars/" target="_blank" aria-label="Instagram">
       <img src="assets/instagram.svg" alt="Instagram" />
     </a>
-    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+    <a href="https://www.youtube.com/@KaijuCars" target="_blank" aria-label="YouTube">
       <img src="assets/youtube.svg" alt="YouTube" />
     </a>
   </div>
@@ -121,12 +126,12 @@
     // Logo und Willkommen erscheinen nach 5,2 Sekunden
     setTimeout(() => {
       welcome.style.opacity = 1;
-    }, 5200);
+    }, 2000);
 
     // Container erscheint ca. 6 Sekunden nach Ladebeginn
     setTimeout(() => {
       container.classList.add("visible");
-    }, 6000);
+    }, 2500);
   };
 </script>
 

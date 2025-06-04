@@ -8,53 +8,26 @@
 
 </head>
 <body>
-  
   <nav class="navbar">
-    <a class="nav-logo" href="index.html">Kaiju Cars</a>
-    
-    <div class="nav-dropdown">
-      <button onclick="toggleDropdown('more-dropdown')" class="nav-btn">Mehr ▾</button>
-      <div id="more-dropdown" class="dropdown-content">
-        <a href="index.html">Startseite</a>
-        <a href="projekt.html">Das Projekt</a>
-        <a href="ueber-uns.html">Über uns</a>
+    <a href="index.html" class="nav-logo">Kaiju Cars</a>
+  
+    <button class="burger" onclick="toggleMobileMenu()">☰</button>
 
-        <div class="sub-dropdown">
-          <span class="sub-btn">Unser Shop ▸</span>
-          <div class="sub-dropdown-content">
-            <a href="shop.html">Alles im Shop</a>
-            <a href="shop-fahrzeuge.html">Fahrzeuge</a>
-            <a href="shop-module.html">Module</a>
-            <a href="shop-bauplan.html">Eigenkreation</a>
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="nav-dropdown">
-        <button class="nav-btn" onclick="toggleDropdown('konto-dropdown')">Konto ▾</button>
-        <div class="dropdown-content" id="konto-dropdown">
-          <a href="/login">🔓 Login</a>
-          <a href="/logout" id="logout-link-konto" style="display: none;">🔒 Logout</a>
-          <a href="/change-password" id="change-link-konto" style="display: none;">🔧 Passwort ändern</a>
-        </div>
-      </div>
+    <div class="nav-links" id="mobile-menu">
+      <a href="index.html">Startseite</a>
+      <a href="projekt.html">Das Projekt</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="shop.html">Shop</a>
+      <a href="/login">Login</a>
     </div>
   </nav>
 
-
-
   <script>
-    // DROPDOWNS
-    function toggleDropdown(id) {
-      document.querySelectorAll('.dropdown-content').forEach(el => {
-        if (el.id !== id) el.style.display = 'none';
-      });
-
-      const el = document.getElementById(id);
-      if (el) el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      menu.classList.toggle("show");
     }
+  
 
     // Klick außerhalb schließt Menüs
     document.addEventListener('click', function (e) {
@@ -92,11 +65,17 @@
       });
   </script>
   
-  <main class="page-wrapper">
-    <h1 style="margin-top: 4rem; text-align: center; font-size: 2.8rem; color: yellow;">Unser Team</h1>
-    <div class="container">
 
-      
+  <div class="intro-container">
+    
+    <div class="welcome-bar" id="welcome">
+      <img src="assets/Logo.jpg" alt="Logo">
+      <h1>Willkommen bei Kaiju Cars</h1>
+    </div>
+  </div>
+    
+  <main class="page-wrapper"></main>
+    <div class="container">
 
       <!-- Geschäftsführung -->
       <h2 style="text-align:center; color: white;">Geschäftsführung</h2>
@@ -151,6 +130,17 @@
         </div>
       </div>
 
+      <!-- Modul Konstruktion -->
+      <h2 style="text-align:center; color: white;">Construction Team</h2>
+      <div class="abteilungs-slide">
+        <div class="slide-leiter">
+          <img src="assets/Portrait_Avatar_Kirsten.png" alt="Kirsten">
+          <span>Kirsten</span>
+        </div>
+        <div class="slide-mitglieder">
+          <div class="slide-mitglied"><img src="assets/Daniel.png"><span>Daniel</span></div>
+        </div>
+
       <!-- Social Media -->
       <h2 style="text-align:center; color: white;">Social Media</h2>
       <div class="abteilungs-slide">
@@ -172,10 +162,10 @@
   </div>
 
   <div class="footer-center">
-    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+    <a href="https://www.instagram.com/kaiju_cars/" target="_blank" aria-label="Instagram">
       <img src="assets/instagram.svg" alt="Instagram" />
     </a>
-    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+    <a href="https://www.youtube.com/@KaijuCars" target="_blank" aria-label="YouTube">
       <img src="assets/youtube.svg" alt="YouTube" />
     </a>
   </div>
