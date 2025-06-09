@@ -36,7 +36,27 @@ def register_pi(data):
         "ip": ip
     }
     print(f"[SERVER] Pi {pi_id} registriert mit IP {ip}")
+
     emit("registration_success", {"pi_id": pi_id, "ip": ip})
+    
+    #  Diese Zeile fügt das Fahrzeug dem Dashboard hinzu:
+    emit("pi_list", [{"id": pi_id, "ip": info["ip"]} for pi_id, info in connected_pis.items()], broadcast=True)
+
+
+
+
+@socketio.on("request_pi_list")
+def handle_request_pi_list():
+    pi_list = [{"id": pi_id, "ip": info["ip"]} for pi_id, info in connected_pis.items()]
+    print("[SERVER] Sende aktuelle Pi-Liste an Dashboard:", connected_pis)
+    emit("pi_list", [
+        {"id": pid, "ip": info["ip"]}
+        for pid, info in connected_pis.items()
+    ])
+
+
+
+
 
 @socketio.on("disconnect")
 def handle_disconnect():
@@ -47,6 +67,17 @@ def handle_disconnect():
             del connected_pis[pi_id]
             break
     print(f"[WS] Verbindung getrennt: {disconnected or 'Unbekannt'}")
+
+@socketio.on("status_update")
+def status_update(data):
+    pi_id = data.get("pi_id")
+    if pi_id in connected_pis:
+        connected_pis[pi_id].update({
+            "battery": data.get("battery"),
+            "temp": data.get("temp"),
+            "latency": data.get("latency"),
+        })
+
 
 def send_command_to_pi(pi_id, command):
     info = connected_pis.get(pi_id)
@@ -127,10 +158,10 @@ def shop():
 # === REST API
 @app.route('/api/available_vehicles')
 def available_vehicles():
-    return jsonify([
-        {"id": k, "ip": v.get["ip"]}
-        for k, v in connected_pis.items()
-    ])
+        return jsonify([
+            {"id": k, "ip": v.get("ip", "unknown")}
+            for k, v in connected_pis.items()
+        ])
 
 @app.route('/api/drive', methods=['POST'])
 def drive():
@@ -140,6 +171,28 @@ def drive():
     print(f"[API] {vid} ← {cmd}")
     send_command_to_pi(vid, cmd)
     return "OK"
+
+@app.route('/api/status')
+def status():
+    vehicle_id = request.args.get("vehicle_id")
+    info = connected_pis.get(vehicle_id)
+    if not info:
+        return jsonify({"battery": 0, "latency": 0, "temp": 0})
+    return jsonify({
+        "battery": info.get("battery", 0),
+        "latency": info.get("latency", 0),
+        "temp": info.get("temp", 0)
+    })
+
+@socketio.on("latency_ping")
+def handle_latency_ping(data):
+    pi_id = data.get("vehicle_id")
+    info = connected_pis.get(pi_id)
+    if info:
+        sid = info["sid"]
+        socketio.emit("latency_pong", {}, to=sid)
+
+
 
 @app.route('/api/camera-start', methods=['POST'])
 def camera_start():
@@ -165,6 +218,20 @@ def stream(vehicle_id):
         return "Fahrzeug nicht verbunden", 404
     ip = info.get("ip", "127.0.0.1")
     return f"<img src='http://{ip}:8080/stream.mjpg'>"
+
+@app.route('/api/run_challenge', methods=["POST"])
+def run_challenge():
+    data = request.json
+    vehicle_id = data.get("vehicle_id")
+    challenge = data.get("challenge")
+    if not vehicle_id or not challenge:
+        return jsonify({"error": "Fehlende Daten"}), 400
+
+    send_command_to_pi(vehicle_id, f"run_challenge:{challenge}")
+    return jsonify({"status": "gestartet", "challenge": challenge})
+
+
+
 
 # === Server starten
 if __name__ == "__main__":

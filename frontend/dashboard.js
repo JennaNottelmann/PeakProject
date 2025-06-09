@@ -1,116 +1,178 @@
+const socket = io();
 let selectedVehicle = null;
+let vehicleIPs = {};
 
-// Fahrzeugliste vom Server laden
-const sel = document.getElementById('vehicle-select');
-const opt = document.createElement('option');
-opt.value = "pi_01";  // Dummy-ID
-opt.textContent = "pi_01";
-sel.appendChild(opt);
+const camera = document.getElementById("camera");
+const select = document.getElementById("vehicle-select");
 
-fetch('/api/available_vehicles')
-  .then(res => res.json())
-  .then(vehicles => {
-    vehicles.forEach(v => {
-      const opt = document.createElement('option');
-      opt.value = v.id;
-      opt.textContent = v.id;
-      opt.dataset.ip = v.ip;
-      sel.appendChild(opt);
+socket.on("pi_list", (piList) => {
+    console.log("[CLIENT] Neue Pi-Liste empfangen:", piList);
+    select.innerHTML = "";
+    vehicleIPs = {};
+    piList.forEach((pi) => {
+        const id = typeof pi === "string" ? pi : pi.id;
+        const ip = typeof pi === "string" ? "?" : pi.ip;
+        const opt = document.createElement("option");
+        opt.value = id;
+        opt.textContent = id;
+        select.appendChild(opt);
+        vehicleIPs[id] = ip;
     });
-  });
+});
 
+socket.emit("request_pi_list");
 
 function selectVehicle() {
-  const select = document.getElementById('vehicle-select');
   selectedVehicle = select.value;
   if (!selectedVehicle) return;
+  camera.src = `http://${vehicleIPs[selectedVehicle]}:9000/mjpg`;
+  camera.style.display = "block";
+}
 
-  document.getElementById('controls').style.display = 'block';
+function toggleFullscreen() {
+  const docEl = document.documentElement;
 
-  const status = document.getElementById('status');
-  status.textContent = "Verbunden mit " + selectedVehicle;
-  status.classList.remove("disconnected");
-  status.classList.add("connected");
-
-  const selectedOption = select.options[select.selectedIndex];
-  const ip = selectedOption.dataset.ip;
-
-  const camera = document.getElementById('camera-stream');
-  if (ip) {
-    camera.src = `http://${ip}:8080/stream.mjpg`;
-  } else {
-    camera.src = ""; // fallback
+  if (!document.fullscreenElement && docEl.requestFullscreen) {
+    docEl.requestFullscreen().catch(err => {
+      alert("Fullscreen nicht möglich: " + err.message);
+    });
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
   }
-  camera.style.display = 'block';
 }
 
 
-function sendCommand(cmd) {
-  if (!selectedVehicle) return alert("Kein Fahrzeug ausgewählt!");
+
+// Joystick links (Auto)
+const autoJoystick = nipplejs.create({
+  zone: document.getElementById("joystick-left"),
+  mode: "static",
+  position: { top: "50%", left: "50%" },
+  color: "yellow",
+  size: 100,
+  restOpacity: 0.4
+});
+
+autoJoystick.on('move', (_, data) => {
+  if (!selectedVehicle || !data?.direction) return;
+
+  const dir = data.direction.angle;
+  switch (dir) {
+    case "up": sendCommand("forward"); break;
+    case "down": sendCommand("backward"); break;
+    case "left": sendCommand("left"); break;
+    case "right": sendCommand("right"); break;
+    case "up-left": sendCommand("left"); break;
+    case "up-right": sendCommand("right"); break;
+    case "down-left": sendCommand("backward_left"); break;
+    case "down-right": sendCommand("backward_right"); break;
+    default: sendCommand("stop"); break;
+  }
+});
+
+autoJoystick.on('end', () => {
+  sendCommand("stop");
+  setTimeout(() => sendCommand("stop"), 200); // doppelt stoppen
+});
+
+
+
+// Joystick rechts (Kamera)
+const camJoystick = nipplejs.create({
+  zone: document.getElementById("cam-joystick"),
+  mode: "static",
+  position: { top: "50%", left: "50%" },
+  color: "blue",
+  size: 80,
+  restOpacity: 0.4
+});
+
+camJoystick.on('move', (_, data) => {
+  if (!selectedVehicle || !data?.direction) return;
+  const dir = data.direction.angle;
+  switch (dir) {
+    case "up": sendCameraCommand("up"); break;
+    case "down": sendCameraCommand("down"); break;
+    case "left": sendCameraCommand("left"); break;
+    case "right": sendCameraCommand("right"); break;
+    default: break;
+  }
+});
+camJoystick.on('end', () => sendCameraCommand("center"));
+console.log("[JOYSTICK] Sending:", direction);
+
+
+function sendCommand(direction) {
+  if (!selectedVehicle) return;
   fetch('/api/drive', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ command: cmd, vehicle_id: selectedVehicle })
+    body: JSON.stringify({ command: direction, vehicle_id: selectedVehicle })
   });
 }
 
-function startCamera() {
-  if (!selectedVehicle) return alert("Bitte ein Fahrzeug auswählen");
+let lastPingTime = 0;
 
-  fetch('/api/camera-start', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ vehicle_id: selectedVehicle })
-  })
-  .then(res => {
-    if (res.ok) {
-      const camImg = document.getElementById('camera-stream');
-      camImg.src = `http://${selectedVehicle}:9000/mjpg`;
-      camImg.style.display = "block";
-    } else {
-      alert("Kamera konnte nicht gestartet werden.");
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Verbindungsfehler zur Kamera.");
+function pingPi() {
+  if (!selectedVehicle) return;
+  lastPingTime = Date.now();
+  socket.emit("ping_from_dashboard", {
+    vehicle_id: selectedVehicle,
+    timestamp: lastPingTime
+  });
+}
+
+socket.on("pong_from_pi", (data) => {
+  const latency = Date.now() - data.timestamp;
+  document.getElementById("latency").innerText = `📶 ${latency}ms`;
+});
+
+
+
+function fetchStatus() {
+  if (!selectedVehicle) return;
+  fetch(`/api/status?vehicle_id=${selectedVehicle}`)
+    .then(res => res.json())
+    .then(data => {
+      const level = data.battery;
+      ["b1", "b2", "b3"].forEach((id, idx) => {
+        document.getElementById(id).classList.toggle("on", idx < level + 1);
+      });
+      document.getElementById("latency").innerText = `📶 ${data.latency}ms`;
+      document.getElementById("temp").innerText = `🌡️ ${data.temp}°C`;
+    });
+}
+
+const challengeSelect = document.getElementById("challenge-select");
+challengeSelect.addEventListener("change", () => {
+  const value = challengeSelect.value;
+  if (!value || !selectedVehicle) return;
+  console.log("[CHALLENGE] Starte Challenge:", value);
+});
+
+function startChallenge() {
+  const selectedChallenge = document.getElementById("challenge-select").value;
+  if (!selectedVehicle || !selectedChallenge) return;
+
+  fetch("/api/challenge", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ vehicle_id: selectedVehicle, challenge: selectedChallenge })
   });
 }
 
 
-
-function controlCamera(direction) {
-  if (!selectedVehicle) return alert("Kein Fahrzeug ausgewählt!");
-  fetch('/api/camera-control', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ direction: direction, vehicle_id: selectedVehicle })
+function sendCameraCommand(direction) {
+  if (!selectedVehicle) return;
+  fetch("/api/camera-control", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ vehicle_id: selectedVehicle, direction: direction })
   });
 }
 
-function resetCamera() {
-  controlCamera("center");
-}
 
-let holdInterval;
-
-function startHoldCommand(cmd) {
-  sendCommand(cmd); // sofort senden
-  holdInterval = setInterval(() => sendCommand(cmd), 300); // wiederholt senden
-}
-
-function stopHoldCommand() {
-  clearInterval(holdInterval);
-  sendCommand("stop"); // Fahrzeug anhalten
-}
-
-let camHoldInterval;
-
-function startCameraCommand(cmd) {
-  sendCommand(cmd); // sofort senden
-  camHoldInterval = setInterval(() => sendCommand(cmd), 300); // wiederholt senden
-}
-
-function stopCameraCommand() {
-  clearInterval(camHoldInterval);
-}
+setInterval(() => {
+  fetchStatus();
+  pingPi();
+}, 3000);

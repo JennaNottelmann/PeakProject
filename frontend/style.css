@@ -1,4 +1,22 @@
 /* ========== GLOBAL STYLES ========== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display:flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.page-wrapper {
+ 
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px; /* Höhe der Navbar */
+  margin-bottom: 60px; /* Höhe des Footers */
+  overflow: hidden;
+  text-align: center;
+}
 
 body {
   margin: 0;
@@ -24,7 +42,8 @@ h1, h2 {
 }
 
 p {
-  color: #555555;
+  color: #b3b5a0;
+  font-size: 1.2rem;
 }
 
 a {
@@ -44,7 +63,7 @@ a:hover {
   margin-bottom: 20px;
   padding: 2rem;
 
-  padding-bottom: 40px; /* Platz für Footer */
+  padding-bottom: 80px; /* Platz für Footer */
   background-color:rgba(0,0,0,0.7);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
@@ -63,11 +82,11 @@ a:hover {
 #index-container {
   max-width: 1100px;
   margin: 0 auto;
-  margin-top: 60px; /* Platz unter Navbar */
+  margin-top: 40px; /* Platz unter Navbar */
   margin-bottom: 60px;
   padding: 2rem;
   padding-top: 20px; /* Platz unter Navbar */
-  padding-bottom: 40px; /* Platz für Footer */
+  padding-bottom: 80px; /* Platz für Footer */
   background-color: rgba(0,0,0,0.5);
   overflow-y: auto;
   flex: 1; /* Flex-Grow, damit es den verfügbaren Platz einnimmt */
@@ -95,19 +114,6 @@ a:hover {
 }
 
 
-/*.container {
-  max-width: 900px;
-  margin: 0 auto;
-  margin-top: 40px;
-  position: relative;
-  padding: 2rem;
-  padding-top: 120px; 
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  color: #f5f5f5;
-  overflow: visible;
-}*/
 
 /* ========== car img index ========== */
     #car-img {
@@ -274,33 +280,45 @@ a:hover {
 
 /* ========== JOYSTICK ========== */
 
-.joystick-grid {
-  display: grid;
-  grid-template-columns: 80px 80px 80px;
-  grid-template-rows: 80px 80px 80px;
-  gap: 14px;
+.joystick-wrapper {
+  display: flex;
   justify-content: center;
   align-items: center;
-  touch-action: manipulation;
+  width: 100%;
+  height: 100%;
 }
 
-.joystick-grid button {
-  font-size: 2rem;
-  padding: 1rem;
-  background-color: #e0e0e0;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+#joystick-left,
+#cam-joystick {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.joystick-grid button:active {
-  background-color: #ccc;
-  transform: scale(0.95);
+
+#joystick-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  position: relative;
 }
-.joystick-grid button:hover {
-  background-color: #cccccc;
+
+.joystick-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
+
+
+
+
+
 
 /* ========== ÜBER UNS SLIDES ========== */
 
@@ -484,7 +502,7 @@ h1, h2 {
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
-  background-color: #f9f9f9;
+  background-color: #434040;
   color: #111;
 }
 
@@ -566,18 +584,22 @@ h1, h2 {
 
 /* ===== FOOTER ===== */
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: rgba(17, 17, 17, 0.45);
   color: #999;
   font-size: 0.85rem;
-  padding: 0.5rem 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  height: 60px;
+  z-index: 1000;
 }
+
+
 
 .footer-left,
 .footer-center,
@@ -617,22 +639,7 @@ h1, h2 {
 }
 
 
-html, body {
-  height: 100%;
-  display:flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 
-.page-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-top: 0px; /* Höhe der Navbar */
-  margin-bottom: 60px; /* Höhe des Footers */
-  overflow: hidden;
-  text-align: center;
-}
 
 
 
@@ -705,23 +712,19 @@ html, body {
     width: 100%;
   }
 
-  .joystick-grid {
-    grid-template-columns: repeat(3, 60px);
-    grid-template-rows: repeat(3, 60px);
-    gap: 10px;
-  }
 
-  .joystick-grid button {
-    font-size: 1.5rem;
-  }
 
-  .site-footer {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: auto;
-    padding: 1rem 0.5rem;
-  }
+.site-footer {
+  background-color: rgba(17, 17, 17, 0.45);
+  color: #999;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  flex-shrink: 0;
+}
+
 
   .footer-left,
   .footer-center,
@@ -800,6 +803,15 @@ html, body {
   text-decoration: underline;
 }
 
+/* === Battery === */
+#battery span {
+  color: #444;
+}
+#battery .on {
+  color: #e3dd13;
+}
+
+
 /* === Mobile Menü === */
 @media (max-width: 768px) {
   .navbar {
@@ -867,13 +879,16 @@ html, body {
 /* ========== FOOTER ========== */
 @media (max-width: 768px) {
   .site-footer {
-    flex-direction: row;
-    flex-wrap: nowrap;
+    background-color: rgba(17, 17, 17, 0.45);
+    color: #999;
+    font-size: 0.85rem;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.4rem 1rem;
-    height: auto;
+    padding: 0.6rem 1rem;
+    flex-shrink: 0;
   }
+
 
   .footer-left,
   .footer-center,
@@ -909,3 +924,39 @@ html, body {
     height: 20px;
   }
 }
+
+/* ========== Joystick Responsive ========== */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  height: calc(100vh - 40px);
+  top: 40px;
+  position: relative;
+}
+
+.vehicle-select {
+  grid-column: 1 / span 3;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.camera-stream {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.camera-stream img {
+  max-height: 85vh;
+  border: 4px solid #555;
+  border-radius: 25px;
+  object-fit: contain;
+}
+
+
+
