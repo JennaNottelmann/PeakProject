@@ -31,7 +31,7 @@ body {
 }
 
 main {
-  padding-top: 80px; /* Platz für Navbar */
+  padding-top: 0px; /* Platz für Navbar */
 }
 
 
@@ -187,6 +187,13 @@ a:hover {
   text-decoration: none;
   margin-right: auto; /* ← DAS FEHLT, damit alles andere rechts steht */
 }
+
+.nav-logo img.logo-img {
+  height: 60px;      /* passt die Höhe des Logos an */
+  width: auto;       /* erhält das Seitenverhältnis */
+  display: block;    /* verhindert unerwünschte Lücken */
+}
+
 
 
 .nav-btn {
@@ -368,13 +375,13 @@ a:hover {
 }
 
 .slide-mitglied {
-  flex: 1 1 120px;
+  flex: 1 1 220px;
   text-align: center;
+  border: 3px solid #e3dd13;
   padding: 1rem;
-  background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 .slide-mitglied:hover {
   transform: translateY(-5px);

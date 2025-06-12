@@ -10,7 +10,10 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="nav-logo">Kaiju Cars</a>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="Kaiju Cars Logo" class="logo-img">
+    </a>
+
   
     <button class="burger" onclick="toggleMobileMenu()">☰</button>
 
@@ -29,6 +32,7 @@
       menu.classList.toggle("show");
     }
   
+
     // Klick außerhalb schließt Menüs
     document.addEventListener('click', function (e) {
       if (!e.target.matches('.nav-btn')) {
@@ -71,7 +75,6 @@
   <div class="intro-container">
     
     <div class="welcome-bar" id="welcome">
-      <img src="assets/Logo.jpg" alt="Logo">
       <h1>Willkommen bei Kaiju Cars</h1>
     </div>
   </div>

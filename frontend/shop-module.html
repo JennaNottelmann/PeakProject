@@ -8,7 +8,10 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="index.html" class="nav-logo">Kaiju Cars</a>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="Kaiju Cars Logo" class="logo-img">
+    </a>
+
   
     <button class="burger" onclick="toggleMobileMenu()">☰</button>
 
@@ -34,7 +37,7 @@
         document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
       }
     });
-
+    
     // LOGIN-STATUS
       document.addEventListener("DOMContentLoaded", function () {
         fetch('/check-login')
