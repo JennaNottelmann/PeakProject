@@ -1,11 +1,11 @@
 /* ========== GLOBAL STYLES ========== */
 html, body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   display:flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .page-wrapper {
@@ -282,6 +282,62 @@ a:hover {
 
 .sub-dropdown-content a:hover {
   background-color: #333;
+}
+
+
+/* ========== Projektseite ========== */
+
+.projekt-accordion {
+  margin: 1rem 0;
+  border: 1px solid #555;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #1c1c1c;
+}
+
+.projekt-accordion summary {
+  padding: 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.projekt-accordion[open] summary {
+  background-color: #333;
+}
+
+.projekt-inhalt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.projekt-inhalt img {
+  width: 300px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.projekt-inhalt.left img { order: 0; }
+.projekt-inhalt.left div { order: 1; }
+
+.projekt-inhalt.right img { order: 1; }
+.projekt-inhalt.right div { order: 0; }
+
+.projekt-inhalt div {
+  flex: 1 1 400px;
+  text-align: left;
+}
+
+.projekt-accordion h2 {
+  color: #ffdc00;
+  margin: 0;
+}
+
+.projekt-accordion p {
+  color: #ccc;
+  margin: 0.5rem 0 0 0;
 }
 
 
