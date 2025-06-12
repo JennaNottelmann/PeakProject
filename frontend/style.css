@@ -331,73 +331,54 @@ a:hover {
 
 .abteilungs-slide {
   display: flex;
-  
+  flex-wrap: wrap;
   gap: 2rem;
   margin: 4rem 0;
   padding: 2rem;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.05);
   text-align: center;
- 
+  justify-content: center;
 }
 
-.slide-leiter {
+.slide-leiter, .slide-mitglied {
   flex: 1 1 220px;
+  max-width: 250px;
   text-align: center;
-  border: 3px solid #e3dd13;
   padding: 1rem;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
 }
 
-.slide-leiter img {
-  width: 100px;
-  height: 100px;
+.slide-leiter {
+  border: 3px solid #e3dd13;
+}
+
+.slide-mitglied {
+  border: none;
+}
+
+.slide-leiter:hover, .slide-mitglied:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.slide-leiter img, .slide-mitglied img {
+  width: 130px;
+  height: 130px;
   object-fit: cover;
-  border-radius: 100%;
+  border-radius: 8px;
 }
 
-.slide-leiter span {
+.slide-leiter span, .slide-mitglied span {
   display: block;
   margin-top: 8px;
   font-weight: bold;
   color: #e3dd13;
 }
 
-.slide-mitglieder {
-  flex: 3 1 500px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.slide-mitglied {
-  flex: 1 1 220px;
-  text-align: center;
-  border: 3px solid #e3dd13;
-  padding: 1rem;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.slide-mitglied:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-.slide-mitglied img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 100%;
-}
-.slide-mitglied span {
-  display: block;
-  margin-top: 0.5rem;
-  font-weight: 500;
-}
 
 /* ========== ANIMATIONEN ========== */
 
@@ -601,7 +582,7 @@ h1, h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 1rem;
+  
   height: 60px;
   z-index: 1000;
 }
