@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Impressum - Kaiju Cars</title>
 </head>
 <body>
   <nav class="navbar">
@@ -12,8 +12,6 @@
       <img src="assets/Kaiju_Cars_Logo.png" alt="Kaiju Cars Logo" class="logo-img">
     </a>
 
-
-  
     <button class="burger" onclick="toggleMobileMenu()">☰</button>
 
     <div class="nav-links" id="mobile-menu">
@@ -30,53 +28,90 @@
       const menu = document.getElementById("mobile-menu");
       menu.classList.toggle("show");
     }
-  
 
-    // Klick außerhalb schließt Menüs
     document.addEventListener('click', function (e) {
       if (!e.target.matches('.nav-btn')) {
         document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
       }
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('/check-login')
+        .then(res => res.json())
+        .then(data => {
+          const show = id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = "inline-block";
+          };
 
-    // LOGIN-STATUS
-      document.addEventListener("DOMContentLoaded", function () {
-        fetch('/check-login')
-          .then(res => res.json())
-          .then(data => {
-            const show = id => {
-              const el = document.getElementById(id);
-              if (el) el.style.display = "inline-block";
-            };
+          const hide = id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = "none";
+          };
 
-            const hide = id => {
-              const el = document.getElementById(id);
-              if (el) el.style.display = "none";
-            };
-
-            if (data.logged_in) {
-              hide("login-link-more"); hide("login-link-konto");
-              show("logout-link-more"); show("logout-link-konto");
-              show("change-link-konto");
-            } else {
-              show("login-link-more"); show("login-link-konto");
-              hide("logout-link-more"); hide("logout-link-konto");
-              hide("change-link-konto");
-            }
-          })
-          .catch(err => console.error("Login-Check fehlgeschlagen:", err));
-      });
+          if (data.logged_in) {
+            hide("login-link-more"); hide("login-link-konto");
+            show("logout-link-more"); show("logout-link-konto");
+            show("change-link-konto");
+          } else {
+            show("login-link-more"); show("login-link-konto");
+            hide("logout-link-more"); hide("logout-link-konto");
+            hide("change-link-konto");
+          }
+        })
+        .catch(err => console.error("Login-Check fehlgeschlagen:", err));
+    });
   </script>
-
 
   <main class="page-wrapper">
     <div class="container">
         <h1>Impressum</h1>
+
+        <p><strong>Kaiju-Cars GbR</strong><br>
+        Hauptstraße 456<br>
+        46045 Oberhausen</p>
+
+        <p><strong>Telefon:</strong> 0208 / 1234567<br>
+        <strong>E-Mail:</strong> <a href="mailto:kontakt@kaiju-cars.de">kontakt@kaiju-cars.de</a></p>
+
+        <p><strong>Vertreten durch die Gesellschafter:</strong><br>
+        Daniel-Thomas Regen, Jenna Nottelmann, René Schaepers, Monika Jakubaityte,<br>
+        Phillip Anhaeusser, Thomas Schmitz, Kirsten Kreitmeier, Faiek Safar</p>
+
+        <p><strong>Umsatzsteuer-ID:</strong> DE123456789</p>
+
+        <p><strong>Verantwortlich für den Inhalt:</strong><br>
+        Marc-Michell Mank</p>
+
+        <p>Plattform der EU-Kommission zur Online-Streitbeilegung:<br>
+        <a href="https://ec.europa.eu/consumers/odr" target="_blank">https://ec.europa.eu/consumers/odr</a></p>
+
+        <h2>Haftungshinweis</h2>
+        <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+
+        <h2>Hinweis zur GmbH-Umwandlung</h2>
+        <p>Kaiju-Cars GbR plant, zukünftig in eine GmbH umzuwandeln, um Haftungsrisiken zu minimieren und die Professionalität zu steigern.</p>
     </div>
   </main>
 
-  <footer class="site-footer">...</footer>
-</body>
+  <footer class="site-footer">
+    <div class="footer-left">
+      &copy; 2025 Kaiju Cars
+    </div>
 
+    <div class="footer-center">
+      <a href="https://www.instagram.com/kaiju_cars/" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://www.youtube.com/@KaijuCars" target="_blank" aria-label="YouTube">
+        <img src="assets/youtube.svg" alt="YouTube" />
+      </a>
+    </div>
+
+    <div class="footer-right">
+      <a href="/impressum.html">Impressum&nbsp;</a> | 
+      <a href="/datenschutz.html">Datenschutz</a>
+    </div>
+  </footer>
+</body>
 </html>

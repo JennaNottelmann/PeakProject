@@ -13,7 +13,7 @@ html, body {
   display: flex;
   flex-direction: column;
   margin-top: 0px; /* Höhe der Navbar */
-  margin-bottom: 60px; /* Höhe des Footers */
+  margin-bottom: 70px; /* Höhe des Footers */
   overflow: hidden;
   text-align: center;
 }
