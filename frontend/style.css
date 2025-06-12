@@ -114,6 +114,69 @@ a:hover {
 }
 
 
+/* ========== Modal ========== */
+
+.modal {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #222;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  color: #eee;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.inline-logo {
+  height: 3.2em;
+  vertical-align: middle;
+  margin: 0 0.3rem;
+}
+
+.centered-logo {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.centered-logo img {
+  max-height: 60px;
+  width: auto;
+}
+
+.modal-logo {
+  width: 150px;
+  margin-bottom: 1rem;
+}
+
+.modal button {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #e3dd13;
+  color: #222;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal button:hover {
+  background-color: #d1cb10;
+}
+
 
 /* ========== car img index ========== */
     #car-img {
@@ -123,7 +186,7 @@ a:hover {
       transform: translateY(-50%);
       width: 30vw;
       max-width: 300px;
-      animation: drive 2.5s ease-out forwards;
+     
       z-index: 999;
       pointer-events: none; /* keine Klicks blockieren */
     }
