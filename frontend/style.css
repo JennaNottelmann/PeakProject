@@ -228,6 +228,14 @@ a:hover {
       text-align: center;
     }
 
+    .small-kaiju {
+      width: 500px !important;
+      height: auto;
+      margin: 1rem auto;
+      display: block;
+    }
+
+
 /* ========== NAVBAR ========== */
 
 .navbar {
