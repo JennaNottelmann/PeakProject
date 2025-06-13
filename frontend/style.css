@@ -186,11 +186,11 @@ a:hover {
 /* ========== car img index ========== */
     #car-img {
       position: fixed; /* vorher: absolute */
-      top: 45%;
+      top: 55%;
       left: -40%;
       transform: translateY(-50%);
-      width: 30vw;
-      max-width: 300px;
+      width: 150vw;
+      max-width: 500px;
      
       z-index: 999;
       pointer-events: none; /* keine Klicks blockieren */
