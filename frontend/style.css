@@ -191,7 +191,6 @@ a:hover {
       transform: translateY(-50%);
       width: 150vw;
       max-width: 500px;
-     
       z-index: 999;
       pointer-events: none; /* keine Klicks blockieren */
     }
