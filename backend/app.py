@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for
+from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -211,13 +211,14 @@ def camera_control():
     send_command_to_pi(vid, f"camera:{direction}")
     return "OK"
 
-@app.route('/stream/<vehicle_id>')
-def stream(vehicle_id):
-    info = connected_pis.get(vehicle_id)
-    if not info:
-        return "Fahrzeug nicht verbunden", 404
-    ip = info.get("ip", "127.0.0.1")
-    return f"<img src='http://{ip}:8080/stream.mjpg'>"
+@socketio.on("camera_frame")
+def handle_camera_frame(data):
+    vehicle_id = data.get("pi_id")
+    frame_data = data.get("frame")
+    # Weiterleiten an Frontend
+    emit("camera_frame", {"vehicle_id": vehicle_id, "frame": frame_data}, broadcast=True)
+
+
 
 @app.route('/api/run_challenge', methods=["POST"])
 def run_challenge():

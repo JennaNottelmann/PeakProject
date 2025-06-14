@@ -25,8 +25,14 @@ socket.emit("request_pi_list");
 function selectVehicle() {
   selectedVehicle = select.value;
   if (!selectedVehicle) return;
-  camera.src = `http://${vehicleIPs[selectedVehicle]}:9000/mjpg`;
+  camera.src = `/stream/${selectedVehicle}`;
   camera.style.display = "block";
+}
+
+function sendCommand(command) {
+  if (selectedVehicle) {
+    socket.emit("command", { pi_id: selectedVehicle, command });
+  }
 }
 
 function toggleFullscreen() {
