@@ -458,13 +458,6 @@ a:hover {
   align-items: center;
 }
 
-#joystick-left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 75%;
-  position: relative;
-}
 
 .joystick-wrapper {
   height: 100%;

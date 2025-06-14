@@ -9,7 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
-
   <style>
     html, body {
       margin: 0;
@@ -20,7 +19,6 @@
       background-color: #111;
       font-family: 'Inter', sans-serif;
     }
-
     .dashboard-status-bar {
       position: fixed;
       top: 0;
@@ -35,7 +33,6 @@
       font-size: 0.85rem;
       z-index: 10;
     }
-
     .dashboard-layout {
       display: grid;
       grid-template-columns: 1fr 2fr 1fr;
@@ -44,7 +41,6 @@
       position: relative;
       top: 40px;
     }
-
     .vehicle-select {
       grid-column: 1 / span 3;
       display: flex;
@@ -52,58 +48,6 @@
       gap: 1rem;
       padding: 0.5rem;
     }
-
-    .left-column {
-      grid-column: 1;
-      grid-row: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .action-button button,
-    .exit-btn {
-      background-color: #e3dd13;
-      border: none;
-      border-radius: 1rem;
-      padding: 1.2rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .exit-btn {
-      position: fixed;
-      bottom: 1rem;
-      left: 1rem;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      z-index: 20;
-    }
-
-    .camera-stream {
-      grid-column: 2;
-      grid-row: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .camera-stream img {
-      max-height: 85vh;
-      max-width: 100%;
-      border: 4px solid #555;
-      border-radius: 25px;
-    }
-
-    -container {
-      position: fixed;
-      right: 3rem;
-      z-index: 20;
-      width: 100px;
-      height: 100px;
-      top: 50%;
-    }
-
     .joystick-side {
       grid-column: 1;
       grid-row: 2;
@@ -111,7 +55,6 @@
       justify-content: center;
       align-items: center;
     }
-
     .cam-control {
       grid-column: 3;
       grid-row: 2;
@@ -120,8 +63,21 @@
       align-items: center;
       gap: 1rem;
     }
-
-    .action-button button {
+    .camera-stream {
+      grid-column: 2;
+      grid-row: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .camera-stream img {
+      max-height: 85vh;
+      max-width: 100%;
+      border: 4px solid #555;
+      border-radius: 25px;
+    }
+    .action-button button,
+    .exit-btn {
       background-color: #e3dd13;
       border: none;
       border-radius: 1rem;
@@ -129,17 +85,25 @@
       font-size: 1.5rem;
       cursor: pointer;
     }
-
     .exit-btn {
       position: fixed;
       bottom: 1rem;
       left: 1rem;
       font-size: 1rem;
       padding: 0.5rem 1rem;
-      background-color: #e3dd13;
-      border: none;
       border-radius: 0.5rem;
       z-index: 20;
+    }
+
+    .cam-control {
+      grid-column: 3;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* <-- HIER kommt die vertikale Zentrierung */
+      gap: 1rem;
+      padding-top: 6rem;
     }
 
 
@@ -154,73 +118,53 @@
       }
       .dashboard-status-bar,
       .dashboard-layout,
-      .exit-btn,
-      .joystick-container {
+      .exit-btn {
         display: none;
       }
-      .vehicle-select {
-        position: fixed;
-      }
     }
-
-  
-
   </style>
-
-
-
 </head>
+
 <body>
   <div class="dashboard-status-bar">
-    <span>
-      🔋<span id="b1">▮</span><span id="b2">▮</span><span id="b3">▮</span>
-    </span>
+    <span>🔋<span id="b1">▮</span><span id="b2">▮</span><span id="b3">▮</span></span>
     <span id="latency">📶 0ms</span>
-
     <span id="temp">🌡️ 0°C</span>
   </div>
 
-<div class="dashboard-layout">
-  <!-- Dropdowns -->
-<div class="vehicle-select">
-  <select id="vehicle-select"><option disabled selected>Fahrzeug wählen</option></select>
-  <button onclick="selectVehicle()">Verbinden</button>
-<select id="challenge-select">
-  <option disabled selected>Challenge wählen</option>
-  <option value="linie">2 Meter</option>
-  <option value="hindernis">Straße 2,5 Meter</option>
-  <option value="bull">Donut</option>
-</select>
-<button onclick="startChallenge()">Starten</button>
+  <div class="dashboard-layout">
+    <div class="vehicle-select">
+      <select id="vehicle-select"><option disabled selected>Fahrzeug wählen</option></select>
+      <button onclick="selectVehicle()">Verbinden</button>
 
-  <button onclick="toggleFullscreen()">⛶ Vollbild</button>
-</div>
+      <select id="challenge-select">
+        <option disabled selected>Challenge wählen</option>
+        <option value="linie">2 Meter</option>
+        <option value="hindernis">Straße 2,5 Meter</option>
+        <option value="bull">Donut</option>
+      </select>
+      <button onclick="startChallenge()">Starten</button>
+      <button onclick="toggleFullscreen()">⛶ Vollbild</button>
+    </div>
 
+    <div class="joystick-side">
+      <div class="joystick-wrapper" id="joystick-left"></div>
+    </div>
 
-  
-  <!-- Auto-Joystick -->
-  <div class="joystick-wrapper" id="joystick-left"></div>
+    <div class="camera-stream">
+      <img id="camera" src="" alt="Live Kamera" />
+    </div>
 
-  <!-- Kamera-Stream -->
-  <div class="camera-stream">
-    <img id="camera" src="" alt="Live Kamera" />
+    <div class="cam-control">
+      <div class="joystick-wrapper" id="cam-joystick"></div>
+      <div class="action-button">
+        <button onclick="sendCommand('hammer')">🛠</button>
+      </div>
+    </div>
   </div>
 
-<!-- Rechter Joystick für Kamera -->
-<div class="joystick-wrapper" id="cam-joystick-wrapper">
-  <div id="cam-joystick"></div>
-  <div class="action-button">
-    <button onclick="sendCommand('hammer')">🛠</button>
-  </div>
-</div>
+  <button onclick="window.location.href='index.html'" class="exit-btn">⏎ Zurück</button>
 
-
-<button onclick="window.location.href='index.html'" class="exit-btn">⏎ Zurück</button>
-
-  <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="dashboard.js"></script>
-</body>
-
 </body>
 </html>
