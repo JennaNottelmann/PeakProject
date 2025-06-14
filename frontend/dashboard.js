@@ -26,7 +26,8 @@ function selectVehicle() {
   selectedVehicle = select.value;
   if (!selectedVehicle) return;
   const piIP = vehicleIPs[selectedVehicle];
-  camera.src = `http://${piIP}:9000`;
+  camera.src = `/api/stream/${selectedVehicle}`;
+  camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
   camera.style.display = "block";
 }
 
@@ -49,6 +50,17 @@ function toggleFullscreen() {
   }
 }
 
+socket.on("status_update", (data) => {
+  if (data.pi_id !== selectedVehicle) return;
+
+  const level = data.battery;
+  ["b1", "b2", "b3"].forEach((id, idx) => {
+    document.getElementById(id).classList.toggle("on", idx < level + 1);
+  });
+
+  document.getElementById("temp").innerText = `🌡️ ${data.temp}°C`;
+  document.getElementById("latency").innerText = `📶 ${data.latency}ms`;
+});
 
 
 // Joystick links (Auto)
@@ -172,12 +184,12 @@ function startChallenge() {
 
 function sendCameraCommand(direction) {
   if (!selectedVehicle) return;
-  fetch("/api/camera-control", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ vehicle_id: selectedVehicle, direction: direction })
+  socket.emit("command", {
+    pi_id: selectedVehicle,
+    command: `camera:${direction}`
   });
 }
+
 
 
 setInterval(() => {
