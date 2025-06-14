@@ -211,6 +211,14 @@ def camera_control():
     send_command_to_pi(vid, f"camera:{direction}")
     return "OK"
 
+@app.route('/api/stream/<vehicle_id>')
+def stream(vehicle_id):
+    ip = pi_registry.get(vehicle_id)
+    if ip:
+        return redirect(f"http://{ip}:9000", code=302)
+    return "Stream not available", 404
+
+
 @socketio.on("camera_frame")
 def handle_camera_frame(data):
     vehicle_id = data.get("pi_id")
