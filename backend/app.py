@@ -25,6 +25,8 @@ def save_users(users):
         json.dump(users, f, indent=4)
 
 # === Connected Pi Registry
+
+
 connected_pis = {}  # {"pi_02": {"sid": ..., "ip": ...}}
 
 @socketio.on("register_pi")
@@ -192,6 +194,15 @@ def handle_latency_ping(data):
         sid = info["sid"]
         socketio.emit("latency_pong", {}, to=sid)
 
+@socketio.on('status_update')
+def handle_status_update(data):
+    vehicle_id = data.get('pi_id')
+    if vehicle_id in connected_pis:
+        connected_pis[vehicle_id].update({
+            'battery': data.get('battery'),
+            'temp': data.get('temp'),
+            'latency': data.get('latency')
+        })
 
 
 @app.route('/api/camera-start', methods=['POST'])
@@ -213,10 +224,12 @@ def camera_control():
 
 @app.route('/api/stream/<vehicle_id>')
 def stream(vehicle_id):
-    ip = pi_registry.get(vehicle_id)
-    if ip:
+    info = connected_pis.get(vehicle_id)
+    if info:
+        ip = info.get("ip")
         return redirect(f"http://{ip}:9000", code=302)
     return "Stream not available", 404
+
 
 
 @socketio.on("camera_frame")

@@ -26,17 +26,22 @@ function selectVehicle() {
   selectedVehicle = select.value;
   if (!selectedVehicle) return;
   const piIP = vehicleIPs[selectedVehicle];
-  camera.src = `/api/stream/${selectedVehicle}`;
+  camera.src = `http://188.40.94.90:5000/api/stream/${selectedVehicle}`;
   camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
   camera.style.display = "block";
 }
 
 
-function sendCommand(command) {
-  if (selectedVehicle) {
-    socket.emit("command", { pi_id: selectedVehicle, command });
-  }
+function sendDriveCommand(direction) {
+  if (!selectedVehicle) return;
+  fetch('/api/drive', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ command: direction, vehicle_id: selectedVehicle })
+  });
 }
+
+
 
 function toggleFullscreen() {
   const docEl = document.documentElement;
@@ -78,17 +83,18 @@ autoJoystick.on('move', (_, data) => {
 
   const dir = data.direction.angle;
   switch (dir) {
-    case "up": sendCommand("forward"); break;
-    case "down": sendCommand("backward"); break;
-    case "left": sendCommand("left"); break;
-    case "right": sendCommand("right"); break;
-    case "up-left": sendCommand("left"); break;
-    case "up-right": sendCommand("right"); break;
-    case "down-left": sendCommand("backward_left"); break;
-    case "down-right": sendCommand("backward_right"); break;
-    default: sendCommand("stop"); break;
+    case "up": sendDriveCommand("forward"); break;
+    case "down": sendDriveCommand("backward"); break;
+    case "left": sendDriveCommand("left"); break;
+    case "right": sendDriveCommand("right"); break;
+    case "up-left": sendDriveCommand("left"); break;
+    case "up-right": sendDriveCommand("right"); break;
+    case "down-left": sendDriveCommand("backward_left"); break;
+    case "down-right": sendDriveCommand("backward_right"); break;
+    default: sendDriveCommand("stop"); break;
   }
 });
+
 
 autoJoystick.on('end', () => {
   sendCommand("stop");
