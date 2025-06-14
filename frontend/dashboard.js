@@ -25,9 +25,11 @@ socket.emit("request_pi_list");
 function selectVehicle() {
   selectedVehicle = select.value;
   if (!selectedVehicle) return;
-  camera.src = `/stream/${selectedVehicle}`;
+  const piIP = vehicleIPs[selectedVehicle];
+  camera.src = `http://${piIP}:9000`;
   camera.style.display = "block";
 }
+
 
 function sendCommand(command) {
   if (selectedVehicle) {
