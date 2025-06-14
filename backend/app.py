@@ -224,11 +224,12 @@ def camera_control():
 
 @app.route('/api/stream/<vehicle_id>')
 def stream(vehicle_id):
-    info = connected_pis.get(vehicle_id)
-    if info:
-        ip = info.get("ip")
-        return redirect(f"http://{ip}:9000", code=302)
+    ip = connected_pis.get(vehicle_id, {}).get("ip")
+    if ip:
+        return redirect(f"http://{ip}:8000/stream.mjpg", code=302)
+
     return "Stream not available", 404
+
 
 
 
