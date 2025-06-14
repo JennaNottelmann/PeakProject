@@ -450,7 +450,7 @@ a:hover {
 
 #joystick-left,
 #cam-joystick {
-  width: 140px;
+  
   height: 140px;
   position: relative;
   display: flex;
@@ -462,7 +462,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70%;
+  height: 75%;
   position: relative;
 }
 
@@ -476,6 +476,14 @@ a:hover {
 }
 
 
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  height: calc(100vh - 40px);
+  top: 40px;
+  position: relative;
+}
 
 
 
