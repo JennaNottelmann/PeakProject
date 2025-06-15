@@ -69,7 +69,7 @@ def handle_disconnect():
             del connected_pis[pi_id]
             break
     print(f"[WS] Verbindung getrennt: {disconnected or 'Unbekannt'}")
-    
+
 
 @app.route('/api/stream/<vehicle_id>')
 def stream(vehicle_id):
@@ -183,17 +183,7 @@ def drive():
     send_command_to_pi(vid, cmd)
     return "OK"
 
-@app.route('/api/status')
-def status():
-    vehicle_id = request.args.get("vehicle_id")
-    info = connected_pis.get(vehicle_id)
-    if not info:
-        return jsonify({"battery": 0, "latency": 0, "temp": 0})
-    return jsonify({
-        "battery": info.get("battery", 0),
-        "latency": info.get("latency", 0),
-        "temp": info.get("temp", 0)
-    })
+
 
 @socketio.on("latency_ping")
 def handle_latency_ping(data):
@@ -203,15 +193,6 @@ def handle_latency_ping(data):
         sid = info["sid"]
         socketio.emit("latency_pong", {}, to=sid)
 
-@socketio.on('status_update')
-def handle_status_update(data):
-    vehicle_id = data.get('pi_id')
-    if vehicle_id in connected_pis:
-        connected_pis[vehicle_id].update({
-            'battery': data.get('battery'),
-            'temp': data.get('temp'),
-            'latency': data.get('latency')
-        })
 
 
 @app.route('/api/camera-start', methods=['POST'])
@@ -254,6 +235,7 @@ def run_challenge():
     return jsonify({"status": "gestartet", "challenge": challenge})
 
 
+# === Kamera-Stream Proxy
 @app.route('/api/stream/<vehicle_id>')
 def proxy_camera_stream(vehicle_id):
     info = connected_pis.get(vehicle_id)
@@ -264,18 +246,19 @@ def proxy_camera_stream(vehicle_id):
     if not ip:
         return "No IP available", 404
 
-    # Lokalen MJPEG-Stream vom Pi öffnen
     upstream_url = f"http://{ip}:8000/stream.mjpg"
 
     def generate():
-        with requests.get(upstream_url, stream=True, timeout=5) as r:
-            for chunk in r.iter_content(chunk_size=1024):
-                if chunk:
-                    yield chunk
+        try:
+            with requests.get(upstream_url, stream=True, timeout=5) as r:
+                for chunk in r.iter_content(chunk_size=1024):
+                    if chunk:
+                        yield chunk
+        except requests.exceptions.RequestException as e:
+            print(f"[STREAM ERROR] Fehler beim MJPEG-Proxy: {e}")
+            return
 
     return Response(generate(), content_type='multipart/x-mixed-replace; boundary=FRAME')
-
-
 
 # === Server starten
 if __name__ == "__main__":
