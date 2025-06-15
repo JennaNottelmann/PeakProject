@@ -69,6 +69,15 @@ def handle_disconnect():
             del connected_pis[pi_id]
             break
     print(f"[WS] Verbindung getrennt: {disconnected or 'Unbekannt'}")
+    
+
+@app.route('/api/stream/<vehicle_id>')
+def stream(vehicle_id):
+    ip = connected_pis.get(vehicle_id, {}).get("ip")
+    if ip:
+        return redirect(f"http://{ip}:8000/stream.mjpg", code=302)
+    return "Stream not available", 404
+
 
 @socketio.on("status_update")
 def status_update(data):
