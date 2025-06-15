@@ -34,17 +34,15 @@ connected_pis = {}  # {"pi_02": {"sid": ..., "ip": ...}}
 @socketio.on("register_pi")
 def register_pi(data):
     pi_id = data["pi_id"]
-    ip = data.get("ip", "unknown")
+    ip_address = request.remote_addr  # automatisch IP aus dem VPN nehmen
     connected_pis[pi_id] = {
         "sid": request.sid,
-        "ip": ip
+        "ip": ip_address
     }
-    print(f"[SERVER] Pi {pi_id} registriert mit IP {ip}")
+    print(f"[SERVER] Pi {pi_id} registriert mit IP {ip_address}")
+    emit("registration_success", {"pi_id": pi_id, "ip": ip_address})
+    emit("pi_list", [{"id": pid, "ip": info["ip"]} for pid, info in connected_pis.items()], broadcast=True)
 
-    emit("registration_success", {"pi_id": pi_id, "ip": ip})
-    
-    #  Diese Zeile fügt das Fahrzeug dem Dashboard hinzu:
-    emit("pi_list", [{"id": pi_id, "ip": info["ip"]} for pi_id, info in connected_pis.items()], broadcast=True)
 
 
 
