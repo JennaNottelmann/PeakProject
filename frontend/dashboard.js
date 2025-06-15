@@ -26,9 +26,15 @@ function selectVehicle() {
     selectedVehicle = select.value;
     if (!selectedVehicle) return;
     const piIP = vehicleIPs[selectedVehicle];
-    camera.src = `http://${piIP}:8000/stream.mjpg`;
+    camera.src = `/api/stream/${selectedVehicle}`;
+    camera.onerror = () => {
+        camera.src = "/static/error.png"; // Fallback-Bild bei Fehler
+        camera.alt = "Kamera-Stream nicht verfügbar";
+    };
     camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
-    camera.style.display = "block";
+    if (camera) {
+      camera.style.display = "block";
+    }
 }
 
 
