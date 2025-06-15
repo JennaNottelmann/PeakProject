@@ -26,11 +26,12 @@ function selectVehicle() {
     selectedVehicle = select.value;
     if (!selectedVehicle) return;
     const piIP = vehicleIPs[selectedVehicle];
-    camera.src = `/api/stream/${selectedVehicle}`;
-
+    camera.src = `http://${piIP}:8000/stream.mjpg`;
     camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
     camera.style.display = "block";
 }
+
+
 
 
 function sendDriveCommand(direction) {
