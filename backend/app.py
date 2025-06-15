@@ -183,6 +183,17 @@ def drive():
     send_command_to_pi(vid, cmd)
     return "OK"
 
+@app.route('/api/status')
+def get_status():
+    vehicle_id = request.args.get("vehicle_id")
+    info = connected_pis.get(vehicle_id)
+    if not info:
+        return jsonify({"error": "Vehicle not found"}), 404
+    return jsonify({
+        "battery": info.get("battery", 0),
+        "temp": info.get("temp", 0),
+        "latency": info.get("latency", 0)
+    })
 
 
 @socketio.on("latency_ping")
