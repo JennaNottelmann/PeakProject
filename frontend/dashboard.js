@@ -26,7 +26,8 @@ function selectVehicle() {
     selectedVehicle = select.value;
     if (!selectedVehicle) return;
     const piIP = vehicleIPs[selectedVehicle];
-    camera.src = `http://${piIP}:8000/stream.mjpg`;
+    camera.src = `/api/stream/${selectedVehicle}`;
+
     camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
     camera.style.display = "block";
 }
@@ -156,6 +157,7 @@ function startChallenge() {
         body: JSON.stringify({ vehicle_id: selectedVehicle, challenge: selectedChallenge })
     });
 }
+
 
 setInterval(() => {
     fetchStatus();

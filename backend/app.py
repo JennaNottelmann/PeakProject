@@ -1,5 +1,7 @@
 import os
 import json
+import requests
+from flask import Response
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -244,6 +246,27 @@ def run_challenge():
     send_command_to_pi(vehicle_id, f"run_challenge:{challenge}")
     return jsonify({"status": "gestartet", "challenge": challenge})
 
+
+@app.route('/api/stream/<vehicle_id>')
+def proxy_camera_stream(vehicle_id):
+    info = connected_pis.get(vehicle_id)
+    if not info:
+        return "Vehicle not connected", 404
+
+    ip = info.get("ip")
+    if not ip:
+        return "No IP available", 404
+
+    # Lokalen MJPEG-Stream vom Pi öffnen
+    upstream_url = f"http://{ip}:8000/stream.mjpg"
+
+    def generate():
+        with requests.get(upstream_url, stream=True, timeout=5) as r:
+            for chunk in r.iter_content(chunk_size=1024):
+                if chunk:
+                    yield chunk
+
+    return Response(generate(), content_type='multipart/x-mixed-replace; boundary=FRAME')
 
 
 
