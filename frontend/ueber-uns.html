@@ -16,7 +16,7 @@
       <a href="index.html">Home</a>
       <a href="projekt.html">Das Projekt</a>
       <a href="ueber-uns.html">Über uns</a>
-      <a href="shop.html">Produkte</a>
+      <a href="shop.html">Module</a>
       <a href="/login">Login</a>
     </div>
   </nav>
@@ -117,7 +117,15 @@
         </div>
       </summary>
       <div class="projekt-inhalt">
-        <p>Das Infrastruktur-Team kümmert sich um Server, Netzwerke, Sicherheit, Datensicherung und die gesamte IT-Architektur.</p>
+        <h2>Infrastruktur-Team – Aufbau und Betrieb der Systemlandschaft</h2>
+        <p>Das Infrastruktur-Team ist verantwortlich für die gesamte technische Basis, auf der das Projekt Kaiju Cars aufbaut. Hierzu wurde eine leistungsfähige Serverlandschaft aufgesetzt und betrieben.</p>
+
+        <p>Im Bereich der Außenpräsenz wurde ein virtualisierter Proxmox-Server bereitgestellt, auf dem sowohl der Webserver mit der Projektwebsite als auch der Mailserver zur Kommunikation betrieben werden. Der Zugriff auf diese Dienste erfolgt abgesichert über einen Reverse Proxy, der eine sichere und stabile Erreichbarkeit der öffentlichen Services gewährleistet.</p>
+
+        <p>Für die interne Kommunikation und Steuerung zwischen den Steuerungsservern und den eingesetzten PiCar-X Fahrzeugen wurde ein Backbone in Form eines VPN-Netzwerks aufgebaut. Hierbei kommt WireGuard als sichere und performante VPN-Lösung zum Einsatz, wodurch eine flexible und standortunabhängige Verbindung der Fahrzeuge mit dem Steuerungsnetzwerk ermöglicht wird.</p>
+
+        <p>Darüber hinaus verantwortet das Infrastruktur-Team den Aufbau der internen Benutzer- und Rechteverwaltung. Hierzu wurde ein Active Directory Domänencontroller mit integrierter Benutzerverwaltung, Fileservern und einer umfassenden Zugriffskontrolle implementiert, der eine saubere Rechtevergabe und eine strukturierte Verwaltung aller Teamressourcen ermöglicht.</p>
+      
       </div>
     </details>
 
