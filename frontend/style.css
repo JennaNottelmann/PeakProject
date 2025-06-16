@@ -6,6 +6,7 @@ html, body {
   display:flex;
   flex-direction: column;
   overflow: hidden;
+  overflow-x: hidden !important;
 }
 
 .page-wrapper {
@@ -57,25 +58,14 @@ a:hover {
 /* ========== CONTAINER ========== */
 
 .container {
-  width: 1100px;
-  margin: 0 auto;
-
-  margin-bottom: 20px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 20px auto 20px auto;
   padding: 2rem;
-
-  padding-bottom: 80px; /* Platz für Footer */
-  background-color:rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.7);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  color: #474444;
   overflow-y: auto;
-
-  text-align: center;
-
-  min-height: calc(100vh - 140px); /* 100vh - Navbar (~80px) - Footer (~60px) */
-  
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .container {
@@ -84,19 +74,45 @@ a:hover {
   min-height: 0;
 }
 
+
+
+/* Optional: Auf kleinen Bildschirmen weiterhin etwas mehr Abstand */
+@media (max-width: 768px) {
+  .container {
+    margin-bottom: 80px;
+  }
+}
+
+
+.login-box {
+  background-color: rgba(0,0,0,0.7);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
 #index-container {
+  width: 90%;
   max-width: 1100px;
-  margin: 20px auto 60px auto;
+  margin: 20px auto 20px auto;
   padding: 2rem;
   background-color: rgba(0,0,0,0.5);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,1.2);
   color: #f5f5f5;
   text-align: center;
-  overflow-y: auto;
+  overflow-x: hidden;
   max-height: calc(100vh - 140px);
   transition: opacity 1s ease;
   opacity: 0;
+}
+
+@media (max-width: 768px) {
+  #index-container {
+    margin-bottom: 80px;
+  }
 }
 
 #index-container.visible {
@@ -244,12 +260,19 @@ a:hover {
     }
 
     .small-kaiju {
-      width: 450px !important;
+      width: 80%;
+      max-width: 450px;
       height: auto;
       margin: 1rem auto;
       display: block;
     }
 
+    @media (max-width: 768px) {
+      .small-kaiju {
+        width: 90%;
+        max-width: 400px;
+      }
+    }
 
 /* ========== Modul Galerie ========== */
 .shop-grid {

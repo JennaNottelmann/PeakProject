@@ -87,7 +87,7 @@ const autoJoystick = nipplejs.create({
     mode: "static",
     position: { top: "50%", left: "50%" },
     color: "yellow",
-    size: 100,
+    size: 160,
     restOpacity: 0.4
 });
 
@@ -118,7 +118,7 @@ const camJoystick = nipplejs.create({
     mode: "static",
     position: { top: "50%", left: "50%" },
     color: "blue",
-    size: 80,
+    size: 130,
     restOpacity: 0.4
 });
 
