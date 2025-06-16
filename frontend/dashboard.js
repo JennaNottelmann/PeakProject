@@ -28,7 +28,7 @@ function selectVehicle() {
     const piIP = vehicleIPs[selectedVehicle];
     camera.src = `/api/stream/${selectedVehicle}`;
     camera.onerror = () => {
-        camera.src = "/static/error.png";
+        camera.src = "/static/404.png";
         camera.alt = "Kamera-Stream nicht verfügbar";
     };
     camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
@@ -140,10 +140,13 @@ camJoystick.on('end', () => sendCameraCommand("center"));
 function fetchStatus() {
     if (!selectedVehicle) return;
     fetch(`/api/status?vehicle_id=${selectedVehicle}`)
-        .then(res => res.json())
-        .then(data => updateStatus(data));
+      .then(res => {
+          if (!res.ok) throw new Error("Status not found");
+          return res.json();
+      })
+      .then(data => updateStatus(data))
+      .catch(err => console.warn(err));
 }
-
 // Challenges
 const challengeSelect = document.getElementById("challenge-select");
 challengeSelect.addEventListener("change", () => {

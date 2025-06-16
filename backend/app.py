@@ -34,7 +34,7 @@ connected_pis = {}  # {"pi_02": {"sid": ..., "ip": ...}}
 @socketio.on("register_pi")
 def register_pi(data):
     pi_id = data["pi_id"]
-    ip_address = request.remote_addr  # automatisch IP aus dem VPN nehmen
+    ip_address = data.get("ip", request.remote_addr)
     connected_pis[pi_id] = {
         "sid": request.sid,
         "ip": ip_address
@@ -42,6 +42,7 @@ def register_pi(data):
     print(f"[SERVER] Pi {pi_id} registriert mit IP {ip_address}")
     emit("registration_success", {"pi_id": pi_id, "ip": ip_address})
     emit("pi_list", [{"id": pid, "ip": info["ip"]} for pid, info in connected_pis.items()], broadcast=True)
+
 
 
 
@@ -70,13 +71,6 @@ def handle_disconnect():
             break
     print(f"[WS] Verbindung getrennt: {disconnected or 'Unbekannt'}")
 
-
-@app.route('/api/stream/<vehicle_id>')
-def stream(vehicle_id):
-    ip = connected_pis.get(vehicle_id, {}).get("ip")
-    if ip:
-        return redirect(f"http://{ip}:8000/stream.mjpg", code=302)
-    return "Stream not available", 404
 
 
 @socketio.on("status_update")
