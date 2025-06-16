@@ -340,6 +340,26 @@ a:hover {
   background-color: #f0f0f0;
 }
 
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .burger {
+    font-size: 1.8rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
+  }
+}
+
 /* Sub Dropdown Button */
 .sub-dropdown {
   position: relative;
@@ -778,6 +798,23 @@ h1, h2 {
   flex: 1;
   text-align: center;
   white-space: nowrap;
+}
+
+.footer-center img {
+  width: 30px !important;
+  height: 30px !important;
+  margin: 0 6px;
+  vertical-align: middle;
+  max-width: unset;
+  max-height: unset;
+}
+
+/* Nur für Desktop: Vergrößern ab 769px */
+@media (min-width: 769px) {
+  .footer-center img {
+    width: 40px !important;
+    height: 40px !important;
+  }
 }
 
 .footer-left {
