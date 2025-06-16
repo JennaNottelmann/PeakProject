@@ -42,6 +42,12 @@ h1, h2 {
   color: #e3dd13;
 }
 
+h3 {
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: #e3dd13;
+}
+
 p {
   color: #b3b5a0;
   font-size: 1.2rem;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop – Kaiju Cars</title>
+  <title>Modul Galerie – Kaiju Cars</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,6 @@
       <img src="assets/Kaiju_Cars_Logo.png" alt="Kaiju Cars Logo" class="logo-img">
     </a>
 
-  
     <button class="burger" onclick="toggleMobileMenu()">☰</button>
 
     <div class="nav-links" id="mobile-menu">
@@ -29,119 +28,83 @@
       const menu = document.getElementById("mobile-menu");
       menu.classList.toggle("show");
     }
-  
-
-    // Klick außerhalb schließt Menüs
-    document.addEventListener('click', function (e) {
-      if (!e.target.matches('.nav-btn')) {
-        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
-      }
-    });
-
-    // LOGIN-STATUS
-      document.addEventListener("DOMContentLoaded", function () {
-        fetch('/check-login')
-          .then(res => res.json())
-          .then(data => {
-            const show = id => {
-              const el = document.getElementById(id);
-              if (el) el.style.display = "inline-block";
-            };
-
-            const hide = id => {
-              const el = document.getElementById(id);
-              if (el) el.style.display = "none";
-            };
-
-            if (data.logged_in) {
-              hide("login-link-more"); hide("login-link-konto");
-              show("logout-link-more"); show("logout-link-konto");
-              show("change-link-konto");
-            } else {
-              show("login-link-more"); show("login-link-konto");
-              hide("logout-link-more"); hide("logout-link-konto");
-              hide("change-link-konto");
-            }
-          })
-          .catch(err => console.error("Login-Check fehlgeschlagen:", err));
-      });
   </script>
 
-<main class="page-wrapper">
-  <h1>Modul Galerie</h1>
-  <div class="container">
+  <main class="page-wrapper">
+    <h1>Modul Galerie</h1>
+    <div class="container">
 
-    <p>Unsere 3D-gedruckten Module für den PiCar-X</p>
-
-    <div class="shop-grid">
-
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_085411090.MP.jpg" alt="Modul 1">
+      <h2>Unsere 3D-gedruckten Module für den PiCar-X</h2>
+            <div class="kontakt-box" style="margin-top: 2rem; text-align: center;">
+        <h3>Hast du selbst Ideen, Inspirationen oder Anmerkungen? Kontaktiere uns gerne hier:
+        <a href="contact.html" style="
+          background-color: #000;
+          color: #e3dd13;
+          padding: 0.75rem 1.5rem;
+          border-radius: 16px;
+          font-weight: bold;
+          text-decoration: none;
+          display: inline-block;
+          margin-top: 1rem;">
+          Kontakt aufnehmen
+        </a></h3>
       </div>
 
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_083403117.MP.jpg" alt="Modul 2">
+      <div class="shop-grid">
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_085411090.MP.jpg" loading="lazy" alt="Modul 1">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_083403117.MP.jpg" loading="lazy" alt="Modul 2">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_083522679.MP.jpg" loading="lazy" alt="Modul 3">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_083731950.MP.jpg" loading="lazy" alt="Modul 4">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_083840322.MP.jpg" loading="lazy" alt="Modul 5">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_085503135.MP.jpg" loading="lazy" alt="Modul 6">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_085548436.MP.jpg" loading="lazy" alt="Modul 7">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_091420039.MP.jpg" loading="lazy" alt="Modul 8">
+        </div>
+        <div class="shop-item">
+          <img src="assets/PXL_20250604_120741491.MP.jpg" loading="lazy" alt="Modul 9">
+        </div>
       </div>
 
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_083522679.MP.jpg" alt="Modul 3">
-      </div>
 
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_083731950.MP.jpg" alt="Modul 4">
-      </div>
-
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_083840322.MP.jpg" alt="Modul 5">
-      </div>
-
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_085503135.MP.jpg" alt="Modul 6">
-      </div>
-
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_085548436.MP.jpg" alt="Modul 7">
-      </div>
-
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_091420039.MP.jpg" alt="Modul 8">
-      </div>
-
-      <div class="shop-item">
-        <img src="assets/PXL_20250604_120741491.MP.jpg" alt="Modul 9">
-      </div>
 
     </div>
-</main>
-
-
-  <script>
-    fetch("navbar.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("navbar-placeholder").innerHTML = data;
-      });
-  </script>
-<footer class="site-footer">
-  <div class="footer-left">
-    &copy; 2025 Kaiju Cars
-  </div>
+  </main>
 
   <script src="cookie.js"></script>
 
-  <div class="footer-center">
-    <a href="https://www.instagram.com/kaiju_cars/" target="_blank" aria-label="Instagram">
-      <img src="assets/instagram.svg" alt="Instagram" />
-    </a>
-    <a href="https://www.youtube.com/@KaijuCars" target="_blank" aria-label="YouTube">
-      <img src="assets/youtube.svg" alt="YouTube" />
-    </a>
-  </div>
+  <footer class="site-footer">
+    <div class="footer-left">
+      &copy; 2025 Kaiju Cars
+    </div>
 
-  <div class="footer-right">
-    <a href="/impressum.html"> Impressum &nbsp;</a>   |
-    <a href="/datenschutz.html">Datenschutz</a>
-  </div>
-</footer>
+    <div class="footer-center">
+      <a href="https://www.instagram.com/kaiju_cars/" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://www.youtube.com/@KaijuCars" target="_blank" aria-label="YouTube">
+        <img src="assets/youtube.svg" alt="YouTube" />
+      </a>
+    </div>
+
+    <div class="footer-right">
+      <a href="/impressum.html"> Impressum &nbsp;</a>   |
+      <a href="/datenschutz.html">Datenschutz</a>
+    </div>
+  </footer>
 </body>
 </html>
