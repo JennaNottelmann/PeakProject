@@ -1169,5 +1169,26 @@ h1, h2 {
   object-fit: contain;
 }
 
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.3rem 1rem !important;
+    flex-wrap: nowrap !important;
+    height: auto !important;
+  }
+
+  .nav-links {
+    padding: 0.3rem 0.5rem !important;
+    gap: 0.3rem !important;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem !important;
+    padding: 0.3rem 0 !important;
+  }
+
+  .burger {
+    font-size: 1.6rem !important;
+  }
+}
 
 
