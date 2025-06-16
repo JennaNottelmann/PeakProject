@@ -251,6 +251,34 @@ a:hover {
     }
 
 
+/* ========== Modul Galerie ========== */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  background-color: rgba(0,0,0,0.5);
+  gap: 1rem;
+  justify-items: center;
+}
+
+.shop-item {
+  background: transparent !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.shop-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background-color: rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.shop-item:hover {
+  transform: scale(1.05);
+}
 /* ========== NAVBAR ========== */
 
 .navbar {
