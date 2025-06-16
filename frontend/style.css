@@ -86,28 +86,21 @@ a:hover {
 
 #index-container {
   max-width: 1100px;
-  margin: 0 auto;
-  margin-top: 20px; /* Platz unter Navbar */
-  margin-bottom: 60px;
+  margin: 20px auto 60px auto;
   padding: 2rem;
-  padding-top: 5px; /* Platz unter Navbar */
-  padding-bottom: 80px; /* Platz für Footer */
   background-color: rgba(0,0,0,0.5);
-  overflow-y: auto;
-  flex: 1; /* Flex-Grow, damit es den verfügbaren Platz einnimmt */
-  min-height: unset; /* Entfernt die feste Höhe */
-  max-height: calc(100vh - 120px); /* 100vh - Navbar (~80px) - Footer (~60px) */
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,1.2);
   color: #f5f5f5;
-  overflow-x: hidden;
-
   text-align: center;
+  overflow-y: auto;
+  max-height: calc(100vh - 140px);
+  transition: opacity 1s ease;
+  opacity: 0;
+}
 
-  min-height: calc(100vh - 140px); /* 100vh - Navbar (~80px) - Footer (~60px) */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+#index-container.visible {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -251,7 +244,7 @@ a:hover {
     }
 
     .small-kaiju {
-      width: 500px !important;
+      width: 450px !important;
       height: auto;
       margin: 1rem auto;
       display: block;
