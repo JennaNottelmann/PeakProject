@@ -93,7 +93,19 @@
         </div>
       </summary>
       <div class="projekt-inhalt">
-        <p>Unser Webteam entwickelt die Homepage sowie die Apps für Steuerung, Monitoring und Verwaltung des Fahrzeugs.</p>
+        <section class="team-web-steuerung">
+          <h2>Team Web-, App- & Steuerungssysteme</h2>
+
+          <p>Unser Team verantwortet die Konzeption, Gestaltung und Umsetzung der gesamten Web- und Steuerungsinfrastruktur des Projekts. Im Mittelpunkt stand der Aufbau einer ansprechenden und funktionalen All in One Lösung für unsere Online-Präsenz, die das Projekt visuell repräsentiert und sämtliche Informationen rund um Kaiju Cars präsentiert. Hierzu entwickelten wir das Design, erstellten in Zusammenarbeit mit dem Social Media Team die Inhalte und setzten das gesamte Layout technisch um.</p>
+
+          <p>Neben der öffentlichen Website entstand parallel eine webbasierte Applikation zur Steuerung und Verwaltung der Fahrzeuge. Das Frontend wurde vollständig mit HTML, CSS und JavaScript realisiert und an ein von uns entwickeltes Backend auf Basis von Python und dem Flask-Framework angebunden. Hierdurch entstand eine solide Grundlage für die zukünftige Steuerung und Verwaltung der Fahrzeuge.</p>
+
+          <p>Ein technischer Schwerpunkt liegt in der Realisierung der Fahrzeugkommunikation. Über den implementierten WebSocket-Server sollen künftig Steuerbefehle, Statusmeldungen und Kamerabilder in Echtzeit zwischen dem PiCar-X und dem Steuerungssystem übertragen werden. Hierbei befinden sich die Echtzeit-Kommunikation sowie die kamerabasierte Live-Übertragung derzeit noch in der finalen Implementierungs- und Optimierungsphase.</p>
+
+          <p>Zur Absicherung der Kommunikation wurde bereits eine VPN-Infrastruktur aufgebaut, die die Grundlage für eine verschlüsselte und stabile Verbindung zwischen den Fahrzeugen und den Steuerungsservern bildet. Somit ist die technische Basis für den späteren Fernzugriff und den sicheren Betrieb der Fahrzeugsteuerung vorbereitet.</p>
+
+          <p>In Abstimmung mit dem Infrastruktur-Team wurden sämtliche Module in das Gesamtsystem integriert und eine Plattform geschaffen, die die technische Basis für den weiteren Ausbau der Steuerungs- und Übertragungskomponenten bildet.</p>
+        </section>
       </div>
     </details>
 
@@ -117,15 +129,17 @@
         </div>
       </summary>
       <div class="projekt-inhalt">
-        <h2>Infrastruktur-Team – Aufbau und Betrieb der Systemlandschaft</h2>
-        <p>Das Infrastruktur-Team ist verantwortlich für die gesamte technische Basis, auf der das Projekt Kaiju Cars aufbaut. Hierzu wurde eine leistungsfähige Serverlandschaft aufgesetzt und betrieben.</p>
+        <section class="team-infrastruktur">
 
-        <p>Im Bereich der Außenpräsenz wurde ein virtualisierter Proxmox-Server bereitgestellt, auf dem sowohl der Webserver mit der Projektwebsite als auch der Mailserver zur Kommunikation betrieben werden. Der Zugriff auf diese Dienste erfolgt abgesichert über einen Reverse Proxy, der eine sichere und stabile Erreichbarkeit der öffentlichen Services gewährleistet.</p>
+          <h2>Infrastruktur-Team – Aufbau und Betrieb der Systemlandschaft</h2>
+          <p>Das Infrastruktur-Team ist verantwortlich für die gesamte technische Basis, auf der das Projekt Kaiju Cars aufbaut. Hierzu wurde eine leistungsfähige Serverlandschaft aufgesetzt und betrieben.</p>
 
-        <p>Für die interne Kommunikation und Steuerung zwischen den Steuerungsservern und den eingesetzten PiCar-X Fahrzeugen wurde ein Backbone in Form eines VPN-Netzwerks aufgebaut. Hierbei kommt WireGuard als sichere und performante VPN-Lösung zum Einsatz, wodurch eine flexible und standortunabhängige Verbindung der Fahrzeuge mit dem Steuerungsnetzwerk ermöglicht wird.</p>
+          <p>Im Bereich der Außenpräsenz wurde ein virtualisierter Proxmox-Server bereitgestellt, auf dem sowohl der Webserver mit der Projektwebsite als auch der Mailserver zur Kommunikation betrieben werden. Der Zugriff auf diese Dienste erfolgt abgesichert über einen Reverse Proxy, der eine sichere und stabile Erreichbarkeit der öffentlichen Services gewährleistet.</p>
 
-        <p>Darüber hinaus verantwortet das Infrastruktur-Team den Aufbau der internen Benutzer- und Rechteverwaltung. Hierzu wurde ein Active Directory Domänencontroller mit integrierter Benutzerverwaltung, Fileservern und einer umfassenden Zugriffskontrolle implementiert, der eine saubere Rechtevergabe und eine strukturierte Verwaltung aller Teamressourcen ermöglicht.</p>
-      
+          <p>Für die interne Kommunikation und Steuerung zwischen den Steuerungsservern und den eingesetzten PiCar-X Fahrzeugen wurde ein Backbone in Form eines VPN-Netzwerks aufgebaut. Hierbei kommt WireGuard als sichere und performante VPN-Lösung zum Einsatz, wodurch eine flexible und standortunabhängige Verbindung der Fahrzeuge mit dem Steuerungsnetzwerk ermöglicht wird.</p>
+
+          <p>Darüber hinaus verantwortet das Infrastruktur-Team den Aufbau der internen Benutzer- und Rechteverwaltung. Hierzu wurde ein Active Directory Domänencontroller mit integrierter Benutzerverwaltung, Fileservern und einer umfassenden Zugriffskontrolle implementiert, der eine saubere Rechtevergabe und eine strukturierte Verwaltung aller Teamressourcen ermöglicht.</p>
+        </section>
       </div>
     </details>
 
@@ -145,7 +159,15 @@
         </div>
       </summary>
       <div class="projekt-inhalt">
-        <p>Hier entsteht das Chassis, die Hardwaremontage und die mechanische Umsetzung des Picars.</p>
+        <section class="team-construction">
+          <h2>Entwicklung des modularen Kampfsystems</h2>
+  
+          <p>In unserem Projekt haben wir ein modulares Kampfsystem für das Picar-X entwickelt, inspiriert vom Design eines Kaijus. Der Einstieg war herausfordernd: In den ersten beiden Wochen tasteten wir uns noch an technische Ideen heran, oft mit Rückschlägen bei den ersten 3D-Drucken und der Mechanik. Versuche mit Servomotor-gesteuerten Modulen wie Zahnrädern und Federsystemen funktionierten anfangs nur bedingt.</p>
+
+          <p>Ab der dritten Woche arbeiteten wir im Team, was dem Projekt spürbaren Auftrieb gab. Gemeinsam entwickelten wir ein funktionales Rammbock-Modul mit optimierter Zugmechanik und eine austauschbare Kanone. Zusätzlich entstand ein verschiebbares Kopplungsmodul für ein RFID-System. Durch die enge Zusammenarbeit konnten wir Ideen effektiver umsetzen und Probleme strukturiert lösen.</p>
+
+          <p>Trotz anhaltender Herausforderungen wie Druckqualität und Passgenauigkeit erzielten wir deutliche Fortschritte. Besonders wichtig war für uns die Erfahrung, wie stark Teamarbeit und kreative Lösungen zur erfolgreichen Weiterentwicklung beigetragen haben.</p>
+        </section>
       </div>
     </details>
 
@@ -169,7 +191,15 @@
         </div>
       </summary>
       <div class="projekt-inhalt">
-        <p>Social Media sorgt für Reichweite, Werbung und Dokumentation unseres Projekts auf allen Kanälen.</p>
+        <section class="team-social-media">
+          <h2>Team Social Media & Dokumentation</h2>
+
+          <p>Unser Social Media Team ist verantwortlich für die mediale Begleitung, Dokumentation und Außenpräsentation des Projekts. Ziel ist es, durch gezielte Inhalte auf verschiedenen Plattformen Aufmerksamkeit für das Projekt Kaiju Cars zu generieren und das Gesamtprojekt öffentlichkeitswirksam zu präsentieren.</p>
+
+          <p>Im Verlauf des Projekts wurden hierfür kontinuierlich Bilder und Videomaterial erstellt, bearbeitet und veröffentlicht. Neben der visuellen Dokumentation entstanden auch projektbegleitende Texte und Informationsmaterialien, um Interessierten einen umfassenden Einblick in den Projektverlauf und die erarbeiteten Ergebnisse zu ermöglichen.</p>
+
+          <p>Durch die zielgerichtete Aufbereitung der Inhalte konnte die Außenwirkung des Projekts kontinuierlich gesteigert werden. So entstand eine professionelle Social-Media-Präsenz, die das Gesamtprojekt anschaulich darstellt und gleichzeitig potenziellen Interessenten, Partnern und Teilnehmern einen informativen Zugang bietet.</p>
+        </section>
       </div>
     </details>
 

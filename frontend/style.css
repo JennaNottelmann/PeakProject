@@ -40,13 +40,29 @@ h1, h2 {
   font-weight: 300;
   margin-bottom: 1rem;
   color: #e3dd13;
+  text-align: center;
 }
+
 
 h3 {
   font-weight: 400;
   margin-bottom: 0.5rem;
   color: #e3dd13;
 }
+
+.projekt-accordion summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+  background: none;
+}
+
+h2 {
+  text-align: center !important;
+}
+
 
 p {
   color: #b3b5a0;
@@ -555,7 +571,7 @@ a:hover {
 
 .abteilungs-slide {
   display: flex;
-  flex-wrap: wrap;
+  
   gap: 1rem; /* engerer Abstand */
   margin: 2rem 0; /* weniger Außenabstand */
   padding: 1rem;  /* weniger Innenabstand */
@@ -1241,4 +1257,11 @@ h1, h2 {
   }
 }
 
+.projekt-accordion summary {
+  text-align: center;
+}
+
+.summary-title {
+  display: inline-block;
+}
 
