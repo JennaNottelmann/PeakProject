@@ -13,7 +13,6 @@
       <img src="assets/Kaiju_Cars_Logo.png" alt="Kaiju Cars Logo" class="logo-img">
     </a>
 
-  
     <button class="burger" onclick="toggleMobileMenu()">☰</button>
 
     <div class="nav-links" id="mobile-menu">
@@ -30,43 +29,6 @@
       const menu = document.getElementById("mobile-menu");
       menu.classList.toggle("show");
     }
-  
-
-    // Klick außerhalb schließt Menüs
-    document.addEventListener('click', function (e) {
-      if (!e.target.matches('.nav-btn')) {
-        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
-      }
-    });
-
-
-    // LOGIN-STATUS
-      document.addEventListener("DOMContentLoaded", function () {
-        fetch('/check-login')
-          .then(res => res.json())
-          .then(data => {
-            const show = id => {
-              const el = document.getElementById(id);
-              if (el) el.style.display = "inline-block";
-            };
-
-            const hide = id => {
-              const el = document.getElementById(id);
-              if (el) el.style.display = "none";
-            };
-
-            if (data.logged_in) {
-              hide("login-link-more"); hide("login-link-konto");
-              show("logout-link-more"); show("logout-link-konto");
-              show("change-link-konto");
-            } else {
-              show("login-link-more"); show("login-link-konto");
-              hide("logout-link-more"); hide("logout-link-konto");
-              hide("change-link-konto");
-            }
-          })
-          .catch(err => console.error("Login-Check fehlgeschlagen:", err));
-      });
   </script>
   
 <main class="page-wrapper">
@@ -76,15 +38,15 @@
     <!-- Woche 1 -->
     <details class="projekt-accordion">
       <summary>
-        <h2>Woche 1 – Planung und Aufbau</h2>
-        <p>In der ersten Woche des Projekts stand die Planung und der Aufbau im Vordergrund.</p>
+        <h2>Woche 1 – Planung, Aufbau & Challenge 1: PiCar-X zusammenbauen</h2>
+        <p>In der ersten Woche lag der Fokus auf der Planung und dem technischen Aufbau.</p>
       </summary>
       <div class="projekt-inhalt left">
         <img src="assets/dummy.jpg" alt="Woche 1 Bild">
         <div>
-          <p>In der ersten Woche des Projekts Stand die Planung und der Aufbau des Autos im Vordergrund. Hierbei wurden unter anderem die Konzepte für unser Unternehmen und das Produkt im allgemeinen geplant.</p>
-          <p>Zudem wurde die Infrastruktur aufgebaut. Auf dem Hostserver eine Proxmox Basis aufgebaut und die ersten VM´s erstellt.</p>
-          <p>Nach ein paar Tagen der Planung wurde mit dem Aufbau begonnen. Dies wurde natürlich entsprechend Dokumentiert und aufgenommen. Ein näheres Bild hierzu kann man sich auf unserem Youtube Kanal verschaffen: <a href="https://youtu.be/vdeT1sTbdTc" target="_blank">Video ansehen</a></p>
+          <p>In der ersten Woche lag der Fokus auf der detaillierten Planung unseres Projekts sowie dem Aufbau der grundlegenden Infrastruktur. Neben der Konzeption unseres Unternehmens wurden die ersten virtuellen Maschinen auf einer Proxmox-Basis installiert und eingerichtet.</p>
+          <p>Im Rahmen der ersten Challenge galt es, den PiCar-X vollständig zusammenzubauen und die Grundkonfiguration vorzunehmen. Dazu gehörte die mechanische Montage, das Verdrahten der Sensoren sowie die initiale Softwareinstallation inklusive Kalibrierung aller Komponenten.</p>
+          <p>Nach erfolgreichem Aufbau stand der erste fahrbereite Prototyp zur Verfügung – ein wichtiger Meilenstein, der den Grundstein für die kommenden Herausforderungen legte.</p>
         </div>
       </div>
     </details>
@@ -92,14 +54,13 @@
     <!-- Woche 2 -->
     <details class="projekt-accordion">
       <summary>
-        <h2>Woche 2 – Erste Schritte</h2>
-        <p>Die zweite Woche bestand aus viel Arbeit der Entwickler und neuer Infrastruktur.</p>
+        <h2>Woche 2 – Entwicklung & Challenge 2: Geradeaus & Rückwärts fahren</h2>
+        <p>Infrastruktur-Erweiterungen und präzise Bewegungssteuerung standen im Fokus.</p>
       </summary>
       <div class="projekt-inhalt right">
         <div>
-          <p>Die 2. Woche bestand aus viel Arbeit unserer Devs. Diese haben fleißig an der Website und der aufgegebenen Challenge gearbeitet. Nebenbei wurden die ersten Video Konzepte für den Social Media Bereich erstellt.</p>
-          <p>Auch die Infrastruktur wurde erweitert. Es wurden Windows Server mit Active Directory erstellt und Client Rechner eingebunden.</p>
-          <p>Nach einigen harten Tagen war dann auch die 2. Challenge geschafft. Ein Video zu dieser findet sich auch auf unserem Youtube Kanal: <a href="https://youtu.be/nnYS-5sxB-U" target="_blank">Video ansehen</a></p>
+          <p>In der zweiten Projektwoche stand die Weiterentwicklung unserer Systeme und der Ausbau der Infrastruktur im Mittelpunkt. Das Entwicklerteam arbeitete intensiv an der Umsetzung der Webseite sowie an ersten Konzepten für die Social Media Präsenz. Parallel dazu wurden zusätzliche Windows-Server mit Active Directory aufgesetzt und die Client-Systeme erfolgreich eingebunden.</p>
+          <p>Die Challenge dieser Woche bestand darin, den PiCar-X so zu programmieren, dass er selbstständig zwei Meter vorwärts fährt, anhält, und anschließend präzise wieder zwei Meter rückwärts zum Ausgangspunkt zurückkehrt. Hierfür war eine exakte Ansteuerung der Motoren und der Einsatz von Sensorik erforderlich, um die Streckenlänge und Bewegungsrichtung korrekt umzusetzen.</p>
         </div>
         <img src="assets/dummy.jpg" alt="Woche 2 Bild">
       </div>
@@ -108,31 +69,28 @@
     <!-- Woche 3 -->
     <details class="projekt-accordion">
       <summary>
-        <h2>Woche 3 – Kleine Komplikationen</h2>
-        <p>Trotz Schwierigkeiten wurden erste Prototypen der Module fertiggestellt.</p>
+        <h2>Woche 3 – Modulentwicklung & Challenge 3: Spurhaltung auf 2,5 Meter Strecke</h2>
+        <p>Erste 3D-Druckmodule, Spurführung und zusätzliche Infrastruktur.</p>
       </summary>
       <div class="projekt-inhalt left">
         <img src="assets/dummy.jpg" alt="Woche 3 Bild">
         <div>
-          <p>Innerhalb der 3. Woche kam es zu einigen kleinen Schwierigkeiten. Eine weitere Challenge stand am Horizont, Feiertage waren zu erwarten und teilweise war die Laune gekippt. Allerdings haben wir nicht aufgegeben und weitergearbeitet. In dieser Woche wurden die Ersten Prototypen für die Module fertiggestellt und testweise an den Autos angebracht. Bilder hierfür sind oben und auf Instagram verfügbar.</p>
-          <p>Zudem wurde Seitens der Infrastruktur ein Backup- sowie VPN-Server eingerichtet. Ein Video zu dieser findet sich auch auf unserem Youtube Kanal: <a href="https://youtube.com/shorts/I2TkCpys4uw" target="_blank">Video ansehen</a></p>
+          <p>Trotz kleinerer technischer Komplikationen und Feiertage konnten in Woche 3 die ersten 3D-gedruckten Zusatzmodule erfolgreich konstruiert, gefertigt und an den Fahrzeugen angebracht werden. Parallel wurde die Infrastruktur um Backup- und VPN-Server erweitert.</p>
+          <p>Die Challenge dieser Woche bestand darin, den PiCar-X dazu zu befähigen, autonom eine 2,5 Meter lange Strecke exakt zwischen zwei Seitenlinien (simulierte Straße) entlangzufahren, ohne die Linien zu berühren. Dies erforderte präzises Spurhalten, Sensorintegration sowie eine angepasste Steuerungslogik.</p>
         </div>
       </div>
-      
     </details>
 
     <!-- Woche 4 -->
     <details class="projekt-accordion">
       <summary>
-        <h2>Woche 4 – Dawn of the Final Weeks</h2>
-        <p>Die dritte Challenge wurde abgeschlossen, weitere Infrastruktur aufgesetzt.</p>
+        <h2>Woche 4 – Finale & Challenge 4: Wenden und ins Tor einfahren</h2>
+        <p>Abschluss der technischen Herausforderungen und Feinschliff des Systems.</p>
       </summary>
       <div class="projekt-inhalt right">
         <div>
-          <p>Auch die 4. Woche hielt einige Überraschungen für uns bereit. Die Challenge wurde etwas weiter gestellt, da zwischenzeitlich Feiertage vorlagen. Nach Schwerstarbeit unseres Dev. Teams wurde die Internetpräsenz und die 3. Challenge fertiggestellt. Auch hierzu gibt es natürlich noch ein Video:</p>
-          <p>Zudem wurde hierbei auch weiterhin fleißig an der Infrastruktur gearbeitet. Der Web- und Mailserver wurde erstellt. Die Website wurde erfolgreich eingebunden und eingerichtet.</p>
-          <p>Auch an der Social Media Front wurde nicht gestoppt. Es wurden die ersten Vorstellungsvideos erstellt und hochgeladen.</p>
-          <p>Weiter geht’s dann mit dem Finale.</p>
+          <p>In der vierten und finalen Projektwoche wurden die Systeme optimiert, letzte Module fertiggestellt und die Präsentation vorbereitet. Die Webseite wurde finalisiert, Mail- und Webserver eingerichtet und die Social Media Inhalte veröffentlicht.</p>
+          <p>Im Rahmen der abschließenden Challenge musste der PiCar-X zunächst mit dem Rücken zu einem Tor positioniert werden, um sich anschließend um 180° zu drehen und präzise ins Tor einzufahren. Hierfür war eine exakte Kombination aus Rotation, Lagebestimmung und Feinsteuerung erforderlich, die das zuvor Erlernte optimal zusammenführte.</p>
         </div>
         <img src="assets/dummy.jpg" alt="Woche 4 Bild">
       </div>
@@ -141,15 +99,10 @@
   </div>
 </main>
 
-
- 
-
-  </script>
-  <footer class="site-footer">
+<footer class="site-footer">
   <div class="footer-left">
     &copy; 2025 Kaiju Cars
   </div>
-
   <div class="footer-center">
     <a href="https://www.instagram.com/kaiju_cars/" target="_blank" aria-label="Instagram">
       <img src="assets/instagram.svg" alt="Instagram" />
@@ -158,9 +111,8 @@
       <img src="assets/youtube.svg" alt="YouTube" />
     </a>
   </div>
-
   <div class="footer-right">
-    <a href="/impressum.html"> Impressum &nbsp;</a>   |
+    <a href="/impressum.html"> Impressum </a> |
     <a href="/datenschutz.html">Datenschutz</a>
   </div>
 </footer>
