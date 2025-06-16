@@ -45,9 +45,6 @@ def register_pi(data):
 
 
 
-
-
-
 @socketio.on("request_pi_list")
 def handle_request_pi_list():
     pi_list = [{"id": pi_id, "ip": info["ip"]} for pi_id, info in connected_pis.items()]
