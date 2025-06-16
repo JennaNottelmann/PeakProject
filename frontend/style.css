@@ -486,28 +486,33 @@ a:hover {
 .abteilungs-slide {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
-  margin: 4rem 0;
-  padding: 2rem;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  gap: 1rem; /* engerer Abstand */
+  margin: 2rem 0; /* weniger Außenabstand */
+  padding: 1rem;  /* weniger Innenabstand */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   text-align: center;
   justify-content: center;
+  background-color: #1c1c1c;
 }
 
 .slide-leiter, .slide-mitglied {
-  flex: 1 1 220px;
-  max-width: 250px;
+  flex: 1 1 140px;
+  max-width: 160px;
   text-align: center;
-  padding: 1rem;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: #222;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .slide-leiter {
-  border: 3px solid #e3dd13;
+  border: 2px solid #e3dd13;
+}
+
+.slide-leiter span, .slide-mitglied span {
+  font-size: 0.95rem;
+  color: #ffdc00;
 }
 
 .slide-mitglied {
@@ -520,8 +525,8 @@ a:hover {
 }
 
 .slide-leiter img, .slide-mitglied img {
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -531,6 +536,30 @@ a:hover {
   margin-top: 8px;
   font-weight: bold;
   color: #e3dd13;
+}
+
+/* WICHTIG: KEIN UMSPRINGEN AUF COLUMN AUF MOBIL */
+@media (max-width: 768px) {
+  .abteilungs-slide {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+  }
+
+  .slide-leiter, .slide-mitglied {
+    flex: 1 1 100px;
+    max-width: 110px;
+  }
+  
+.slide-leiter img, .slide-mitglied img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+  .slide-leiter span, .slide-mitglied span {
+    font-size: 0.85rem;
+  }
 }
 
 
