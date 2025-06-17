@@ -75,10 +75,16 @@ socket.on("status_update", (data) => {
 function updateStatus(data) {
     const level = data.battery;
     ["b1", "b2", "b3"].forEach((id, idx) => {
-        document.getElementById(id).classList.toggle("on", idx < level + 1);
+        document.getElementById(id).classList.toggle("on", idx < level);
     });
+
     document.getElementById("temp").innerText = `🌡️ ${data.temp}°C`;
     document.getElementById("latency").innerText = `📶 ${data.latency}ms`;
+}
+
+function requestLatency() {
+    if (!selectedVehicle) return;
+    socket.emit("latency_ping", { vehicle_id: selectedVehicle });
 }
 
 // Auto-Joystick (links)
@@ -95,16 +101,35 @@ autoJoystick.on('move', (_, data) => {
     if (!selectedVehicle || !data?.direction) return;
     const dir = data.direction.angle;
     switch (dir) {
-        case "up": sendDriveCommand("forward"); break;
-        case "down": sendDriveCommand("backward"); break;
-        case "left": sendDriveCommand("left"); break;
-        case "right": sendDriveCommand("right"); break;
-        case "up-left": sendDriveCommand("left"); break;
-        case "up-right": sendDriveCommand("right"); break;
-        case "down-left": sendDriveCommand("backward_left"); break;
-        case "down-right": sendDriveCommand("backward_right"); break;
-        default: sendDriveCommand("stop"); break;
-    }
+        case "up": 
+            sendDriveCommand("forward"); 
+            break;
+        case "down": 
+            sendDriveCommand("backward"); 
+            break;
+        case "left": 
+            sendDriveCommand("left"); 
+            break;
+        case "right": 
+            sendDriveCommand("right"); 
+            break;
+        case "up-left":
+            sendDriveCommand("forward_left"); 
+            break;
+        case "up-right":
+            sendDriveCommand("forward_right"); 
+            break;
+        case "down-left": 
+            sendDriveCommand("backward_left"); 
+            break;
+        case "down-right": 
+            sendDriveCommand("backward_right"); 
+            break;
+        default: 
+            sendDriveCommand("stop"); 
+            break;
+}
+
 });
 
 autoJoystick.on('end', () => {
@@ -169,4 +194,5 @@ function startChallenge() {
 
 setInterval(() => {
     fetchStatus();
+    requestLatency();
 }, 3000);

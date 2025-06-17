@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import time
 from flask import Response
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template, request
 from flask_cors import CORS
@@ -55,7 +56,14 @@ def handle_request_pi_list():
     ])
 
 
-
+@socketio.on("latency_ping")
+def handle_latency_ping(data):
+    vehicle_id = data.get("vehicle_id")
+    info = connected_pis.get(vehicle_id)
+    if info:
+        sid = info["sid"]
+        # Sende Ping an Pi
+        socketio.emit("latency_ping", {"timestamp": int(time.time()*1000)}, to=sid)
 
 
 @socketio.on("disconnect")
@@ -79,6 +87,9 @@ def status_update(data):
             "temp": data.get("temp"),
             "latency": data.get("latency"),
         })
+        # Push an Dashboard
+        socketio.emit("status_update", data, broadcast=True)
+
 
 
 def send_command_to_pi(pi_id, command):
