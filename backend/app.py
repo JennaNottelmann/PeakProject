@@ -11,6 +11,7 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from werkzeug.security import generate_password_hash, check_password_hash
 from html import escape
+from werkzeug.utils import secure_filename
 
 load_dotenv()
 # === Pfade
@@ -261,27 +262,38 @@ def sende_email():
     name = request.form.get("name")
     email = request.form.get("email")
     message = request.form.get("message")
+    bild = request.files.get("bild")
 
     smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", 465))  # SSL-Port
+    smtp_port = int(os.getenv("SMTP_PORT", 465))
     smtp_user = os.getenv("SMTP_USER")
     smtp_pass = os.getenv("SMTP_PASSWORT")
 
     msg = EmailMessage()
     msg["Subject"] = f"Bauplan von {name}"
-    msg["From"] = smtp_user                     # ← Pflicht!
-    msg["To"] = smtp_user                       # ← Empfänger
-    msg["Reply-To"] = email                     # ← Antwortadresse
-    msg.set_content(f"Nachricht von {name} <{email}>:\n\n{message}")
+    msg["From"] = smtp_user
+    msg["To"] = smtp_user
+    msg["Reply-To"] = email
+    msg.set_content(f"Name: {name}\nE-Mail: {email}\n\nIdee:\n{message}")
+
+    # Bild anhängen, falls vorhanden
+    if bild and bild.filename:
+        filename = secure_filename(bild.filename)
+        file_data = bild.read()
+        msg.add_attachment(file_data,
+                           maintype="application",
+                           subtype="octet-stream",
+                           filename=filename)
 
     try:
         with smtplib.SMTP_SSL(smtp_host, smtp_port) as smtp:
             smtp.login(smtp_user, smtp_pass)
             smtp.send_message(msg)
-        return "E-Mail erfolgreich gesendet!"
+        return "✔️ E-Mail erfolgreich gesendet!"
     except Exception as e:
         print("Fehler beim Senden:", e)
-        return f"Fehler beim Versenden der E-Mail:<br><pre>{escape(str(e))}</pre>"
+        return f"❌ Fehler beim Versenden:<br><pre>{escape(str(e))}</pre>"
+
 
 
 
