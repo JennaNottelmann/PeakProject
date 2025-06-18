@@ -265,7 +265,7 @@ def sende_email():
     bild = request.files.get("bild")
 
     smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", 465))
+    smtp_port = int(os.getenv("SMTP_PORT", 587))
     smtp_user = os.getenv("SMTP_USER")
     smtp_pass = os.getenv("SMTP_PASSWORT")
 
