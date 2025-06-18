@@ -123,12 +123,15 @@ autoJoystick.on('move', (_, data) => {
         case "up-right":
             sendDriveCommand("forward_right"); 
             break;
-        case "down-left": 
-            sendDriveCommand("backward_left"); 
+        case "down-left":
+            sendDriveCommand("left");
+            setTimeout(() => sendDriveCommand("backward"), 50);
             break;
-        case "down-right": 
-            sendDriveCommand("backward_right"); 
+        case "down-right":
+            sendDriveCommand("right");
+            setTimeout(() => sendDriveCommand("backward"), 50);
             break;
+
         default: 
             sendDriveCommand("stop"); 
             break;
@@ -145,7 +148,7 @@ autoJoystick.on('end', () => {
 const camJoystick = nipplejs.create({
     zone: document.getElementById("cam-joystick"),
     mode: "static",
-    position: { top: "50%", left: "50%" },
+    position: { top: "30%", left: "50%" },
     color: "blue",
     size: 130,
     restOpacity: 0.4
