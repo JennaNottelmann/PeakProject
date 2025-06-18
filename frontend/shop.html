@@ -53,31 +53,31 @@
 
       <div class="shop-grid">
         <div class="shop-item">
-          <img src="assets/PXL_20250604_085411090.MP.jpg" loading="lazy" alt="Modul 1">
+          <img src="assets/module/image3.png" loading="lazy" alt="Modul 1">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_083403117.MP.jpg" loading="lazy" alt="Modul 2">
+          <img src="assets/module/img7.jpg" loading="lazy" alt="Modul 2">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_083522679.MP.jpg" loading="lazy" alt="Modul 3">
+          <img src="assets/module/image4.png" loading="lazy" alt="Modul 3">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_083731950.MP.jpg" loading="lazy" alt="Modul 4">
+          <img src="assets/module/image8.png" loading="lazy" alt="Modul 4">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_083840322.MP.jpg" loading="lazy" alt="Modul 5">
+          <img src="assets/module/PXL_20250604_085503135.MP.jpg" loading="lazy" alt="Modul 5">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_085503135.MP.jpg" loading="lazy" alt="Modul 6">
+          <img src="assets/module/img6.jpg" loading="lazy" alt="Modul 6">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_085548436.MP.jpg" loading="lazy" alt="Modul 7">
+          <img src="assets/module/image.png" loading="lazy" alt="Modul 7">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_091420039.MP.jpg" loading="lazy" alt="Modul 8">
+          <img src="assets/module/img5.jpg" loading="lazy" alt="Modul 8">
         </div>
         <div class="shop-item">
-          <img src="assets/PXL_20250604_120741491.MP.jpg" loading="lazy" alt="Modul 9">
+          <img src="assets/module/PXL_20250604_120741491.MP.jpg" loading="lazy" alt="Modul 9">
         </div>
       </div>
 
@@ -109,13 +109,13 @@
   </footer>
       <script>
         document.addEventListener("DOMContentLoaded", function () {
-          const currentPage = window.location.pathname.split("/").pop(); // z.B. "projekt.html"
+          const currentPage = window.location.pathname.split("/").pop(); 
           const links = document.querySelectorAll(".nav-links a");
 
           links.forEach(link => {
             const linkPage = link.getAttribute("href").split("/").pop();
             if (linkPage === currentPage) {
-              link.style.display = "none"; // Blendet nur den aktiven Link aus
+              link.style.display = "none"; 
             }
           });
         });

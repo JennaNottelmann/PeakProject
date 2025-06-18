@@ -1265,3 +1265,20 @@ h1, h2 {
   display: inline-block;
 }
 
+/* Optimierte Bildanzeige in der Shop-Galerie */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+  align-items: start;
+}
+
+.shop-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #000;
+  max-height: 100%;
+}
