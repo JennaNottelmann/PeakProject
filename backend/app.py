@@ -93,7 +93,7 @@ def status_update(data):
             "latency": data.get("latency"),
         })
         # Push an Dashboard
-        socketio.emit("status_update", data, broadcast=True)
+        socketio.emit("status_update", data, to=None)
 
 
 
