@@ -95,7 +95,7 @@ function requestLatency() {
 const autoJoystick = nipplejs.create({
     zone: document.getElementById("joystick-left"),
     mode: "static",
-    position: { top: "50%", left: "50%" },
+    position: { top: "30%", left: "50%" },
     color: "yellow",
     size: 160,
     restOpacity: 0.4
