@@ -293,10 +293,11 @@ def sende_email():
             smtp.ehlo()             # Nochmal nach StartTLS
             smtp.login(smtp_user, smtp_pass)
             smtp.send_message(msg)
-        return "✔️ E-Mail erfolgreich gesendet!"
+        return jsonify({"success": True})
     except Exception as e:
         print("Fehler beim Senden:", e)
-        return f"❌ Fehler beim Versenden:<br><pre>{escape(str(e))}</pre>"
+        return jsonify({"success": False, "error": str(e)})
+
 
 
 

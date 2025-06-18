@@ -113,7 +113,50 @@
       <a href="/datenschutz.html">Datenschutz</a>
     </div>
   </footer>
-    <script>
+  <div id="notification-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3 id="notification-title">Titel</h3>
+      <p id="notification-message">Text</p>
+      <button onclick="closeNotification()">OK</button>
+    </div>
+  </div>
+
+  <script>
+  function showNotification(success, errorMessage = "") {
+    document.getElementById("notification-title").textContent = success ? "✔️ Gesendet" : "❌ Fehler";
+    document.getElementById("notification-message").textContent = success
+      ? "Deine Nachricht wurde erfolgreich übermittelt."
+      : "Es ist ein Fehler aufgetreten:\n" + errorMessage;
+    document.getElementById("notification-modal").style.display = "flex";
+  }
+
+  function closeNotification() {
+    document.getElementById("notification-modal").style.display = "none";
+  }
+
+  document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch("/sende-email", {
+      method: "POST",
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        showNotification(data.success, data.error || "");
+        if (data.success) form.reset();
+      })
+      .catch(err => {
+        console.error("Fehler:", err);
+        showNotification(false, "Server nicht erreichbar.");
+      });
+  });
+ 
+
+   
     document.addEventListener("DOMContentLoaded", function () {
       const currentPage = window.location.pathname.split("/").pop(); // z.B. "projekt.html"
       const links = document.querySelectorAll(".nav-links a");
@@ -125,6 +168,7 @@
         }
       });
     });
+    
   </script>
 </body>
 </html>
