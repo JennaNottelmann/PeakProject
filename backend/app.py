@@ -265,7 +265,7 @@ def sende_email():
     bild = request.files.get("bild")
 
     smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", 587))
+    smtp_port = int(os.getenv("SMTP_PORT", 587))  
     smtp_user = os.getenv("SMTP_USER")
     smtp_pass = os.getenv("SMTP_PASSWORT")
 
@@ -276,8 +276,8 @@ def sende_email():
     msg["Reply-To"] = email
     msg.set_content(f"Name: {name}\nE-Mail: {email}\n\nIdee:\n{message}")
 
-    # Bild anhängen, falls vorhanden
     if bild and bild.filename:
+        from werkzeug.utils import secure_filename
         filename = secure_filename(bild.filename)
         file_data = bild.read()
         msg.add_attachment(file_data,
@@ -286,7 +286,11 @@ def sende_email():
                            filename=filename)
 
     try:
-        with smtplib.SMTP_SSL(smtp_host, smtp_port) as smtp:
+        # Jetzt SMTP (ohne _SSL)
+        with smtplib.SMTP(smtp_host, smtp_port) as smtp:
+            smtp.ehlo()            
+            smtp.starttls()         # ⬅️ wichtig!
+            smtp.ehlo()             # Nochmal nach StartTLS
             smtp.login(smtp_user, smtp_pass)
             smtp.send_message(msg)
         return "✔️ E-Mail erfolgreich gesendet!"
