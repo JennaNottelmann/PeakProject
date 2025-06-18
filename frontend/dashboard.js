@@ -112,10 +112,10 @@ autoJoystick.on('move', (_, data) => {
             sendDriveCommand("backward"); 
             break;
         case "left": 
-            //sendDriveCommand("left"); 
+            sendDriveCommand("left"); 
             break;
         case "right": 
-            //sendDriveCommand("right"); 
+            sendDriveCommand("right"); 
             break;
         case "up-left":
             sendDriveCommand("forward_left"); 
