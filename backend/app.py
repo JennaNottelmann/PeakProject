@@ -255,6 +255,11 @@ def run_challenge():
 
 
 
+from email.message import EmailMessage
+import smtplib
+import os
+from flask import request
+
 @app.route("/sende-email", methods=["POST"])
 def sende_email():
     name = request.form.get("name")
@@ -262,27 +267,26 @@ def sende_email():
     message = request.form.get("message")
 
     smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", 465))  # Standard für STARTTLS
+    smtp_port = int(os.getenv("SMTP_PORT", 465))  # SMTPS-Port
     smtp_user = os.getenv("SMTP_USER")
     smtp_pass = os.getenv("SMTP_PASSWORT")
 
     msg = EmailMessage()
     msg["Subject"] = f"Bauplan von {name}"
     msg["From"] = smtp_user
-    msg["To"] = smtp_user  # Empfänger = eigenes Postfach
+    msg["To"] = smtp_user
     msg["Reply-To"] = email
-
     msg.set_content(f"Nachricht von {name} <{email}>:\n\n{message}")
 
     try:
-        with smtplib.SMTP(smtp_host, smtp_port) as smtp:
-            smtp.starttls()
+        with smtplib.SMTP_SSL(smtp_host, smtp_port) as smtp:
             smtp.login(smtp_user, smtp_pass)
             smtp.send_message(msg)
         return "E-Mail erfolgreich gesendet!"
     except Exception as e:
         print("Fehler beim Senden:", e)
         return f"Fehler beim Versenden der E-Mail:<br><pre>{e}</pre>"
+
 
 
 
