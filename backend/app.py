@@ -34,7 +34,7 @@ def save_users(users):
 # === Connected Pi Registry
 
 
-connected_pis = {}  # {"pi_02": {"sid": ..., "ip": ...}}
+connected_pis = {}  
 
 @socketio.on("register_pi")
 def register_pi(data):
