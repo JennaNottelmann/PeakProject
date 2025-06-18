@@ -11,6 +11,7 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from werkzeug.security import generate_password_hash, check_password_hash
 
+load_dotenv()
 # === Pfade
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USER_DB_PATH = os.path.join(BASE_DIR, "user_db.json")
@@ -299,6 +300,8 @@ def sende_email():
     msg["Subject"] = subject
     msg["From"] = smtp_user
     msg["To"] = empfaenger
+    print("SMTP-Konfiguration:", smtp_host, smtp_port, smtp_user, smtp_pass)
+
 
     try:
         with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
@@ -307,7 +310,8 @@ def sende_email():
         return "E-Mail erfolgreich gesendet!"
     except Exception as e:
         print("Fehler beim Senden:", e)
-        return "Es gab ein Problem beim Versenden der E-Mail."
+        return f"Es gab ein Problem beim Versenden der E-Mail:<br><pre>{e}</pre>"
+
 
 
 
