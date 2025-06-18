@@ -1282,3 +1282,24 @@ h1, h2 {
   background-color: #000;
   max-height: 100%;
 }
+
+/* === Pfeil-Icon im Accordion-Summary === */
+.projekt-accordion summary {
+  position: relative;
+  padding-right: 2rem; 
+}
+
+.projekt-accordion summary::after {
+  content: "▾"; 
+  position: absolute;
+  right: 1rem;
+  top: 1.2rem;
+  font-size: 1.2rem;
+  color: #ffdc00;
+  transition: transform 0.3s ease;
+}
+
+.projekt-accordion[open] summary::after {
+  transform: rotate(180deg); 
+}
+
