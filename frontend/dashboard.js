@@ -25,17 +25,18 @@ socket.emit("request_pi_list");
 function selectVehicle() {
     selectedVehicle = select.value;
     if (!selectedVehicle) return;
-    const piIP = vehicleIPs[selectedVehicle];
 
-    setCameraStream(selectedVehicle);
+    camera.src = "https://stream.kaiju-cars.de/stream.mjpg";
 
     camera.onerror = () => {
         camera.src = "/static/404.png";
         camera.alt = "Kamera-Stream nicht verfügbar";
     };
-    camera.alt = `Kamera-Stream von ${selectedVehicle} (${piIP})`;
+
+    camera.alt = `Kamera-Stream für ${selectedVehicle}`;
     camera.style.display = "block";
 }
+
 
 
 

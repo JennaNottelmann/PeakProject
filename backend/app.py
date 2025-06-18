@@ -252,29 +252,7 @@ def run_challenge():
 
 
 # === Kamera-Stream Proxy
-@app.route('/api/stream/<vehicle_id>')
-def proxy_camera_stream(vehicle_id):
-    info = connected_pis.get(vehicle_id)
-    if not info:
-        return "Vehicle not connected", 404
 
-    ip = info.get("ip")
-    if not ip:
-        return "No IP available", 404
-
-    upstream_url = f"http://{ip}:8000/stream.mjpg"
-
-    def generate():
-        try:
-            with requests.get(upstream_url, stream=True, timeout=5) as r:
-                for chunk in r.iter_content(chunk_size=1024):
-                    if chunk:
-                        yield chunk
-        except requests.exceptions.RequestException as e:
-            print(f"[STREAM ERROR] Fehler beim MJPEG-Proxy: {e}")
-            return
-
-    return Response(generate(), content_type='multipart/x-mixed-replace; boundary=FRAME')
 
 
 
