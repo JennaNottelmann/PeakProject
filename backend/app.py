@@ -4,7 +4,7 @@ import requests
 import time
 import smtplib
 from dotenv import load_dotenv
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 from flask import Response
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template, request
 from flask_cors import CORS
@@ -258,37 +258,32 @@ def run_challenge():
 
 @app.route("/sende-email", methods=["POST"])
 def sende_email():
-
     name = request.form.get("name")
     email = request.form.get("email")
     message = request.form.get("message")
 
-    inhalt = f"Name: {name}\nE-Mail: {email}\n\nNachricht:\n{message}"
-
-    # SMTP-Zugangsdaten aus .env laden
     smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", 465))
+    smtp_port = int(os.getenv("SMTP_PORT", 465))  # Standard für STARTTLS
     smtp_user = os.getenv("SMTP_USER")
     smtp_pass = os.getenv("SMTP_PASSWORT")
 
-    empfaenger = smtp_user  # E-Mail geht an das eigene Postfach
-    subject = f"Bauplan von {name}"
-
-    msg = MIMEText(inhalt)
-    msg["Subject"] = subject
+    msg = EmailMessage()
+    msg["Subject"] = f"Bauplan von {name}"
     msg["From"] = smtp_user
-    msg["To"] = empfaenger
-    print("SMTP-Konfiguration:", smtp_host, smtp_port, smtp_user, smtp_pass)
+    msg["To"] = smtp_user  # Empfänger = eigenes Postfach
+    msg["Reply-To"] = email
 
+    msg.set_content(f"Nachricht von {name} <{email}>:\n\n{message}")
 
     try:
-        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
-            server.login(smtp_user, smtp_pass)
-            server.send_message(msg)
+        with smtplib.SMTP(smtp_host, smtp_port) as smtp:
+            smtp.starttls()
+            smtp.login(smtp_user, smtp_pass)
+            smtp.send_message(msg)
         return "E-Mail erfolgreich gesendet!"
     except Exception as e:
         print("Fehler beim Senden:", e)
-        return f"Es gab ein Problem beim Versenden der E-Mail:<br><pre>{e}</pre>"
+        return f"Fehler beim Versenden der E-Mail:<br><pre>{e}</pre>"
 
 
 
