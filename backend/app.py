@@ -10,6 +10,7 @@ from flask import Flask, request, jsonify, send_from_directory, session, redirec
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from werkzeug.security import generate_password_hash, check_password_hash
+from html import escape
 
 load_dotenv()
 # === Pfade
@@ -255,11 +256,6 @@ def run_challenge():
 
 
 
-from email.message import EmailMessage
-import smtplib
-import os
-from flask import request
-
 @app.route("/sende-email", methods=["POST"])
 def sende_email():
     name = request.form.get("name")
@@ -267,15 +263,15 @@ def sende_email():
     message = request.form.get("message")
 
     smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", 465))  # SMTPS-Port
+    smtp_port = int(os.getenv("SMTP_PORT", 465))  # SSL-Port
     smtp_user = os.getenv("SMTP_USER")
     smtp_pass = os.getenv("SMTP_PASSWORT")
 
     msg = EmailMessage()
     msg["Subject"] = f"Bauplan von {name}"
-    msg["From"] = smtp_user
-    msg["To"] = smtp_user
-    msg["Reply-To"] = email
+    msg["From"] = smtp_user                     # ← Pflicht!
+    msg["To"] = smtp_user                       # ← Empfänger
+    msg["Reply-To"] = email                     # ← Antwortadresse
     msg.set_content(f"Nachricht von {name} <{email}>:\n\n{message}")
 
     try:
@@ -285,7 +281,7 @@ def sende_email():
         return "E-Mail erfolgreich gesendet!"
     except Exception as e:
         print("Fehler beim Senden:", e)
-        return f"Fehler beim Versenden der E-Mail:<br><pre>{e}</pre>"
+        return f"Fehler beim Versenden der E-Mail:<br><pre>{escape(str(e))}</pre>"
 
 
 
