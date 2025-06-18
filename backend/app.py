@@ -255,7 +255,6 @@ def run_challenge():
 
 
 
-
 @app.route("/sende-email", methods=["POST"])
 def sende_email():
     name = request.form.get("name")
