@@ -107,5 +107,18 @@
       <a href="/datenschutz.html">Datenschutz</a>
     </div>
   </footer>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const currentPage = window.location.pathname.split("/").pop(); // z.B. "projekt.html"
+          const links = document.querySelectorAll(".nav-links a");
+
+          links.forEach(link => {
+            const linkPage = link.getAttribute("href").split("/").pop();
+            if (linkPage === currentPage) {
+              link.style.display = "none"; // Blendet nur den aktiven Link aus
+            }
+          });
+        });
+      </script>
 </body>
 </html>
