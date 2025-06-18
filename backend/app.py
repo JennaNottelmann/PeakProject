@@ -69,6 +69,7 @@ def handle_latency_ping(data):
         socketio.emit("latency_ping", {"timestamp": int(time.time()*1000)}, to=sid)
 
 
+
 @socketio.on("disconnect")
 def handle_disconnect():
     disconnected = None
