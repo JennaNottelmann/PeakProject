@@ -2,6 +2,9 @@ import os
 import json
 import requests
 import time
+import smtplib
+from dotenv import load_dotenv
+from email.mime.text import MIMEText
 from flask import Response
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, render_template, request
 from flask_cors import CORS
@@ -213,7 +216,6 @@ def camera_start():
     data = request.json
     vid = data.get('vehicle_id')
     print(f"[CAMERA] {vid} → STARTE MJPG-Streamer")
-    # Kamera-Startcode einfügen, wenn gewünscht
     return "OK"
 
 @app.route('/api/camera-control', methods=['POST'])
@@ -231,7 +233,6 @@ def camera_control():
 def handle_camera_frame(data):
     vehicle_id = data.get("pi_id")
     frame_data = data.get("frame")
-    # Weiterleiten an Frontend
     emit("camera_frame", {"vehicle_id": vehicle_id, "frame": frame_data}, broadcast=True)
 
 
@@ -273,6 +274,44 @@ def proxy_camera_stream(vehicle_id):
 
     return Response(generate(), content_type='multipart/x-mixed-replace; boundary=FRAME')
 
+
+
+@app.route("/sende-email", methods=["POST"])
+def sende_email():
+
+    name = request.form.get("name")
+    email = request.form.get("email")
+    message = request.form.get("message")
+
+    inhalt = f"Name: {name}\nE-Mail: {email}\n\nNachricht:\n{message}"
+
+    # SMTP-Zugangsdaten aus .env laden
+    smtp_host = os.getenv("SMTP_HOST")
+    smtp_port = int(os.getenv("SMTP_PORT", 465))
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_pass = os.getenv("SMTP_PASSWORT")
+
+    empfaenger = smtp_user  # E-Mail geht an das eigene Postfach
+    subject = f"Bauplan von {name}"
+
+    msg = MIMEText(inhalt)
+    msg["Subject"] = subject
+    msg["From"] = smtp_user
+    msg["To"] = empfaenger
+
+    try:
+        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+            server.login(smtp_user, smtp_pass)
+            server.send_message(msg)
+        return "E-Mail erfolgreich gesendet!"
+    except Exception as e:
+        print("Fehler beim Senden:", e)
+        return "Es gab ein Problem beim Versenden der E-Mail."
+
+
+
+
 # === Server starten
 if __name__ == "__main__":
+
     socketio.run(app, host="0.0.0.0", port=5000)
