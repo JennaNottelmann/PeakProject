@@ -124,12 +124,10 @@ autoJoystick.on('move', (_, data) => {
             sendDriveCommand("forward_right"); 
             break;
         case "down-left":
-            sendDriveCommand("left");
-            setTimeout(() => sendDriveCommand("backward"), 50);
+            sendDriveCommand("backward_left");
             break;
         case "down-right":
-            sendDriveCommand("right");
-            setTimeout(() => sendDriveCommand("backward"), 50);
+            sendDriveCommand("backward_right");
             break;
 
         default: 
