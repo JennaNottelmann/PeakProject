@@ -1283,23 +1283,24 @@ h1, h2 {
   max-height: 100%;
 }
 
-/* === Pfeil-Icon im Accordion-Summary === */
+/* === Pfeil-Icon im Accordion-Summary (zentriert rechts) === */
 .projekt-accordion summary {
   position: relative;
-  padding-right: 2rem; 
+  padding-right: 2.5rem; /* Platz für Pfeil rechts */
+  cursor: pointer;
 }
 
 .projekt-accordion summary::after {
-  content: "▾"; 
+  content: "▾"; /* Unicode-Pfeil nach unten */
   position: absolute;
   right: 1rem;
-  top: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 1.2rem;
   color: #ffdc00;
   transition: transform 0.3s ease;
 }
 
 .projekt-accordion[open] summary::after {
-  transform: rotate(180deg); 
+  transform: translateY(-50%) rotate(180deg); /* nach oben beim Öffnen */
 }
-
