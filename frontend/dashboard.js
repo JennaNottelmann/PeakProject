@@ -39,7 +39,41 @@ function selectVehicle() {
 
 }
 
+const streamWrapper = document.getElementById("camera-stream");
+const connectBtn = document.getElementById("connect-btn");
 
+let isConnected = false;
+
+connectBtn.addEventListener("click", () => {
+  if (!selectedVehicle) {
+    alert("Bitte zuerst ein Fahrzeug auswählen.");
+    return;
+  }
+
+  if (!isConnected) {
+    
+    camera.src = "https://stream.kaiju-cars.de/stream.mjpg";
+    camera.onerror = () => {
+      camera.src = "/static/404.png";
+      camera.alt = "Kamera-Stream nicht verfügbar";
+    };
+    camera.alt = `Kamera-Stream für ${selectedVehicle}`;
+    streamWrapper.style.display = "flex";
+
+    connectBtn.textContent = "Trennen";
+    isConnected = true;
+
+
+
+  } else {
+    
+    camera.src = "";
+    streamWrapper.style.display = "none";
+
+    connectBtn.textContent = "Verbinden";
+    isConnected = false;
+  }
+});
 
 
 
