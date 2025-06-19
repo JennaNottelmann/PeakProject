@@ -26,15 +26,17 @@ function selectVehicle() {
     selectedVehicle = select.value;
     if (!selectedVehicle) return;
 
+    const streamWrapper = document.getElementById("camera-stream");
+    const camera = document.getElementById("camera");
+
     camera.src = "https://stream.kaiju-cars.de/stream.mjpg";
-
     camera.onerror = () => {
-        camera.src = "/static/404.png";
-        camera.alt = "Kamera-Stream nicht verfügbar";
+    camera.src = "/static/404.png";
+    camera.alt = "Kamera-Stream nicht verfügbar";
     };
-
     camera.alt = `Kamera-Stream für ${selectedVehicle}`;
-    camera.style.display = "block";
+    streamWrapper.style.display = "flex";
+
 }
 
 
