@@ -45,13 +45,16 @@ const connectBtn = document.getElementById("connect-btn");
 let isConnected = false;
 
 connectBtn.addEventListener("click", () => {
-  if (!selectedVehicle) {
+  const selected = select.value;
+
+  if (!selected || selected === "Fahrzeug wählen") {
     alert("Bitte zuerst ein Fahrzeug auswählen.");
     return;
   }
 
+  selectedVehicle = selected; 
+
   if (!isConnected) {
-    
     camera.src = "https://stream.kaiju-cars.de/stream.mjpg";
     camera.onerror = () => {
       camera.src = "/static/404.png";
@@ -62,11 +65,7 @@ connectBtn.addEventListener("click", () => {
 
     connectBtn.textContent = "Trennen";
     isConnected = true;
-
-
-
   } else {
-    
     camera.src = "";
     streamWrapper.style.display = "none";
 
@@ -74,6 +73,7 @@ connectBtn.addEventListener("click", () => {
     isConnected = false;
   }
 });
+
 
 
 
